@@ -1,0 +1,298 @@
+body {
+  font-family: sans-serif, arial;
+  background: #000;
+  padding: 0;
+  margin: 0;
+}
+
+#content {
+  background: #555;
+  width: 1022px;
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2px 4px 4px 4px;
+  border-radius: 0px 0px 6px 6px;
+  box-shadow: 0 0 20px #555;
+}
+
+#guiMaster {
+  width: 100%;
+}
+
+#progressBarParent {
+  width: 200px;
+  height: 21px;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #222;
+  border-radius: 4px;
+  background-color: #eee;
+}
+
+#progressBar {
+  width: 1px;
+  height: 21px;
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: auto;
+  margin-bottom: 0;
+  border: 0;
+  background: #446 url("gui/progressbar.png") repeat-x;
+}
+
+img {
+  border: none;
+}
+
+p img {
+  vertical-align: middle;
+}
+
+a {
+  color: #006;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #448;
+}
+
+h1 {
+  margin: 0;
+  text-align: center;
+  background: #eee;
+}
+
+#guiMaster {
+ background: #aaa;
+}
+
+table.ui td > table.ui td {
+  background: #999;
+}
+
+table.ui, table.ui td {
+  vertical-align: top;
+  border: 1px solid #333;
+  border-collapse: collapse;
+  padding: 4px 4px 8px 8px;
+  font-family: "DejaVu Sans Mono",monospace;
+  font-size: 10px;
+}
+
+table.ui h3 {
+  padding: 0;
+  margin: 0 0 4px 0;
+  color: #fff;
+  font-size: 16px;
+  text-shadow: #000 1px 1px 4px;
+}
+
+table.subui, table.subui td {
+  border-collapse: collapse;
+  padding: 1px;
+  border: 0;
+}
+
+#playGfxCanvas {
+  border: 2px solid #555;
+  margin-bottom: 3px;
+}
+
+#sequencer, #pattern {
+  border: 2px solid #aaa;
+}
+
+#sequencer.edit, #pattern.edit {
+  border-color: #f44;
+}
+
+#sequencer {
+  width: 250px;
+  height: 433px;
+  overflow: auto;
+  margin-bottom: 4px;
+}
+
+#pattern {
+  width: 53px;
+  margin-bottom: 4px;
+}
+
+#statusText {
+  color: #777;
+  margin-top: 30px;
+  font-size: 9px;
+  text-align: center;
+}
+
+table.tracks, table.tracks td, table.tracks th {
+  border: 1px solid #333;
+  border-collapse: collapse;
+  padding: 0px 2px;
+  font-family: "DejaVu Sans Mono",monospace;
+  font-size: 10px;
+  text-align: center;
+  cursor: default;
+}
+
+table.tracks th {
+  width: 18px;
+  color: #ffe;
+  background: #112;
+}
+
+table.tracks td {
+  width: 24px;
+  color: #dda;
+  background: #447;
+}
+
+table.tracks tr.beat td {
+  background: #559;
+}
+
+table.tracks th.playpos {
+  background: #667;
+  color: #fff;
+}
+
+table.tracks td:hover, table.tracks tr.beat td:hover {
+  color: #ddd;
+  background: #77d;
+}
+
+table.tracks td.selected, table.tracks tr.beat td.selected {
+  color: #fff;
+  background: #88f;
+}
+
+.slider {
+  width: 201px;
+  height: 12px;
+  background: url("gui/slider-bg.png") no-repeat;
+  padding: 0;
+  margin: 0;
+}
+
+.slider img {
+  cursor: pointer;
+}
+
+#osc1_wave_sin,#osc1_wave_saw,#osc1_wave_sqr,#osc1_wave_tri,
+#osc2_wave_sin,#osc2_wave_saw,#osc2_wave_sqr,#osc2_wave_tri,
+#lfo_wave_sin,#lfo_wave_saw,#lfo_wave_sqr,#lfo_wave_tri,
+#fx_filt_lp,#fx_filt_hp,#fx_filt_bp,#fx_filt_n {
+  cursor: pointer;
+}
+
+.button {
+  width: 120px;
+  height: 32px;
+  padding: 4px 0px 4px 8px;
+  margin: 2px 1px;
+  border: 1px solid #888;
+  border-radius: 7px;
+  background: #d8d8d8 url("gui/button-bg.gif") repeat-x;
+  box-shadow: 0 1px 3px #555;
+}
+
+.smallButton {
+  width: 24px;
+  height: 24px;
+  padding: 3px;
+  margin: 1px;
+  border-radius: 3px;
+  background: #d8d8d8 url("gui/smallButton-bg.gif") repeat-x;
+}
+
+.button, .smallButton {
+  font-family: arial,sans;
+  font-size: 11px;
+  color: #000;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.button:hover {
+  background: #f6f6f0;
+  color: #444;
+  border-color: #aa8;
+  box-shadow: 0 1px 3px #775;
+}
+
+.smallButton:hover {
+  background: #d8d8d8 url("gui/smallButton-bg-over.gif") repeat-x;
+}
+
+.button img, .smallButton img {
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.box {
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.keyboard {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.keyboard img {
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.octaveSelector {
+  padding-bottom: 8px;
+}
+
+#octaveDown, #octaveUp, #patternCopy, #patternPaste {
+  cursor: pointer;
+}
+
+.sonantLogo {
+  margin-top: 8px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#cover {
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("gui/cover-bg.png");
+  z-index: 99;
+}
+
+#cover #dialog {
+  width: 600px;
+  margin: 100px auto auto auto;
+  padding: 30px 10px;
+  background: #fff;
+  border: 1px solid #555;
+  text-align: center;
+  font-size: 24px;
+  border-radius: 6px;
+  box-shadow: 0 0 20px #555;
+}
+
+#cover #dialog img {
+  vertical-align: middle;
+  margin-right: 20px;
+}
+
+#cover #dialog h3 {
+  margin: 0;
+}
+
