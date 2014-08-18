@@ -1060,7 +1060,18 @@ var CGUI = function()
     // NOTE: We'd love to do this in a Web Worker instead! Currently we do it
     // in a setInterval() timer loop instead in order not to block the main UI.
     // TODO: handle correctly opts
-    var mPlayer = new sonantx.MusicGenerator(mSong);
+    var oSong = _.clone(mSong);
+    if (opts) {
+      oSong.songData = mSong.songData.slice(opts.firstCol, opts.lastCol + 1);
+      oSong.songData = _.map(oSong.songData, function(data) {
+        var ndata = _.clone(data);
+        ndata.p = data.p.slice(opts.firstRow, opts.lastRow + 1);
+        return ndata;
+      });
+      oSong.endPattern = (opts.lastRow + 1) - opts.firstRow  + 1;
+      oSong.songLen = opts.numSeconds;
+    }
+    var mPlayer = new sonantx.MusicGenerator(oSong);
     mPlayer.getAudioGenerator(function(ag) {
       mAudioGenerator = ag;
       var wave = ag.getWave();
