@@ -882,12 +882,6 @@ var CGUI = function()
     parent.appendChild(o);
     o = document.createTextNode(msg);
     parent.appendChild(o);
-    o = document.createElement("div");
-    o.id = "progressBarParent";
-    parent.appendChild(o);
-    o2 = document.createElement("div");
-    o2.id = "progressBar";
-    o.appendChild(o2);
 
     showDialog();
   };
@@ -2455,13 +2449,19 @@ function gui_init()
 
     // Get n samples of wave data at time t [s]. Wave data in range [-2,2].
 function getData(audioGenerator, t, n) {
-    var i = 2 * Math.floor(t * 44100);
-    var d = new Array(n);
-    var b = audioGenerator.mixBuf;
-    for (var j = 0; j < 2*n; j += 1)
-    {
-        var k = i + j;
-        d[j] = t > 0 && k < b.length ? b[k] / 32768 : 0;
+  var i = 2 * Math.floor(t * 44100);
+  var d = new Array(n);
+  var mixBuf = audioGenerator.mixBuf;
+  for (var j = 0; j < 2*n; j += 1) {
+    var k = i + j;
+    var pos = k * 2;
+    var val;
+    if (pos < mixBuf.length) {
+        val = (4 * (mixBuf[pos] + (mixBuf[pos + 1] << 8) - 32768)) / 32768;
+    } else {
+        val = 0;
     }
-    return d;
+    d[j] = val;
+  }
+  return d;
 };
