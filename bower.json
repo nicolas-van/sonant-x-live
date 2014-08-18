@@ -15,6 +15,6 @@
   ],
   "dependencies": {
     "jquery": "~2.1.1",
-    "sonantx": "*"
+    "sonantx": "~0.3.0"
   }
 }

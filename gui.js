@@ -29,6 +29,9 @@
 // Local classes for easy access to binary data
 //------------------------------------------------------------------------------
 
+(function() {
+var audioCtx = new AudioContext();
+
 var CBinParser = function (d)
 {
   var mData = d;
@@ -722,6 +725,13 @@ var CGUI = function()
 
   var addPatternNote = function (n)
   {
+    // playNote
+    if (mSong && mSeqCol == mSeqCol && mSong.songData[mSeqCol] && mSong.rowLen) {
+      var sg = new sonantx.SoundGenerator(mSong.songData[mSeqCol], mSong.rowLen);
+      sg.createAudio(n + 87, function(audio) {
+        audio.play();
+      });
+    }
     // Edit pattern
     if (mEditMode == EDIT_PATTERN &&
         mSeqCol == mSeqCol2 && mSeqRow == mSeqRow2 &&
@@ -2433,7 +2443,7 @@ var CGUI = function()
 // Program start
 //------------------------------------------------------------------------------
 
-function gui_init()
+window.gui_init = function()
 {
   try
   {
@@ -2465,3 +2475,5 @@ function getData(audioGenerator, t, n) {
   }
   return d;
 };
+
+})();
