@@ -26,15 +26,6 @@
 //    distribution.
 
 //------------------------------------------------------------------------------
-// External dependencies
-//------------------------------------------------------------------------------
-
-include("presets.js");
-include("player.js");
-//include("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js");
-
-
-//------------------------------------------------------------------------------
 // Local classes for easy access to binary data
 //------------------------------------------------------------------------------
 
@@ -147,7 +138,7 @@ var CGUI = function()
   // Resources
   var mSong = {};
   var mAudio = null;
-  var mPlayer = new CPlayer();
+  var mAudioGenerator = null;
   var mPlayGfxVUImg = new Image();
   var mPlayGfxLedOffImg = new Image();
   var mPlayGfxLedOnImg = new Image();
@@ -1061,40 +1052,23 @@ var CGUI = function()
     // Start time measurement
     var d1 = new Date();
 
-    // Generate audio data
+    // Generate audio data\bm
     // NOTE: We'd love to do this in a Web Worker instead! Currently we do it
     // in a setInterval() timer loop instead in order not to block the main UI.
-    mPlayer = new CPlayer();
-    mPlayer.init(mSong, opts);
-    var generateIterate = function () {
-      // Generate another extra piece of sound...
-      var status = mPlayer.generate();
+    // TODO: handle correctly opts
+    var mPlayer = new sonantx.MusicGenerator(mSong);
+    mPlayer.getAudioGenerator(function(ag) {
+      mAudioGenerator = ag;
+      var wave = ag.getWave();
+      var d2 = new Date();
+      setStatus("Generation time: " + (d2.getTime() - d1.getTime())/1000 + "s");
 
-      // Update progress bar
-      var o = document.getElementById("progressBar");
-      o.style.width = Math.floor(200 * status.progress) + "px";
+      // Hide dialog
+      hideDialog();
 
-      // Done?
-      if (status.done)
-      {
-        // Stop the interval timer
-        clearInterval(intervalID);
-
-        // Create the wave file
-        var wave = mPlayer.createWave();
-
-        // Stop time measurement
-        var d2 = new Date();
-        setStatus("Generation time: " + (d2.getTime() - d1.getTime())/1000 + "s");
-
-        // Hide dialog
-        hideDialog();
-
-        // Call the callback function
-        doneFun(wave);
-      }
-    };
-    var intervalID = setInterval(generateIterate, 1);
+      // Call the callback function
+      doneFun(wave);
+    });
   };
 
 
@@ -1152,7 +1126,7 @@ var CGUI = function()
       if (mFollowerActive && t >= 0)
       {
         // Get the waveform
-        var wave = mPlayer.getData(t, 1000);
+        var wave = getData(mAudioGenerator, t, 1000);
 
         // Calculate volume
         var i, l, r;
@@ -2479,3 +2453,15 @@ function gui_init()
   }
 }
 
+    // Get n samples of wave data at time t [s]. Wave data in range [-2,2].
+function getData(audioGenerator, t, n) {
+    var i = 2 * Math.floor(t * 44100);
+    var d = new Array(n);
+    var b = audioGenerator.mixBuf;
+    for (var j = 0; j < 2*n; j += 1)
+    {
+        var k = i + j;
+        d[j] = t > 0 && k < b.length ? b[k] / 32768 : 0;
+    }
+    return d;
+};

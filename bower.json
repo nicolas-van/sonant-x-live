@@ -1,0 +1,20 @@
+{
+  "name": "sonant-x-live",
+  "version": "0.0.0",
+  "homepage": "https://github.com/nicolas-van/sonant-x-live",
+  "authors": [
+    "Nicolas Vanhoren <nicolas.vanhoren@gmail.com>"
+  ],
+  "license": "zlib",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "sonantx": "*"
+  }
+}
