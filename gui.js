@@ -30,7 +30,7 @@
 //------------------------------------------------------------------------------
 
 (function() {
-var audioCtx = new AudioContext();
+var audioCtx = window.AudioContext ? new AudioContext() : null;
 
 var CBinParser = function (d)
 {
@@ -728,9 +728,18 @@ var CGUI = function()
     // playNote
     if (mSong && mSeqCol == mSeqCol && mSong.songData[mSeqCol] && mSong.rowLen) {
       var sg = new sonantx.SoundGenerator(mSong.songData[mSeqCol], mSong.rowLen);
-      sg.createAudio(n + 87, function(audio) {
-        audio.play();
-      });
+      if (! audioCtx) {
+        sg.createAudio(n + 87, function(audio) {
+          audio.play();
+        });
+      } else {
+        sg.createAudioBuffer(n + 87, function(buffer) {
+          var source = audioCtx.createBufferSource(); // Create Sound Source
+          source.buffer = buffer; // Add Buffered Data to Object
+          source.connect(audioCtx.destination); // Connect Sound Source to Output
+          source.start();
+        });
+      }
     }
     // Edit pattern
     if (mEditMode == EDIT_PATTERN &&
