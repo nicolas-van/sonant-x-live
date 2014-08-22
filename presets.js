@@ -27,6 +27,10 @@
 
 // Instrument presets
 
+var gInstrumentPresets;
+
+(function() {
+"use strict";
 gInstrumentPresets = [
   {
     name: "====[LEADS]===="
@@ -521,5 +525,5 @@ gInstrumentPresets = [
     lfo_waveform: 0
   }
 ];
-
+})();
 
