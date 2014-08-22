@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+
+<html>
 <head>
-  <title>Sonant Live - editor</title>
-  <meta name="robots" content="noindex" />
+  <title>Sonant-X Live</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <script type="text/javascript" src="presets.js"></script>
   <script type="text/javascript" src="bower_components/sonantx/sonantx.js"></script>
@@ -12,9 +11,16 @@
   <script type="text/javascript" src="bower_components/uri.js/src/URI.js"></script>
   <script type="text/javascript" src="bower_components/underscore/underscore.js"></script>
   <script type="text/javascript" src="gui.js"></script>
-  <link rel="stylesheet" type="text/css" href="screen.css" /><link rel="shortcut icon" href="favicon.ico" />
+  <script type="text/javascript">
+    $(function() {
+      gui_init();
+    });
+  </script>
+  <link rel="stylesheet" type="text/css" href="icons.css" />
+  <link rel="stylesheet" type="text/css" href="screen.css" />
+  <link rel="shortcut icon" href="favicon.ico" />
 </head>
-<body onload="gui_init()">
+<body>
 <div id="cover"><div id="dialog"></div></div>
 <div id="content">
 <table id="guiMaster" class="ui"><tr>
@@ -27,16 +33,16 @@
 </div>
 
 <h3>Song</h3>
-<div id="newSong" class="button" title="New song"><img src="gui/new.png" width="32" height="32" alt="" />&nbsp;New</div>
-<div id="openSong" class="button" title="Import song in JSON"><img src="gui/open.png" width="32" height="32" alt="" />&nbsp;Import JSON</div>
-<div id="exportURL" class="button" title="Export song as URL"><img src="gui/export-js.png" width="32" height="32" alt="" />&nbsp;Get URL</div>
-<div id="exportJSON" class="button" title="Export song as JSON"><img src="gui/export-js.png" width="32" height="32" alt="" />&nbsp;Export JSON</div>
-<div id="exportWAV" class="button" title="Export song as WAV"><img src="gui/export-wav.png" width="32" height="32" alt="" />&nbsp;Export WAV</div>
-<div id="exportWAVRange" class="button" title="Export selected range as WAV"><img src="gui/export-wav.png" width="32" height="32" alt="" />&nbsp;Range to WAV</div>
+<div id="newSong" class="button" title="New song"><span class="icon glyphicon glyphicon-file"></span>New</div>
+<div id="exportURL" class="button" title="Export song as URL"><span class="icon glyphicon glyphicon-cloud"></span>Get URL</div>
+<div id="openSong" class="button" title="Import song in JSON"><span class="icon glyphicon glyphicon-floppy-open"></span>Import JSON</div>
+<div id="exportJSON" class="button" title="Export song as JSON"><span class="icon glyphicon glyphicon-floppy-save"></span>Export JSON</div>
+<div id="exportWAV" class="button" title="Export song as WAV"><span class="icon glyphicon glyphicon-floppy-save"></span>Export WAV</div>
+<div id="exportWAVRange" class="button" title="Export selected range as WAV"><span class="icon glyphicon glyphicon-floppy-save"></span>Range to WAV</div>
 <br />
-<div id="playSong" class="button" title="Play song"><img src="gui/play.png" width="32" height="32" alt="" />&nbsp;Song</div>
-<div id="playRange" class="button" title="Play selected range (SPACE)"><img src="gui/play-range.png" width="32" height="32" alt="" />&nbsp;Range</div>
-<div id="stopPlaying" class="button" title="Stop playing"><img src="gui/stop.png" width="32" height="32" alt="" />&nbsp;Stop</div>
+<div id="playSong" class="button" title="Play song"><span class="icon glyphicon glyphicon-play"></span>Play Song</div>
+<div id="playRange" class="button" title="Play selected range (SPACE)"><span class="icon glyphicon glyphicon-step-forward"></span>Play Range</div>
+<div id="stopPlaying" class="button" title="Stop playing"><span class="icon glyphicon glyphicon-stop"></span>Stop</div>
 <br />
 <div style="text-align: center">
 <input id="bpm" type="text" size="3" value="" title="Beats per minute (song speed)" />&nbsp;BPM
