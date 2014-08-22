@@ -183,15 +183,21 @@ var CGUI = function()
     return Math.round((60 * 44100 / 4) / mSong.rowLen);
   };
 
-  var makeNewSong = function ()
-  {
+  var makeNewSong = function() {
     var song = {};
 
     // Row length
     song.rowLen = calcSamplesPerRow(120);
-  
-    // All 8 instruments
+    // Last pattern to play
+    song.endPattern = 2;
+
     song.songData = [];
+    convertSong(song);
+
+    return song;
+  };
+  var convertSong = function (song)
+  {
     var i, j, k, instr, col;
     for (i = 0; i < 8; i++)
     {
@@ -252,17 +258,13 @@ var CGUI = function()
         }
         instr.c[j] = col;
       }
-  
-      song.songData[i] = instr;
+      
+      if (song.songData[i] === undefined)
+        song.songData[i] = instr;
     }
-  
-    // Last pattern to play
-    song.endPattern = 2;
 
     // Calculate song length (not really part of the binary song data)
     song.songLen = calcSongLength(song);
-
-    return song;
   };
 
   var binToSong = function (d)
@@ -436,91 +438,9 @@ var CGUI = function()
     return bin.getData();
   };
 
-  var songToJS = function (song)
+  var songToJSON = function (song, pretty)
   {
-    var i, j, k;
-    var jsData = "";
-  
-    jsData += "    // Song data\n";
-    jsData += "    var song = {\n";
-
-    jsData += "      // Song length in seconds (how much data to generate)\n";
-    jsData += "      songLen: " + song.songLen + ",  // Tune this to fit your needs!\n\n";
-  
-    jsData += "      songData: [\n";
-    for (i = 0; i < 8; i++)
-    {
-      var instr = song.songData[i];
-      jsData += "        { // Instrument " + i + "\n";
-      jsData += "          // Oscillator 1\n";
-      jsData += "          osc1_oct: " + instr.osc1_oct + ",\n";
-      jsData += "          osc1_det: " + instr.osc1_det + ",\n";
-      jsData += "          osc1_detune: " + instr.osc1_detune + ",\n";
-      jsData += "          osc1_xenv: " + instr.osc1_xenv + ",\n";
-      jsData += "          osc1_vol: " + instr.osc1_vol + ",\n";
-      jsData += "          osc1_waveform: " + instr.osc1_waveform + ",\n";
-      jsData += "          // Oscillator 2\n";
-      jsData += "          osc2_oct: " + instr.osc2_oct + ",\n";
-      jsData += "          osc2_det: " + instr.osc2_det + ",\n";
-      jsData += "          osc2_detune: " + instr.osc2_detune + ",\n";
-      jsData += "          osc2_xenv: " + instr.osc2_xenv + ",\n";
-      jsData += "          osc2_vol: " + instr.osc2_vol + ",\n";
-      jsData += "          osc2_waveform: " + instr.osc2_waveform + ",\n";
-      jsData += "          // Noise oscillator\n";
-      jsData += "          noise_fader: " + instr.noise_fader + ",\n";
-      jsData += "          // Envelope\n";
-      jsData += "          env_attack: " + instr.env_attack + ",\n";
-      jsData += "          env_sustain: " + instr.env_sustain + ",\n";
-      jsData += "          env_release: " + instr.env_release + ",\n";
-      jsData += "          env_master: " + instr.env_master + ",\n";
-      jsData += "          // Effects\n";
-      jsData += "          fx_filter: " + instr.fx_filter + ",\n";
-      jsData += "          fx_freq: " + instr.fx_freq + ",\n";
-      jsData += "          fx_resonance: " + instr.fx_resonance + ",\n";
-      jsData += "          fx_delay_time: " + instr.fx_delay_time + ",\n";
-      jsData += "          fx_delay_amt: " + instr.fx_delay_amt + ",\n";
-      jsData += "          fx_pan_freq: " + instr.fx_pan_freq + ",\n";
-      jsData += "          fx_pan_amt: " + instr.fx_pan_amt + ",\n";
-      jsData += "          // LFO\n";
-      jsData += "          lfo_osc1_freq: " + instr.lfo_osc1_freq + ",\n";
-      jsData += "          lfo_fx_freq: " + instr.lfo_fx_freq + ",\n";
-      jsData += "          lfo_freq: " + instr.lfo_freq + ",\n";
-      jsData += "          lfo_amt: " + instr.lfo_amt + ",\n";
-      jsData += "          lfo_waveform: " + instr.lfo_waveform + ",\n";
-      jsData += "          // Patterns\n";
-      jsData += "          p: [";
-      for (j = 0; j < 48; j++)
-      {
-        jsData += instr.p[j];
-        if (j < 47) jsData += ",";
-      }
-      jsData += "],\n";
-      jsData += "          // Columns\n";
-      jsData += "          c: [\n";
-      for (j = 0; j < 10; j++)
-      {
-        jsData += "            {n: [";
-        for (k = 0; k < 32; k++)
-        {
-          jsData += instr.c[j].n[k];
-          if (k < 31) jsData += ",";
-        }
-        jsData += "]}";
-        if (j < 9) jsData += ",";
-        jsData += "\n";
-      }
-      jsData += "          ]\n";
-      jsData += "        }";
-      if (i < 7) jsData += ",";
-      jsData += "\n";
-    }
-    
-    jsData += "      ],\n";
-    jsData += "      rowLen: " + song.rowLen + ",   // In sample lengths\n";
-    jsData += "      endPattern: " + song.endPattern + "  // End pattern\n";
-    jsData += "    };\n";
-
-    return jsData;
+    return JSON.stringify(song, null, pretty ? "    " : undefined);
   };
 
 
@@ -921,52 +841,68 @@ var CGUI = function()
     var o;
     o = document.createElement("h3");
     parent.appendChild(o);
-    o.appendChild(document.createTextNode("Open file"));
+    o.appendChild(document.createTextNode("Import JSON"));
     parent.appendChild(document.createElement("br"));
-    var form = document.createElement("form");
-    form.method = "post";
-    form.enctype = "multipart/form-data";
-    form.action = "";
-    o = document.createElement("input");
-    o.type = "hidden";
-    o.name = "MAX_FILE_SIZE";
-    o.value = "8000";
-    form.appendChild(o);
-    o = document.createElement("input");
-    o.type = "file";
-    o.name = "file";
-    o.size = "30";
-    o.title = "Binary Sonant file (SNT format)";
-    form.appendChild(o);
-    form.appendChild(document.createElement("br"));
-    o = document.createElement("input");
-    o.type = "submit";
-    o.value = "Open";
-    o.title = "Open song file";
-    form.appendChild(o);
-    form.appendChild(document.createTextNode(" "));
-    o = document.createElement("input");
-    o.type = "submit";
-    o.value = "Cancel";
-    o.onclick = function ()
-    {
+    var el = $('<textarea id="jsonTextArea" style="width: 200px; height: 100px"></textarea>');
+    o = el[0]
+    parent.appendChild(o);
+    parent.appendChild(document.createElement("br"));
+    var el = $('<button id="jsonImportButton">Import</button>');
+    o = el[0];
+    parent.appendChild(o);
+    parent.appendChild(document.createTextNode(" "));
+    var el = $('<button id="jsonCancelButton">Cancel</button>');
+    o = el[0];
+    parent.appendChild(o);
+    $("#jsonImportButton").click(function() {
+      var json = $("#jsonTextArea").val();
+      var song = JSON.parse(json);
+      newSong(song);
       hideDialog();
-      return false;
-    };
-    form.appendChild(o);
-    parent.appendChild(form);
+    });
+    $("#jsonCancelButton").click(function() {
+      hideDialog();
+    });
 
     showDialog();
   };
 
+  var showUrlDialog = function (url)
+  {
+    var parent = document.getElementById("dialog");
+    parent.innerHTML = "";
+
+    // Create dialog content
+    var o;
+    o = document.createElement("h3");
+    parent.appendChild(o);
+    o.appendChild(document.createTextNode("URL"));
+    parent.appendChild(document.createElement("br"));
+    var el = $('<input type="text" value="' + url + '"></input>');
+    o = el[0]
+    parent.appendChild(o);
+    parent.appendChild(document.createElement("br"));
+    var el = $('<button id="urlExitButton">Exit</button>');
+    o = el[0];
+    parent.appendChild(o);
+    $("#urlExitButton").click(function() {
+      hideDialog();
+    });
+
+    showDialog();
+  }
 
   //--------------------------------------------------------------------------
   // Event handlers
   //--------------------------------------------------------------------------
 
-  var newSong = function(e)
+  var newSong = function(song)
   {
-    mSong = makeNewSong();
+    if (song) {
+      mSong = song;
+      convertSong(mSong);
+    } else
+      mSong = makeNewSong();
 
     // Update GUI
     updateSongInfo();
@@ -978,23 +914,11 @@ var CGUI = function()
     setEditMode(EDIT_SEQUENCE);
     setSelectedPatternRow(0);
     setSelectedSequencerCell(0, 0);
-    return false;
   };
 
   var openSong = function(e)
   {
     showOpenDialog();
-    return false;
-  };
-
-  var saveSong = function(e)
-  {
-    // Update song ranges
-    updateSongRanges();
-
-    // Generate raw song data
-    dataURI = "data:application/octet-stream;base64," + btoa(songToBin(mSong));
-    location.href = dataURI;
     return false;
   };
 
@@ -1047,14 +971,26 @@ var CGUI = function()
     return false;
   };
 
-  var exportJS = function(e)
+  var exportJSON = function(e)
   {
     // Update song ranges
     updateSongRanges();
 
     // Generate JS song data
-    var dataURI = "data:text/javascript;base64," + btoa(songToJS(mSong));
+    var dataURI = "data:text/javascript;base64," + btoa(songToJSON(mSong, true));
     window.open(dataURI);
+    return false;
+  };
+
+  var exportURL = function(e)
+  {
+    // Update song ranges
+    updateSongRanges();
+
+    var json = songToJSON(mSong, false);
+    var url = "" + new URI().fragment(URI.encode(LZString.compressToBase64(json)));
+    showUrlDialog(url);
+
     return false;
   };
 
@@ -2373,17 +2309,14 @@ var CGUI = function()
       mAudio = null;
     }
 
-    // Load the song
-    mSong = gLoadedSong;
-    updateSongInfo();
-    updateSequencer();
-    updatePattern();
-    updateInstrument(true);
-
-    // Initialize the song
-    setEditMode(EDIT_SEQUENCE);
-    setSelectedSequencerCell(0, 0);
-    setSelectedPatternRow(0);
+    var fragment = new URI().fragment() || "";
+    if (fragment) {
+      var json = LZString.decompressFromBase64(URI.decode(fragment));
+      var song = JSON.parse(json);
+      newSong(song);
+    } else {
+      newSong();
+    }
 
     // Set up event handlers for the sequencer
     for (i = 0; i < 8; ++i)
@@ -2407,10 +2340,10 @@ var CGUI = function()
     }
 
     // Misc event handlers
-    document.getElementById("newSong").onmousedown = newSong;
+    document.getElementById("newSong").onmousedown = function() {newSong();};
     document.getElementById("openSong").onmousedown = openSong;
-    document.getElementById("saveSong").onmousedown = saveSong;
-    document.getElementById("exportJS").onmousedown = exportJS;
+    document.getElementById("exportURL").onmousedown = exportURL;
+    document.getElementById("exportJSON").onmousedown = exportJSON;
     document.getElementById("exportWAV").onmousedown = exportWAV;
     document.getElementById("exportWAVRange").onmousedown = exportWAVRange;
     document.getElementById("playSong").onmousedown = playSong;
