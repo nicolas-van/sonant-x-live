@@ -844,14 +844,14 @@ var CGUI = function()
     o.appendChild(document.createTextNode("Import JSON"));
     parent.appendChild(document.createElement("br"));
     var el = $('<textarea id="jsonTextArea" style="width: 200px; height: 100px"></textarea>');
-    o = el[0]
+    o = el[0];
     parent.appendChild(o);
     parent.appendChild(document.createElement("br"));
-    var el = $('<button id="jsonImportButton">Import</button>');
+    el = $('<button id="jsonImportButton">Import</button>');
     o = el[0];
     parent.appendChild(o);
     parent.appendChild(document.createTextNode(" "));
-    var el = $('<button id="jsonCancelButton">Cancel</button>');
+    el = $('<button id="jsonCancelButton">Cancel</button>');
     o = el[0];
     parent.appendChild(o);
     $("#jsonImportButton").click(function() {
@@ -879,10 +879,10 @@ var CGUI = function()
     o.appendChild(document.createTextNode("URL"));
     parent.appendChild(document.createElement("br"));
     var el = $('<input type="text" value="' + url + '"></input>');
-    o = el[0]
+    o = el[0];
     parent.appendChild(o);
     parent.appendChild(document.createElement("br"));
-    var el = $('<button id="urlExitButton">Exit</button>');
+    el = $('<button id="urlExitButton">Exit</button>');
     o = el[0];
     parent.appendChild(o);
     $("#urlExitButton").click(function() {
@@ -890,7 +890,7 @@ var CGUI = function()
     });
 
     showDialog();
-  }
+  };
 
   //--------------------------------------------------------------------------
   // Event handlers
