@@ -761,6 +761,21 @@ var CGUI = function()
     return false;
   };
 
+  var exportInstrument = function()
+  {
+    if (mSeqCol !== mSeqCol2 || mSeqCol < 0 || mSeqCol >= mSong.songData.length)
+    {
+      return;
+    }
+
+    var instr = _.clone(mSong.songData[mSeqCol]);
+    delete instr.p;
+    delete instr.c;
+
+    var dataURI = "data:text/javascript;base64," + btoa(JSON.stringify(instr, null, "    "));
+    window.open(dataURI);
+  };
+
   var exportURL = function(e)
   {
     // Update song ranges
@@ -1520,35 +1535,7 @@ var CGUI = function()
         {
           // Clone instrument settings
           var src = gInstrumentPresets[val];
-          mSong.songData[mSeqCol].osc1_oct = src.osc1_oct;
-          mSong.songData[mSeqCol].osc1_det = src.osc1_det;
-          mSong.songData[mSeqCol].osc1_detune = src.osc1_detune;
-          mSong.songData[mSeqCol].osc1_xenv = src.osc1_xenv;
-          mSong.songData[mSeqCol].osc1_vol = src.osc1_vol;
-          mSong.songData[mSeqCol].osc1_waveform = src.osc1_waveform;
-          mSong.songData[mSeqCol].osc2_oct = src.osc2_oct;
-          mSong.songData[mSeqCol].osc2_det = src.osc2_det;
-          mSong.songData[mSeqCol].osc2_detune = src.osc2_detune;
-          mSong.songData[mSeqCol].osc2_xenv = src.osc2_xenv;
-          mSong.songData[mSeqCol].osc2_vol = src.osc2_vol;
-          mSong.songData[mSeqCol].osc2_waveform = src.osc2_waveform;
-          mSong.songData[mSeqCol].noise_fader = src.noise_fader;
-          mSong.songData[mSeqCol].env_attack = src.env_attack;
-          mSong.songData[mSeqCol].env_sustain = src.env_sustain;
-          mSong.songData[mSeqCol].env_release = src.env_release;
-          mSong.songData[mSeqCol].env_master = src.env_master;
-          mSong.songData[mSeqCol].fx_filter = src.fx_filter;
-          mSong.songData[mSeqCol].fx_freq = src.fx_freq;
-          mSong.songData[mSeqCol].fx_resonance = src.fx_resonance;
-          mSong.songData[mSeqCol].fx_delay_time = src.fx_delay_time;
-          mSong.songData[mSeqCol].fx_delay_amt = src.fx_delay_amt;
-          mSong.songData[mSeqCol].fx_pan_freq = src.fx_pan_freq;
-          mSong.songData[mSeqCol].fx_pan_amt = src.fx_pan_amt;
-          mSong.songData[mSeqCol].lfo_osc1_freq = src.lfo_osc1_freq;
-          mSong.songData[mSeqCol].lfo_fx_freq = src.lfo_fx_freq;
-          mSong.songData[mSeqCol].lfo_freq = src.lfo_freq;
-          mSong.songData[mSeqCol].lfo_amt = src.lfo_amt;
-          mSong.songData[mSeqCol].lfo_waveform = src.lfo_waveform;
+          applyInstrument(src, mSong.songData[mSeqCol]);
 
           updateInstrument(false);
           return false;
@@ -1556,6 +1543,77 @@ var CGUI = function()
       }
     }
     return true;
+  };
+
+  var applyInstrument = function(src, to) {
+    to.osc1_oct = src.osc1_oct;
+    to.osc1_det = src.osc1_det;
+    to.osc1_detune = src.osc1_detune;
+    to.osc1_xenv = src.osc1_xenv;
+    to.osc1_vol = src.osc1_vol;
+    to.osc1_waveform = src.osc1_waveform;
+    to.osc2_oct = src.osc2_oct;
+    to.osc2_det = src.osc2_det;
+    to.osc2_detune = src.osc2_detune;
+    to.osc2_xenv = src.osc2_xenv;
+    to.osc2_vol = src.osc2_vol;
+    to.osc2_waveform = src.osc2_waveform;
+    to.noise_fader = src.noise_fader;
+    to.env_attack = src.env_attack;
+    to.env_sustain = src.env_sustain;
+    to.env_release = src.env_release;
+    to.env_master = src.env_master;
+    to.fx_filter = src.fx_filter;
+    to.fx_freq = src.fx_freq;
+    to.fx_resonance = src.fx_resonance;
+    to.fx_delay_time = src.fx_delay_time;
+    to.fx_delay_amt = src.fx_delay_amt;
+    to.fx_pan_freq = src.fx_pan_freq;
+    to.fx_pan_amt = src.fx_pan_amt;
+    to.lfo_osc1_freq = src.lfo_osc1_freq;
+    to.lfo_fx_freq = src.lfo_fx_freq;
+    to.lfo_freq = src.lfo_freq;
+    to.lfo_amt = src.lfo_amt;
+    to.lfo_waveform = src.lfo_waveform;
+  };
+
+  var importInstrument = function() {
+    if (mSeqCol !== mSeqCol2 || mSeqCol < 0 || mSeqCol >= mSong.songData.length)
+      return;
+    var instr = mSong.songData[mSeqCol];
+
+    var parent = document.getElementById("dialog");
+    parent.innerHTML = "";
+
+    // Create dialog content
+    var o;
+    o = document.createElement("h3");
+    parent.appendChild(o);
+    o.appendChild(document.createTextNode("Import instrument in JSON"));
+    parent.appendChild(document.createElement("br"));
+    var el = $('<textarea id="jsonTextArea" style="width: 200px; height: 100px"></textarea>');
+    o = el[0];
+    parent.appendChild(o);
+    parent.appendChild(document.createElement("br"));
+    el = $('<button id="jsonImportButton">Import</button>');
+    o = el[0];
+    parent.appendChild(o);
+    parent.appendChild(document.createTextNode(" "));
+    el = $('<button id="jsonCancelButton">Cancel</button>');
+    o = el[0];
+    parent.appendChild(o);
+    $("#jsonImportButton").click(function() {
+      var json = $("#jsonTextArea").val();
+      var src = JSON.parse(json);
+      applyInstrument(src, instr);
+      updateInstrument(false);
+      hideDialog();
+    });
+    $("#jsonCancelButton").click(function() {
+      hideDialog();
+    });
+
+    showDialog();
   };
 
   var keyboardMouseDown = function (e)
@@ -2129,6 +2187,9 @@ var CGUI = function()
     document.getElementById("playRange").onmousedown = playRange;
     document.getElementById("stopPlaying").onmousedown = stopPlaying;
     document.getElementById("bpm").onfocus = bpmFocus;
+
+    document.getElementById("importInstrument").onmousedown = importInstrument;
+    document.getElementById("exportInstrument").onmousedown = exportInstrument;
 
     document.getElementById("sequencerCopy").onmousedown = sequencerCopyMouseDown;
     document.getElementById("sequencerPaste").onmousedown = sequencerPasteMouseDown;

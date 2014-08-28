@@ -308,6 +308,11 @@ table.tracks td.selected, table.tracks tr.beat td.selected {
   margin-right: 5px;
 }
 
+.small-icon {
+  position: relative;
+  top: 2.5px;
+}
+
 .sonantLogo a {
   color: white;
   text-shadow: #000 1px 1px 4px;
