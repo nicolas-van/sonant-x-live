@@ -114,78 +114,113 @@ var CGUI = function()
   };
   var convertSong = function (song)
   {
-    var i, j, k, instr, col;
+    var i, j, k;
     for (i = 0; i < 8; i++)
     {
-      instr = {};
-  
-      // Oscillator 1
-      instr.osc1_oct = 7;
-      instr.osc1_det = 0;
-      instr.osc1_detune = 0;
-      instr.osc1_xenv = 0;
-      instr.osc1_vol = 192;
-      instr.osc1_waveform = 0;
-      // Oscillator 2
-      instr.osc2_oct = 7;
-      instr.osc2_det = 0;
-      instr.osc2_detune = 0;
-      instr.osc2_xenv = 0;
-      instr.osc2_vol = 192;
-      instr.osc2_waveform = 0;
-      // Noise oscillator
-      instr.noise_fader = 0;
-      // Envelope
-      instr.env_attack = 200;
-      instr.env_sustain = 2000;
-      instr.env_release = 20000;
-      instr.env_master = 192;
-      // Effects
-      instr.fx_filter = 0;
-      instr.fx_freq = 11025;
-      instr.fx_resonance = 255;
-      instr.fx_delay_time = 0;
-      instr.fx_delay_amt = 0;
-      instr.fx_pan_freq = 0;
-      instr.fx_pan_amt = 0;
-      // LFO
-      instr.lfo_osc1_freq = 0;
-      instr.lfo_fx_freq = 0;
-      instr.lfo_freq = 0;
-      instr.lfo_amt = 0;
-      instr.lfo_waveform = 0;
+      var instr = song.songData[i];
+      if (instr === undefined) {
+        instr = {};
+        // Oscillator 1
+        instr.osc1_oct = 7;
+        instr.osc1_det = 0;
+        instr.osc1_detune = 0;
+        instr.osc1_xenv = 0;
+        instr.osc1_vol = 192;
+        instr.osc1_waveform = 0;
+        // Oscillator 2
+        instr.osc2_oct = 7;
+        instr.osc2_det = 0;
+        instr.osc2_detune = 0;
+        instr.osc2_xenv = 0;
+        instr.osc2_vol = 192;
+        instr.osc2_waveform = 0;
+        // Noise oscillator
+        instr.noise_fader = 0;
+        // Envelope
+        instr.env_attack = 200;
+        instr.env_sustain = 2000;
+        instr.env_release = 20000;
+        instr.env_master = 192;
+        // Effects
+        instr.fx_filter = 0;
+        instr.fx_freq = 11025;
+        instr.fx_resonance = 255;
+        instr.fx_delay_time = 0;
+        instr.fx_delay_amt = 0;
+        instr.fx_pan_freq = 0;
+        instr.fx_pan_amt = 0;
+        // LFO
+        instr.lfo_osc1_freq = 0;
+        instr.lfo_fx_freq = 0;
+        instr.lfo_freq = 0;
+        instr.lfo_amt = 0;
+        instr.lfo_waveform = 0;
+
+        instr.p = [];
+        instr.c = [];
+        song.songData[i] = instr;
+      }
   
       // Patterns
-      instr.p = [];
       for (j = 0; j < 48; j++)
       {
-        instr.p[j] = 0;
+        if (instr.p[j] === undefined)
+          instr.p[j] = 0;
       }
   
       // Columns
-      instr.c = [];
       for (j = 0; j < 10; j++)
       {
-        col = {};
-        col.n = [];
-        for (k = 0; k < 32; k++)
-        {
-          col.n[k] = 0;
+        var col = instr.c[j];
+        if (col === undefined) {
+          var col = {};
+          col.n = [];
+          for (k = 0; k < 32; k++)
+          {
+            col.n[k] = 0;
+          }
+          instr.c[j] = col;
         }
-        instr.c[j] = col;
       }
-      
-      if (song.songData[i] === undefined)
-        song.songData[i] = instr;
     }
 
     // Calculate song length (not really part of the binary song data)
     song.songLen = calcSongLength(song);
   };
 
+  var compressSong = function(song) {
+    song = _.clone(song);
+    song.songData = _.map(song.songData, function(d) {
+      d = _.clone(d);
+      var lastNotZero = -1;
+      var used = [];
+      var usedIndex = {};
+      // search the last pattern and listing all patterns
+      _.each(d.p, function(p, i) {
+        if (p !== 0)
+          lastNotZero = i;
+        if (usedIndex[p] === undefined) {
+          used.push(p);
+          usedIndex[p] = true;
+        }
+      });
+      // remove useless end of pattern list
+      d.p = d.p.slice(0, lastNotZero + 1);
+      // remove unused patterns
+      var lastPattern = _.max(used);
+      d.c = d.c.slice(0, lastPattern);
+      return d;
+    });
+    song.songData = _.filter(song.songData, function(d) {
+      return d.p.length > 0;
+    });
+    return song;
+  };
+
   var songToJSON = function (song, pretty)
   {
-    return JSON.stringify(song, null, pretty ? "    " : undefined);
+    var csong = compressSong(song);
+    return JSON.stringify(csong, null, pretty ? "    " : undefined);
   };
 
   //--------------------------------------------------------------------------
@@ -767,7 +802,7 @@ var CGUI = function()
       oSong.endPattern = (opts.lastRow + 1) - opts.firstRow  + 1;
       oSong.songLen = opts.numSeconds;
     }
-    var mPlayer = new sonantx.MusicGenerator(oSong);
+    var mPlayer = new sonantx.MusicGenerator(compressSong(oSong));
     mPlayer.getAudioGenerator(function(ag) {
       mAudioGenerator = ag;
       var wave = ag.getWave();
