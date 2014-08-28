@@ -4,7 +4,7 @@ Sonant-X Live
 A tracker web application to compose music in your brower.
 
 Sonant-X Live is build using [sonant-x](https://github.com/nicolas-van/sonant-x), a very small JavaScript
-synthesizer library. This application's maini purpose is to compose music for sonant-x that can then be embedded in
+synthesizer library. This application's main purpose is to compose music for sonant-x that can then be embedded in
 small JavaScript demos or video games.
 
 Sonant-X Live is a fork of Sonant Live by Marcus Geelnard.
