@@ -1,7 +1,26 @@
 {
+  "name": "sonant-x-live",
+  "version": "1.0.0",
+  "description": "Sonant-X Live =============",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "dev": "parcel index.html -d docs",
+    "build": "parcel build index.html -d docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolas-van/sonant-x-live.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicolas-van/sonant-x-live/issues"
+  },
+  "homepage": "https://github.com/nicolas-van/sonant-x-live#readme",
   "devDependencies": {
     "grunt": "~0.4.5",
-    "grunt-contrib-jshint": "~0.10.0"
+    "grunt-contrib-jshint": "~0.10.0",
+    "parcel-bundler": "^1.12.3"
   },
   "dependencies": {
     "bootstrap": "^3.4.1",

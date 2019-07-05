@@ -29,8 +29,36 @@
 // Local classes for easy access to binary data
 //------------------------------------------------------------------------------
 
-(function() {
-"use strict";
+import $ from "jquery";
+import gInstrumentPresets from "./presets";
+import * as sonantx from "sonantx";
+import * as LZString from "lz-string";
+import URI from "urijs";
+import _ from "underscore";
+
+import waveSinSel from "./gui/wave-sin-sel.png";
+import waveSqrSel from "./gui/wave-sqr-sel.png";
+import waveSawSel from "./gui/wave-saw-sel.png";
+import waveTriSel from "./gui/wave-tri-sel.png";
+import waveSin from "./gui/wave-sin.png";
+import waveSqr from "./gui/wave-sqr.png";
+import waveSaw from "./gui/wave-saw.png";
+import waveTri from "./gui/wave-tri.png";
+import boxCheck from "./gui/box-check.png";
+import boxUncheck from "./gui/box-uncheck.png";
+import progressPng from "./gui/progress.gif";
+import filtLp from "./gui/filt-lp.png";
+import filtLpSel from "./gui/filt-lp-sel.png";
+import filtHp from "./gui/filt-hp.png";
+import filtHpSel from "./gui/filt-hp-sel.png";
+import filtBp from "./gui/filt-bp.png";
+import filtBpSel from "./gui/filt-bp-sel.png";
+import filtN from "./gui/filt-n.png";
+import filtNSel from "./gui/filt-n-sel.png";
+import playGfxBg from "./gui/playGfxBg.png";
+import ledOff from "./gui/led-off.png";
+import ledOn from "./gui/led-on.png";
+
 var audioCtx = window.AudioContext ? new AudioContext() : null;
 
 //------------------------------------------------------------------------------
@@ -476,9 +504,11 @@ var CGUI = function()
     o.style.marginLeft = Math.round(191 * pos) + "px";
   };
 
+
+
   var updateCheckBox = function (o, check)
   {
-    o.src = check ? "gui/box-check.png" : "gui/box-uncheck.png";
+    o.src = check ? boxCheck : boxUncheck;
   };
 
   var clearPresetSelection = function ()
@@ -492,10 +522,10 @@ var CGUI = function()
     var instr = mSong.songData[mSeqCol];
 
     // Oscillator 1
-    document.getElementById("osc1_wave_sin").src = instr.osc1_waveform === 0 ? "gui/wave-sin-sel.png" : "gui/wave-sin.png";
-    document.getElementById("osc1_wave_sqr").src = instr.osc1_waveform === 1 ? "gui/wave-sqr-sel.png" : "gui/wave-sqr.png";
-    document.getElementById("osc1_wave_saw").src = instr.osc1_waveform === 2 ? "gui/wave-saw-sel.png" : "gui/wave-saw.png";
-    document.getElementById("osc1_wave_tri").src = instr.osc1_waveform === 3 ? "gui/wave-tri-sel.png" : "gui/wave-tri.png";
+    document.getElementById("osc1_wave_sin").src = instr.osc1_waveform === 0 ? waveSinSel : waveSin;
+    document.getElementById("osc1_wave_sqr").src = instr.osc1_waveform === 1 ? waveSqrSel : waveSqr;
+    document.getElementById("osc1_wave_saw").src = instr.osc1_waveform === 2 ? waveSawSel : waveSaw;
+    document.getElementById("osc1_wave_tri").src = instr.osc1_waveform === 3 ? waveTriSel : waveTri;
     updateSlider(document.getElementById("osc1_vol"), instr.osc1_vol);
     updateSlider(document.getElementById("osc1_oct"), instr.osc1_oct);
     updateSlider(document.getElementById("osc1_semi"), instr.osc1_det);
@@ -503,10 +533,10 @@ var CGUI = function()
     updateCheckBox(document.getElementById("osc1_xenv"), instr.osc1_xenv);
 
     // Oscillator 2
-    document.getElementById("osc2_wave_sin").src = instr.osc2_waveform === 0 ? "gui/wave-sin-sel.png" : "gui/wave-sin.png";
-    document.getElementById("osc2_wave_sqr").src = instr.osc2_waveform === 1 ? "gui/wave-sqr-sel.png" : "gui/wave-sqr.png";
-    document.getElementById("osc2_wave_saw").src = instr.osc2_waveform === 2 ? "gui/wave-saw-sel.png" : "gui/wave-saw.png";
-    document.getElementById("osc2_wave_tri").src = instr.osc2_waveform === 3 ? "gui/wave-tri-sel.png" : "gui/wave-tri.png";
+    document.getElementById("osc2_wave_sin").src = instr.osc2_waveform === 0 ? waveSinSel : waveSin;
+    document.getElementById("osc2_wave_sqr").src = instr.osc2_waveform === 1 ? waveSqrSel : waveSqr;
+    document.getElementById("osc2_wave_saw").src = instr.osc2_waveform === 2 ? waveSawSel : waveSaw;
+    document.getElementById("osc2_wave_tri").src = instr.osc2_waveform === 3 ? waveTriSel : waveTri;
     updateSlider(document.getElementById("osc2_vol"), instr.osc2_vol);
     updateSlider(document.getElementById("osc2_oct"), instr.osc2_oct);
     updateSlider(document.getElementById("osc2_semi"), instr.osc2_det);
@@ -523,20 +553,20 @@ var CGUI = function()
     updateSlider(document.getElementById("env_rel"), instr.env_release);
 
     // LFO
-    document.getElementById("lfo_wave_sin").src = instr.lfo_waveform === 0 ? "gui/wave-sin-sel.png" : "gui/wave-sin.png";
-    document.getElementById("lfo_wave_sqr").src = instr.lfo_waveform === 1 ? "gui/wave-sqr-sel.png" : "gui/wave-sqr.png";
-    document.getElementById("lfo_wave_saw").src = instr.lfo_waveform === 2 ? "gui/wave-saw-sel.png" : "gui/wave-saw.png";
-    document.getElementById("lfo_wave_tri").src = instr.lfo_waveform === 3 ? "gui/wave-tri-sel.png" : "gui/wave-tri.png";
+    document.getElementById("lfo_wave_sin").src = instr.lfo_waveform === 0 ? waveSinSel : waveSin;
+    document.getElementById("lfo_wave_sqr").src = instr.lfo_waveform === 1 ? waveSqrSel : waveSqr;
+    document.getElementById("lfo_wave_saw").src = instr.lfo_waveform === 2 ? waveSawSel : waveSaw;
+    document.getElementById("lfo_wave_tri").src = instr.lfo_waveform === 3 ? waveTriSel : waveTri;
     updateSlider(document.getElementById("lfo_amt"), instr.lfo_amt);
     updateSlider(document.getElementById("lfo_freq"), instr.lfo_freq);
     updateCheckBox(document.getElementById("lfo_o1fm"), instr.lfo_osc1_freq);
     updateCheckBox(document.getElementById("lfo_fxfreq"), instr.lfo_fx_freq);
 
     // Effects
-    document.getElementById("fx_filt_lp").src = instr.fx_filter === 2 ? "gui/filt-lp-sel.png" : "gui/filt-lp.png";
-    document.getElementById("fx_filt_hp").src = instr.fx_filter === 1 ? "gui/filt-hp-sel.png" : "gui/filt-hp.png";
-    document.getElementById("fx_filt_bp").src = instr.fx_filter === 3 ? "gui/filt-bp-sel.png" : "gui/filt-bp.png";
-    document.getElementById("fx_filt_n").src = instr.fx_filter === 4 ? "gui/filt-n-sel.png" : "gui/filt-n.png";
+    document.getElementById("fx_filt_lp").src = instr.fx_filter === 2 ? filtLpSel : filtLp;
+    document.getElementById("fx_filt_hp").src = instr.fx_filter === 1 ? filtHpSel : filtHp;
+    document.getElementById("fx_filt_bp").src = instr.fx_filter === 3 ? filtBpSel : filtBp;
+    document.getElementById("fx_filt_n").src = instr.fx_filter === 4 ? filtNSel : filtN;
     updateSlider(document.getElementById("fx_freq"), instr.fx_freq);
     updateSlider(document.getElementById("fx_res"), instr.fx_resonance);
     updateSlider(document.getElementById("fx_dly_amt"), instr.fx_delay_amt);
@@ -603,7 +633,7 @@ var CGUI = function()
     // Create dialog content
     var o, o2;
     o = document.createElement("img");
-    o.src = "gui/progress.gif";
+    o.src = progressPng;
     parent.appendChild(o);
     o = document.createTextNode(msg);
     parent.appendChild(o);
@@ -2078,25 +2108,25 @@ var CGUI = function()
     var i, j, o;
 
     // Preload images
-    preloadImage("gui/progress.gif");
-    preloadImage("gui/box-uncheck.png");
-    preloadImage("gui/box-uncheck.png");
-    preloadImage("gui/wave-sin.png");
-    preloadImage("gui/wave-sin-sel.png");
-    preloadImage("gui/wave-saw.png");
-    preloadImage("gui/wave-saw-sel.png");
-    preloadImage("gui/wave-sqr.png");
-    preloadImage("gui/wave-sqr-sel.png");
-    preloadImage("gui/wave-tri.png");
-    preloadImage("gui/wave-tri-sel.png");
-    preloadImage("gui/filt-lp.png");
-    preloadImage("gui/filt-lp-sel.png");
-    preloadImage("gui/filt-hp.png");
-    preloadImage("gui/filt-hp-sel.png");
-    preloadImage("gui/filt-bp.png");
-    preloadImage("gui/filt-bp-sel.png");
-    preloadImage("gui/filt-n.png");
-    preloadImage("gui/filt-n-sel.png");
+    preloadImage(progressPng);
+    preloadImage(boxUncheck);
+    preloadImage(boxUncheck);
+    preloadImage(waveSin);
+    preloadImage(waveSinSel);
+    preloadImage(waveSaw);
+    preloadImage(waveSawSel);
+    preloadImage(waveSqr);
+    preloadImage(waveSqrSel);
+    preloadImage(waveTri);
+    preloadImage(waveTriSel);
+    preloadImage(filtLp);
+    preloadImage(filtLpSel);
+    preloadImage(filtHp);
+    preloadImage(filtHpSel);
+    preloadImage(filtBp);
+    preloadImage(filtBpSel);
+    preloadImage(filtN);
+    preloadImage(filtNSel);
 
     // Set up presets
     initPresets();
@@ -2108,9 +2138,9 @@ var CGUI = function()
     mPlayGfxLedOffImg.onload = function () {
       redrawPlayerGfx(-1);
     };
-    mPlayGfxVUImg.src = "gui/playGfxBg.png";
-    mPlayGfxLedOffImg.src = "gui/led-off.png";
-    mPlayGfxLedOnImg.src = "gui/led-on.png";
+    mPlayGfxVUImg.src = playGfxBg;
+    mPlayGfxLedOffImg.src = ledOff;
+    mPlayGfxLedOnImg.src = ledOn;
 
     // Set up GUI elements
     document.getElementById("osc1_vol").sliderProps = { min: 0, max: 255 };
@@ -2262,7 +2292,7 @@ var CGUI = function()
 // Program start
 //------------------------------------------------------------------------------
 
-window.gui_init = function()
+var gui_init = function()
 {
   try
   {
@@ -2275,6 +2305,8 @@ window.gui_init = function()
     alert("Unexpected error: " + err.message);
   }
 };
+
+export {gui_init};
 
     // Get n samples of wave data at time t [s]. Wave data in range [-2,2].
 function getData(audioGenerator, t, n) {
@@ -2294,5 +2326,3 @@ function getData(audioGenerator, t, n) {
   }
   return d;
 }
-
-})();
