@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "parcel index.html -d docs",
     "build": "rm -rf docs && parcel build index.html -d docs --public-url ./",
-    "lint": "eslint \"*.js\""
+    "lint": "eslint \"*.js\"",
+    "test": "npm run lint"
   },
   "repository": {
     "type": "git",

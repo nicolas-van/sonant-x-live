@@ -656,7 +656,7 @@ const CGUI = function () {
     // Generate audio data
     const doneFun = function (wave) {
       const uri = 'data:application/octet-stream;base64,' + btoa(wave)
-      window.open(uri)
+      downloadData(uri, 'sonant-x-export-song.wav')
     }
     generateAudio(doneFun)
 
@@ -682,7 +682,7 @@ const CGUI = function () {
     // Generate audio data
     const doneFun = function (wave) {
       const uri = 'data:application/octet-stream;base64,' + btoa(wave)
-      window.open(uri)
+      downloadData(uri, 'sonant-x-export-range.wav')
     }
     generateAudio(doneFun, opts)
 
@@ -695,19 +695,7 @@ const CGUI = function () {
 
     // Generate JS song data
     const dataURI = 'data:text/javascript;base64,' + btoa(songToJSON(mSong, true))
-    const link = document.createElement('a')
-    link.setAttribute('download', 'sonant-x-export.json')
-    link.setAttribute('href', dataURI)
-    document.body.appendChild(link)
-    link.click()
-    setTimeout(
-      function () {
-        // Wait 1000ms before removing the link
-        // This gives IE11 enough time to process the download (it will fail if the link is removed)
-        document.body.removeChild(link)
-      },
-      1000
-    )
+    downloadData(dataURI, 'sonant-x-export-song.json')
     return false
   }
 
@@ -721,11 +709,7 @@ const CGUI = function () {
     delete instr.c
 
     const dataURI = 'data:text/javascript;base64,' + btoa(JSON.stringify(instr, null, '    '))
-    const link = document.createElement('a')
-    link.setAttribute('download', 'sonant-x-export-instrument.json')
-    link.setAttribute('href', dataURI)
-    document.body.appendChild(link)
-    window.open(dataURI)
+    downloadData(dataURI, 'sonant-x-export-instrument.json')
   }
 
   const exportURL = function (e) {
@@ -2038,4 +2022,20 @@ function getData (audioGenerator, t, n) {
     d[j] = val
   }
   return d
+}
+
+function downloadData (dataURI, fileName) {
+  const link = document.createElement('a')
+  link.setAttribute('download', fileName)
+  link.setAttribute('href', dataURI)
+  document.body.appendChild(link)
+  link.click()
+  setTimeout(
+    function () {
+      // Wait 1000ms before removing the link
+      // This gives IE11 enough time to process the download (it will fail if the link is removed)
+      document.body.removeChild(link)
+    },
+    1000
+  )
 }
