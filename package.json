@@ -18,6 +18,7 @@
     "url": "https://github.com/nicolas-van/sonant-x-live/issues"
   },
   "homepage": "https://github.com/nicolas-van/sonant-x-live#readme",
+  
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.0",
