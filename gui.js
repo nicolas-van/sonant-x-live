@@ -59,71 +59,71 @@ import playGfxBg from './gui/playGfxBg.png'
 import ledOff from './gui/led-off.png'
 import ledOn from './gui/led-on.png'
 
-var audioCtx = window.AudioContext ? new AudioContext() : null
+const audioCtx = window.AudioContext ? new AudioContext() : null
 
 // ------------------------------------------------------------------------------
 // GUI class
 // ------------------------------------------------------------------------------
 
-var CGUI = function () {
+const CGUI = function () {
   // Edit modes
-  var EDIT_NONE = 0
-  var EDIT_SEQUENCE = 1
-  var EDIT_PATTERN = 2
+  const EDIT_NONE = 0
+  const EDIT_SEQUENCE = 1
+  const EDIT_PATTERN = 2
 
   // Edit/gui state
-  var mEditMode = EDIT_SEQUENCE
-  var mKeyboardOctave = 5
-  var mPatternRow = 0
-  var mPatternRow2 = 0
-  var mSeqCol = 0
-  var mSeqRow = 0
-  var mSeqCol2 = 0
-  var mSeqRow2 = 0
-  var mSelectingSeqRange = false
-  var mSelectingPatternRange = false
-  var mSeqCopyBuffer = []
-  var mPatCopyBuffer = []
+  let mEditMode = EDIT_SEQUENCE
+  let mKeyboardOctave = 5
+  let mPatternRow = 0
+  let mPatternRow2 = 0
+  let mSeqCol = 0
+  let mSeqRow = 0
+  let mSeqCol2 = 0
+  let mSeqRow2 = 0
+  let mSelectingSeqRange = false
+  let mSelectingPatternRange = false
+  let mSeqCopyBuffer = []
+  let mPatCopyBuffer = []
 
   // Resources
-  var mSong = {}
-  var mAudio = null
-  var mAudioGenerator = null
-  var mPlayGfxVUImg = new Image()
-  var mPlayGfxLedOffImg = new Image()
-  var mPlayGfxLedOnImg = new Image()
+  let mSong = {}
+  let mAudio = null
+  let mAudioGenerator = null
+  const mPlayGfxVUImg = new Image()
+  const mPlayGfxLedOffImg = new Image()
+  const mPlayGfxLedOnImg = new Image()
 
   // Constant look-up-tables
-  var mNoteNames = [
+  const mNoteNames = [
     'C-', 'C#', 'D-', 'D#', 'E-', 'F-', 'F#', 'G-', 'G#', 'A-', 'A#', 'B-'
   ]
 
-  var mBlackKeyPos = [
+  const mBlackKeyPos = [
     20, 1, 46, 3, 72, 5, 110, 8, 138, 10, 178, 13, 204, 15, 230, 17, 270, 20,
     298, 22, 338, 25, 364, 27, 390, 29, 428, 32, 456, 34
   ]
 
   // Prealoaded resources
-  var mPreload = []
+  const mPreload = []
 
   // --------------------------------------------------------------------------
   // Song import/export functions
   // --------------------------------------------------------------------------
 
-  var calcSongLength = function (song) {
+  const calcSongLength = function (song) {
     return Math.round((song.endPattern * 32 + 8) * song.rowLen / 44100)
   }
 
-  var calcSamplesPerRow = function (bpm) {
+  const calcSamplesPerRow = function (bpm) {
     return Math.round((60 * 44100 / 4) / bpm)
   }
 
-  var getBPM = function () {
+  const getBPM = function () {
     return Math.round((60 * 44100 / 4) / mSong.rowLen)
   }
 
-  var makeNewSong = function () {
-    var song = {}
+  const makeNewSong = function () {
+    const song = {}
 
     // Row length
     song.rowLen = calcSamplesPerRow(120)
@@ -135,10 +135,10 @@ var CGUI = function () {
 
     return song
   }
-  var convertSong = function (song) {
-    var i, j, k
+  const convertSong = function (song) {
+    let i, j, k
     for (i = 0; i < 8; i++) {
-      var instr = song.songData[i]
+      let instr = song.songData[i]
       if (instr === undefined) {
         instr = {}
         // Oscillator 1
@@ -189,9 +189,9 @@ var CGUI = function () {
 
       // Columns
       for (j = 0; j < 10; j++) {
-        var col = instr.c[j]
+        const col = instr.c[j]
         if (col === undefined) {
-          var col2 = {}
+          const col2 = {}
           col2.n = []
           for (k = 0; k < 32; k++) {
             col2.n[k] = 0
@@ -205,13 +205,13 @@ var CGUI = function () {
     song.songLen = calcSongLength(song)
   }
 
-  var compressSong = function (song) {
+  const compressSong = function (song) {
     song = _.clone(song)
     song.songData = _.map(song.songData, function (d) {
       d = _.clone(d)
-      var lastNotZero = -1
-      var used = []
-      var usedIndex = {}
+      let lastNotZero = -1
+      const used = []
+      const usedIndex = {}
       // search the last pattern and listing all patterns
       _.each(d.p, function (p, i) {
         if (p !== 0) { lastNotZero = i }
@@ -223,7 +223,7 @@ var CGUI = function () {
       // remove useless end of pattern list
       d.p = d.p.slice(0, lastNotZero + 1)
       // remove unused patterns
-      var lastPattern = _.max(used)
+      const lastPattern = _.max(used)
       d.c = d.c.slice(0, lastPattern)
       return d
     })
@@ -233,8 +233,8 @@ var CGUI = function () {
     return song
   }
 
-  var songToJSON = function (song, pretty) {
-    var csong = compressSong(song)
+  const songToJSON = function (song, pretty) {
+    const csong = compressSong(song)
     return JSON.stringify(csong, null, pretty ? '    ' : undefined)
   }
 
@@ -242,16 +242,16 @@ var CGUI = function () {
   // Helper functions
   // --------------------------------------------------------------------------
 
-  var preloadImage = function (url) {
-    var img = new Image()
+  const preloadImage = function (url) {
+    const img = new Image()
     img.src = url
     mPreload.push(img)
   }
 
-  var initPresets = function () {
-    var parent = document.getElementById('instrPreset')
-    var o, instr
-    for (var i = 0; i < gInstrumentPresets.length; ++i) {
+  const initPresets = function () {
+    const parent = document.getElementById('instrPreset')
+    let o, instr
+    for (let i = 0; i < gInstrumentPresets.length; ++i) {
       instr = gInstrumentPresets[i]
       o = document.createElement('option')
       o.value = instr.osc1_oct ? '' + i : ''
@@ -260,8 +260,8 @@ var CGUI = function () {
     }
   }
 
-  var getElementPos = function (o) {
-    var left = 0; var top = 0
+  const getElementPos = function (o) {
+    let left = 0; let top = 0
     if (o.offsetParent) {
       do {
         left += o.offsetLeft
@@ -272,8 +272,8 @@ var CGUI = function () {
     return [left, top]
   }
 
-  var getEventElement = function (e) {
-    var o = null
+  const getEventElement = function (e) {
+    let o = null
     if (!e) { e = window.event }
     if (e.target) { o = e.target } else if (e.srcElement) { o = e.srcElement }
     if (o.nodeType === 3) {
@@ -282,9 +282,9 @@ var CGUI = function () {
     return o
   }
 
-  var getMousePos = function (e, rel) {
+  const getMousePos = function (e, rel) {
     // Get the mouse document position
-    var p = [0, 0]
+    let p = [0, 0]
     if (e.pageX || e.pageY) {
       p = [e.pageX, e.pageY]
     } else if (e.clientX || e.clientY) {
@@ -297,16 +297,16 @@ var CGUI = function () {
     if (!rel) return p
 
     // Get the element document position
-    var pElem = getElementPos(getEventElement(e))
+    const pElem = getElementPos(getEventElement(e))
     return [p[0] - pElem[0], p[1] - pElem[1]]
   }
 
-  var unfocusHTMLInputElements = function () {
+  const unfocusHTMLInputElements = function () {
     document.getElementById('bpm').blur()
     document.getElementById('instrPreset').blur()
   }
 
-  var setEditMode = function (mode) {
+  const setEditMode = function (mode) {
     mEditMode = mode
 
     // Set the style for the different edit sections
@@ -319,19 +319,19 @@ var CGUI = function () {
     }
   }
 
-  var updateSongInfo = function () {
-    var bpm = getBPM()
+  const updateSongInfo = function () {
+    const bpm = getBPM()
     document.getElementById('bpm').value = bpm
   }
 
-  var updateSequencer = function (scrollIntoView, selectionOnly) {
-    var o
+  const updateSequencer = function (scrollIntoView, selectionOnly) {
+    let o
     // Update sequencer element contents and selection
-    for (var i = 0; i < 48; ++i) {
-      for (var j = 0; j < 8; ++j) {
+    for (let i = 0; i < 48; ++i) {
+      for (let j = 0; j < 8; ++j) {
         o = document.getElementById('sc' + j + 'r' + i)
         if (!selectionOnly) {
-          var pat = mSong.songData[j].p[i]
+          const pat = mSong.songData[j].p[i]
           if (pat > 0) { o.innerHTML = '' + (pat - 1) } else { o.innerHTML = '' }
         }
         if (i >= mSeqRow && i <= mSeqRow2 &&
@@ -343,46 +343,46 @@ var CGUI = function () {
     if (scrollIntoView) {
       o = document.getElementById('spr' + mSeqRow)
       if (o.scrollIntoView) {
-        var so = document.getElementById('sequencer')
-        var oy = o.offsetTop - so.scrollTop
+        const so = document.getElementById('sequencer')
+        const oy = o.offsetTop - so.scrollTop
         if (oy < 0 || (oy + 10) > so.offsetHeight) o.scrollIntoView(oy < 0)
       }
     }
   }
 
-  var updatePattern = function () {
-    var singlePattern = (mSeqCol === mSeqCol2 && mSeqRow === mSeqRow2)
-    for (var i = 0; i < 32; ++i) {
-      var noteName = ''
-      var pat = singlePattern ? mSong.songData[mSeqCol].p[mSeqRow] - 1 : -1
+  const updatePattern = function () {
+    const singlePattern = (mSeqCol === mSeqCol2 && mSeqRow === mSeqRow2)
+    for (let i = 0; i < 32; ++i) {
+      let noteName = ''
+      const pat = singlePattern ? mSong.songData[mSeqCol].p[mSeqRow] - 1 : -1
       if (pat >= 0) {
-        var n = mSong.songData[mSeqCol].c[pat].n[i] - 87
+        const n = mSong.songData[mSeqCol].c[pat].n[i] - 87
         if (n > 0) { noteName = mNoteNames[n % 12] + Math.floor(n / 12) }
       }
-      var o = document.getElementById('pr' + i)
+      const o = document.getElementById('pr' + i)
       o.innerHTML = noteName
       if (i >= mPatternRow && i <= mPatternRow2) { o.className = 'selected' } else { o.className = '' }
     }
   }
 
-  var setSelectedPatternRow = function (row) {
+  const setSelectedPatternRow = function (row) {
     mPatternRow = row
     mPatternRow2 = row
-    for (var i = 0; i < 32; ++i) {
-      var o = document.getElementById('pr' + i)
+    for (let i = 0; i < 32; ++i) {
+      const o = document.getElementById('pr' + i)
       if (i === row) { o.className = 'selected' } else { o.className = '' }
     }
   }
 
-  var setSelectedPatternRow2 = function (row) {
+  const setSelectedPatternRow2 = function (row) {
     mPatternRow2 = row >= mPatternRow ? row : mPatternRow
-    for (var i = 0; i < 32; ++i) {
-      var o = document.getElementById('pr' + i)
+    for (let i = 0; i < 32; ++i) {
+      const o = document.getElementById('pr' + i)
       if (i >= mPatternRow && i <= mPatternRow2) { o.className = 'selected' } else { o.className = '' }
     }
   }
 
-  var setSelectedSequencerCell = function (col, row) {
+  const setSelectedSequencerCell = function (col, row) {
     mSeqCol = col
     mSeqRow = row
     mSeqCol2 = col
@@ -390,23 +390,23 @@ var CGUI = function () {
     updateSequencer(true, true)
   }
 
-  var setSelectedSequencerCell2 = function (col, row) {
+  const setSelectedSequencerCell2 = function (col, row) {
     mSeqCol2 = col >= mSeqCol ? col : mSeqCol
     mSeqRow2 = row >= mSeqRow ? row : mSeqRow
     updateSequencer(false, true)
   }
 
-  var addPatternNote = function (n) {
+  const addPatternNote = function (n) {
     // playNote
     if (mSong && mSong.songData[mSeqCol] && mSong.rowLen) {
-      var sg = new sonantx.SoundGenerator(mSong.songData[mSeqCol], mSong.rowLen)
+      const sg = new sonantx.SoundGenerator(mSong.songData[mSeqCol], mSong.rowLen)
       if (!audioCtx) {
         sg.createAudio(n + 87, function (audio) {
           audio.play()
         })
       } else {
         sg.createAudioBuffer(n + 87, function (buffer) {
-          var source = audioCtx.createBufferSource() // Create Sound Source
+          const source = audioCtx.createBufferSource() // Create Sound Source
           source.buffer = buffer // Add Buffered Data to Object
           source.connect(audioCtx.destination) // Connect Sound Source to Output
           source.start()
@@ -417,7 +417,7 @@ var CGUI = function () {
     if (mEditMode === EDIT_PATTERN &&
         mSeqCol === mSeqCol2 && mSeqRow === mSeqRow2 &&
         mPatternRow === mPatternRow2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1
+      const pat = mSong.songData[mSeqCol].p[mSeqRow] - 1
       if (pat >= 0) {
         mSong.songData[mSeqCol].c[pat].n[mPatternRow] = n + 87
         setSelectedPatternRow((mPatternRow + 1) % 32)
@@ -428,9 +428,9 @@ var CGUI = function () {
     return false
   }
 
-  var updateSlider = function (o, x) {
-    var props = o.sliderProps
-    var pos = (x - props.min) / (props.max - props.min)
+  const updateSlider = function (o, x) {
+    const props = o.sliderProps
+    let pos = (x - props.min) / (props.max - props.min)
     pos = pos < 0 ? 0 : (pos > 1 ? 1 : pos)
     if (props.nonLinear) {
       pos = Math.sqrt(pos)
@@ -438,17 +438,17 @@ var CGUI = function () {
     o.style.marginLeft = Math.round(191 * pos) + 'px'
   }
 
-  var updateCheckBox = function (o, check) {
+  const updateCheckBox = function (o, check) {
     o.src = check ? boxCheck : boxUncheck
   }
 
-  var clearPresetSelection = function () {
-    var o = document.getElementById('instrPreset')
+  const clearPresetSelection = function () {
+    const o = document.getElementById('instrPreset')
     o.selectedIndex = 0
   }
 
-  var updateInstrument = function (resetPreset) {
-    var instr = mSong.songData[mSeqCol]
+  const updateInstrument = function (resetPreset) {
+    const instr = mSong.songData[mSeqCol]
 
     // Oscillator 1
     document.getElementById('osc1_wave_sin').src = instr.osc1_waveform === 0 ? waveSinSel : waveSin
@@ -507,8 +507,8 @@ var CGUI = function () {
     if (resetPreset) { clearPresetSelection() }
   }
 
-  var updateSongRanges = function () {
-    var i, j, emptyRow
+  const updateSongRanges = function () {
+    let i, j, emptyRow
 
     // Determine the last song pattern
     mSong.endPattern = 49
@@ -528,30 +528,30 @@ var CGUI = function () {
     mSong.songLen = calcSongLength(mSong)
 
     // Determine song speed
-    var bpm = parseInt(document.getElementById('bpm').value, 10)
+    const bpm = parseInt(document.getElementById('bpm').value, 10)
     if (bpm && (bpm > 40) && (bpm < 300)) {
       mSong.rowLen = calcSamplesPerRow(bpm)
     }
   }
 
-  var showDialog = function () {
-    var e = document.getElementById('cover')
+  const showDialog = function () {
+    const e = document.getElementById('cover')
     e.style.visibility = 'visible'
     deactivateMasterEvents()
   }
 
-  var hideDialog = function () {
-    var e = document.getElementById('cover')
+  const hideDialog = function () {
+    const e = document.getElementById('cover')
     e.style.visibility = 'hidden'
     activateMasterEvents()
   }
 
-  var showProgressDialog = function (msg) {
-    var parent = document.getElementById('dialog')
+  const showProgressDialog = function (msg) {
+    const parent = document.getElementById('dialog')
     parent.innerHTML = ''
 
     // Create dialog content
-    var o
+    let o
     o = document.createElement('img')
     o.src = progressPng
     parent.appendChild(o)
@@ -561,17 +561,17 @@ var CGUI = function () {
     showDialog()
   }
 
-  var showOpenDialog = function () {
-    var parent = document.getElementById('dialog')
+  const showOpenDialog = function () {
+    const parent = document.getElementById('dialog')
     parent.innerHTML = ''
 
     // Create dialog content
-    var o
+    let o
     o = document.createElement('h3')
     parent.appendChild(o)
     o.appendChild(document.createTextNode('Import JSON'))
     parent.appendChild(document.createElement('br'))
-    var el = $('<textarea id="jsonTextArea" style="width: 200px; height: 100px"></textarea>')
+    let el = $('<textarea id="jsonTextArea" style="width: 200px; height: 100px"></textarea>')
     o = el[0]
     parent.appendChild(o)
     parent.appendChild(document.createElement('br'))
@@ -583,8 +583,8 @@ var CGUI = function () {
     o = el[0]
     parent.appendChild(o)
     $('#jsonImportButton').click(function () {
-      var json = $('#jsonTextArea').val()
-      var song = JSON.parse(json)
+      const json = $('#jsonTextArea').val()
+      const song = JSON.parse(json)
       newSong(song)
       hideDialog()
     })
@@ -595,17 +595,17 @@ var CGUI = function () {
     showDialog()
   }
 
-  var showUrlDialog = function (url) {
-    var parent = document.getElementById('dialog')
+  const showUrlDialog = function (url) {
+    const parent = document.getElementById('dialog')
     parent.innerHTML = ''
 
     // Create dialog content
-    var o
+    let o
     o = document.createElement('h3')
     parent.appendChild(o)
     o.appendChild(document.createTextNode('URL'))
     parent.appendChild(document.createElement('br'))
-    var el = $('<input type="text" value="' + url + '"></input>')
+    let el = $('<input type="text" value="' + url + '"></input>')
     o = el[0]
     parent.appendChild(o)
     parent.appendChild(document.createElement('br'))
@@ -623,7 +623,7 @@ var CGUI = function () {
   // Event handlers
   // --------------------------------------------------------------------------
 
-  var newSong = function (song) {
+  const newSong = function (song) {
     if (song) {
       mSong = song
       convertSong(mSong)
@@ -641,12 +641,12 @@ var CGUI = function () {
     setSelectedSequencerCell(0, 0)
   }
 
-  var openSong = function (e) {
+  const openSong = function (e) {
     showOpenDialog()
     return false
   }
 
-  var exportWAV = function (e) {
+  const exportWAV = function (e) {
     // This can hog the browser for quite some time, so warn...
     if (!confirm('This can take quite some time. Do you want to continue?')) { return }
 
@@ -654,8 +654,8 @@ var CGUI = function () {
     updateSongRanges()
 
     // Generate audio data
-    var doneFun = function (wave) {
-      var uri = 'data:application/octet-stream;base64,' + btoa(wave)
+    const doneFun = function (wave) {
+      const uri = 'data:application/octet-stream;base64,' + btoa(wave)
       window.open(uri)
     }
     generateAudio(doneFun)
@@ -663,7 +663,7 @@ var CGUI = function () {
     return false
   }
 
-  var exportWAVRange = function (e) {
+  const exportWAVRange = function (e) {
     // This can hog the browser for quite some time, so warn...
     if (!confirm('This can take quite some time. Do you want to continue?')) { return }
 
@@ -671,7 +671,7 @@ var CGUI = function () {
     updateSongRanges()
 
     // Select range to play
-    var opts = {
+    const opts = {
       firstRow: mSeqRow,
       lastRow: mSeqRow2,
       firstCol: mSeqCol,
@@ -680,8 +680,8 @@ var CGUI = function () {
     }
 
     // Generate audio data
-    var doneFun = function (wave) {
-      var uri = 'data:application/octet-stream;base64,' + btoa(wave)
+    const doneFun = function (wave) {
+      const uri = 'data:application/octet-stream;base64,' + btoa(wave)
       window.open(uri)
     }
     generateAudio(doneFun, opts)
@@ -689,13 +689,13 @@ var CGUI = function () {
     return false
   }
 
-  var exportJSON = function (e) {
+  const exportJSON = function (e) {
     // Update song ranges
     updateSongRanges()
 
     // Generate JS song data
-    var dataURI = 'data:text/javascript;base64,' + btoa(songToJSON(mSong, true))
-    var link = document.createElement('a')
+    const dataURI = 'data:text/javascript;base64,' + btoa(songToJSON(mSong, true))
+    const link = document.createElement('a')
     link.setAttribute('download', 'sonant-x-export.json')
     link.setAttribute('href', dataURI)
     document.body.appendChild(link)
@@ -711,62 +711,62 @@ var CGUI = function () {
     return false
   }
 
-  var exportInstrument = function () {
+  const exportInstrument = function () {
     if (mSeqCol !== mSeqCol2 || mSeqCol < 0 || mSeqCol >= mSong.songData.length) {
       return
     }
 
-    var instr = _.clone(mSong.songData[mSeqCol])
+    const instr = _.clone(mSong.songData[mSeqCol])
     delete instr.p
     delete instr.c
 
-    var dataURI = 'data:text/javascript;base64,' + btoa(JSON.stringify(instr, null, '    '))
+    const dataURI = 'data:text/javascript;base64,' + btoa(JSON.stringify(instr, null, '    '))
     window.open(dataURI)
   }
 
-  var exportURL = function (e) {
+  const exportURL = function (e) {
     // Update song ranges
     updateSongRanges()
 
-    var json = songToJSON(mSong, false)
-    var url = '' + new URI().fragment(URI.encode(LZString.compressToBase64(json)))
+    const json = songToJSON(mSong, false)
+    const url = '' + new URI().fragment(URI.encode(LZString.compressToBase64(json)))
     showUrlDialog(url)
 
     return false
   }
 
-  var setStatus = function (msg) {
+  const setStatus = function (msg) {
     document.getElementById('statusText').innerHTML = msg
     //    window.status = msg;
   }
 
-  var generateAudio = function (doneFun, opts) {
+  const generateAudio = function (doneFun, opts) {
     // Show dialog
     showProgressDialog('Generating sound...')
 
     // Start time measurement
-    var d1 = new Date()
+    const d1 = new Date()
 
     // Generate audio data\bm
     // NOTE: We'd love to do this in a Web Worker instead! Currently we do it
     // in a setInterval() timer loop instead in order not to block the main UI.
     // TODO: handle correctly opts
-    var oSong = _.clone(mSong)
+    const oSong = _.clone(mSong)
     if (opts) {
       oSong.songData = mSong.songData.slice(opts.firstCol, opts.lastCol + 1)
       oSong.songData = _.map(oSong.songData, function (data) {
-        var ndata = _.clone(data)
+        const ndata = _.clone(data)
         ndata.p = data.p.slice(opts.firstRow, opts.lastRow + 1)
         return ndata
       })
       oSong.endPattern = (opts.lastRow + 1) - opts.firstRow + 1
       oSong.songLen = opts.numSeconds
     }
-    var mPlayer = new sonantx.MusicGenerator(compressSong(oSong))
+    const mPlayer = new sonantx.MusicGenerator(compressSong(oSong))
     mPlayer.getAudioGenerator(function (ag) {
       mAudioGenerator = ag
-      var wave = ag.getWave()
-      var d2 = new Date()
+      const wave = ag.getWave()
+      const d2 = new Date()
       setStatus('Generation time: ' + (d2.getTime() - d1.getTime()) / 1000 + 's')
 
       // Hide dialog
@@ -781,29 +781,29 @@ var CGUI = function () {
   // Playback follower
   // ----------------------------------------------------------------------------
 
-  var mFollowerTimerID = -1
-  var mFollowerFirstRow = 0
-  var mFollowerLastRow = 0
-  var mFollowerFirstCol = 0
-  var mFollowerLastCol = 0
-  var mFollowerActive = false
-  var mFollowerLastVULeft = 0
-  var mFollowerLastVURight = 0
+  let mFollowerTimerID = -1
+  let mFollowerFirstRow = 0
+  let mFollowerLastRow = 0
+  let mFollowerFirstCol = 0
+  let mFollowerLastCol = 0
+  let mFollowerActive = false
+  let mFollowerLastVULeft = 0
+  let mFollowerLastVURight = 0
 
-  var getSamplesSinceNote = function (t, chan) {
-    var nFloat = t * 44100 / mSong.rowLen
-    var n = Math.floor(nFloat)
-    var seqPos0 = Math.floor(n / 32) + mFollowerFirstRow
-    var patPos0 = n % 32
-    for (var k = 0; k < 32; ++k) {
-      var seqPos = seqPos0
-      var patPos = patPos0 - k
+  const getSamplesSinceNote = function (t, chan) {
+    const nFloat = t * 44100 / mSong.rowLen
+    const n = Math.floor(nFloat)
+    const seqPos0 = Math.floor(n / 32) + mFollowerFirstRow
+    const patPos0 = n % 32
+    for (let k = 0; k < 32; ++k) {
+      let seqPos = seqPos0
+      let patPos = patPos0 - k
       while (patPos < 0) {
         --seqPos
         if (seqPos < mFollowerFirstRow) return -1
         patPos += 32
       }
-      var pat = mSong.songData[chan].p[seqPos] - 1
+      const pat = mSong.songData[chan].p[seqPos] - 1
       if (pat >= 0 && mSong.songData[chan].c[pat].n[patPos] > 0) {
         return (k + (nFloat - n)) * mSong.rowLen
       }
@@ -811,25 +811,25 @@ var CGUI = function () {
     return -1
   }
 
-  var redrawPlayerGfx = function (t) {
-    var i
-    var o = document.getElementById('playGfxCanvas')
-    var w = mPlayGfxVUImg.width > 0 ? mPlayGfxVUImg.width : o.width
-    var h = mPlayGfxVUImg.height > 0 ? mPlayGfxVUImg.height : 51
-    var ctx = o.getContext('2d')
+  const redrawPlayerGfx = function (t) {
+    let i
+    const o = document.getElementById('playGfxCanvas')
+    const w = mPlayGfxVUImg.width > 0 ? mPlayGfxVUImg.width : o.width
+    const h = mPlayGfxVUImg.height > 0 ? mPlayGfxVUImg.height : 51
+    const ctx = o.getContext('2d')
     if (ctx) {
       // Draw the VU meter BG
       ctx.drawImage(mPlayGfxVUImg, 0, 0)
 
       // Calculate singal powers
-      var pl = 0; var pr = 0
+      let pl = 0; let pr = 0
       if (mFollowerActive && t >= 0) {
         // Get the waveform
-        var wave = getData(mAudioGenerator, t, 1000)
+        const wave = getData(mAudioGenerator, t, 1000)
 
         // Calculate volume
-        var l, r
-        var sl = 0; var sr = 0; var l_old = 0; var r_old = 0
+        let l, r
+        let sl = 0; let sr = 0; let l_old = 0; let r_old = 0
         for (i = 1; i < wave.length; i += 2) {
           l = wave[i - 1]
           r = wave[i]
@@ -853,10 +853,10 @@ var CGUI = function () {
       }
 
       // Convert to angles in the VU meter
-      var a1 = pl > 0 ? 1.3 + 0.5 * Math.log(pl) : -1000
+      let a1 = pl > 0 ? 1.3 + 0.5 * Math.log(pl) : -1000
       a1 = a1 < -1 ? -1 : a1 > 1 ? 1 : a1
       a1 *= 0.57
-      var a2 = pr > 0 ? 1.3 + 0.5 * Math.log(pr) : -1000
+      let a2 = pr > 0 ? 1.3 + 0.5 * Math.log(pr) : -1000
       a2 = a2 < -1 ? -1 : a2 > 1 ? 1 : a2
       a2 *= 0.57
 
@@ -876,25 +876,29 @@ var CGUI = function () {
       ctx.fillRect(0, h, w, 20)
       for (i = 0; i < 8; ++i) {
         // Draw un-lit led
-        var x = Math.round(26 + 26.5 * i)
+        const x = Math.round(26 + 26.5 * i)
         ctx.drawImage(mPlayGfxLedOffImg, x, h)
 
         if (i >= mFollowerFirstCol && i <= mFollowerLastCol) {
           // Get envelope profile for this channel
-          var env_a = mSong.songData[i].env_attack
-          var env_r = mSong.songData[i].env_sustain + mSong.songData[i].env_release
-          var env_tot = env_a + env_r
+          const env_a = mSong.songData[i].env_attack
+          let env_r = mSong.songData[i].env_sustain + mSong.songData[i].env_release
+          let env_tot = env_a + env_r
           if (env_tot < 10000) {
             env_tot = 10000
             env_r = env_tot - env_a
           }
 
           // Get number of samples since last new note
-          var numSamp = getSamplesSinceNote(t, i)
+          const numSamp = getSamplesSinceNote(t, i)
           if (numSamp >= 0 && numSamp < env_tot) {
             // Calculate current envelope (same method as the synth, except sustain)
-            var alpha
-            if (numSamp < env_a) { alpha = numSamp / env_a } else { alpha = 1 - (numSamp - env_a) / env_r }
+            let alpha
+            if (numSamp < env_a) {
+              alpha = numSamp / env_a
+            } else {
+              alpha = 1 - (numSamp - env_a) / env_r
+            }
 
             // Draw lit led with alpha blending
             ctx.globalAlpha = alpha * alpha
@@ -906,15 +910,15 @@ var CGUI = function () {
     }
   }
 
-  var updateFollower = function () {
-    var i, o
+  const updateFollower = function () {
+    let i, o
     if (mAudio === null) return
 
     // Calculate current song position
-    var t = mAudio.currentTime
-    var n = Math.floor(t * 44100 / mSong.rowLen)
-    var seqPos = Math.floor(n / 32) + mFollowerFirstRow
-    var patPos = n % 32
+    const t = mAudio.currentTime
+    const n = Math.floor(t * 44100 / mSong.rowLen)
+    const seqPos = Math.floor(n / 32) + mFollowerFirstRow
+    const patPos = n % 32
 
     // Are we past the play range (i.e. stop the follower?)
     if (seqPos > mFollowerLastRow) {
@@ -928,8 +932,8 @@ var CGUI = function () {
       return
     }
 
-    var newSeqPos = (seqPos !== mSeqRow)
-    var newPatPos = newSeqPos || (patPos !== mPatternRow)
+    const newSeqPos = (seqPos !== mSeqRow)
+    const newPatPos = newSeqPos || (patPos !== mPatternRow)
 
     // Update the sequencer
     if (newSeqPos) {
@@ -961,7 +965,7 @@ var CGUI = function () {
     redrawPlayerGfx(t)
   }
 
-  var startFollower = function () {
+  const startFollower = function () {
     // Update the sequencer selection
     mSeqRow = mFollowerFirstRow
     mSeqRow2 = mFollowerFirstRow
@@ -974,8 +978,8 @@ var CGUI = function () {
     mFollowerTimerID = setInterval(updateFollower, 16)
   }
 
-  var stopFollower = function () {
-    var i
+  const stopFollower = function () {
+    let i
     if (mFollowerActive) {
       // Stop the follower
       if (mFollowerTimerID !== -1) {
@@ -1002,7 +1006,7 @@ var CGUI = function () {
   // (end of playback follower)
   // ----------------------------------------------------------------------------
 
-  var playSong = function (e) {
+  const playSong = function (e) {
     // Stop the currently playing audio
     stopPlaying()
 
@@ -1016,14 +1020,14 @@ var CGUI = function () {
     mFollowerLastCol = 7
 
     // Generate audio data
-    var doneFun = function (wave) {
+    const doneFun = function (wave) {
       if (mAudio === null) {
         alert('Audio element unavailable.')
         return
       }
 
       try {
-        var uri = 'data:audio/wav;base64,' + btoa(wave)
+        const uri = 'data:audio/wav;base64,' + btoa(wave)
 
         // Start the follower
         startFollower()
@@ -1043,7 +1047,7 @@ var CGUI = function () {
     return false
   }
 
-  var playRange = function (e) {
+  const playRange = function (e) {
     // Stop the currently playing audio
     stopPlaying()
 
@@ -1051,7 +1055,7 @@ var CGUI = function () {
     updateSongRanges()
 
     // Select range to play
-    var opts = {
+    const opts = {
       firstRow: mSeqRow,
       lastRow: mSeqRow2,
       firstCol: mSeqCol,
@@ -1064,14 +1068,14 @@ var CGUI = function () {
     mFollowerLastCol = mSeqCol2
 
     // Generate audio data
-    var doneFun = function (wave) {
+    const doneFun = function (wave) {
       if (mAudio === null) {
         alert('Audio element unavailable.')
         return
       }
 
       try {
-        var uri = 'data:audio/wav;base64,' + btoa(wave)
+        const uri = 'data:audio/wav;base64,' + btoa(wave)
 
         // Restart the follower
         startFollower()
@@ -1091,7 +1095,7 @@ var CGUI = function () {
     return false
   }
 
-  var stopPlaying = function (e) {
+  const stopPlaying = function (e) {
     if (mAudio === null) {
       alert('Audio element unavailable.')
       return
@@ -1103,22 +1107,22 @@ var CGUI = function () {
     return false
   }
 
-  var bpmFocus = function (e) {
+  const bpmFocus = function (e) {
     setEditMode(EDIT_NONE)
     return true
   }
 
-  var instrPresetFocus = function (e) {
+  const instrPresetFocus = function (e) {
     setEditMode(EDIT_NONE)
     return true
   }
 
-  var patternCopyMouseDown = function (e) {
+  const patternCopyMouseDown = function (e) {
     if (mSeqRow === mSeqRow2 && mSeqCol === mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1
+      const pat = mSong.songData[mSeqCol].p[mSeqRow] - 1
       if (pat >= 0) {
         mPatCopyBuffer = []
-        for (var row = mPatternRow; row <= mPatternRow2; ++row) {
+        for (let row = mPatternRow; row <= mPatternRow2; ++row) {
           mPatCopyBuffer.push(mSong.songData[mSeqCol].c[pat].n[row])
         }
       }
@@ -1126,11 +1130,11 @@ var CGUI = function () {
     return false
   }
 
-  var patternPasteMouseDown = function (e) {
+  const patternPasteMouseDown = function (e) {
     if (mSeqRow === mSeqRow2 && mSeqCol === mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1
+      const pat = mSong.songData[mSeqCol].p[mSeqRow] - 1
       if (pat >= 0) {
-        for (var row = mPatternRow, i = 0; row < 32 && i < mPatCopyBuffer.length; ++row, ++i) {
+        for (let row = mPatternRow, i = 0; row < 32 && i < mPatCopyBuffer.length; ++row, ++i) {
           mSong.songData[mSeqCol].c[pat].n[row] = mPatCopyBuffer[i]
         }
         updatePattern()
@@ -1139,12 +1143,12 @@ var CGUI = function () {
     return false
   }
 
-  var patternNoteUpMouseDown = function (e) {
+  const patternNoteUpMouseDown = function (e) {
     if (mSeqRow === mSeqRow2 && mSeqCol === mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1
+      const pat = mSong.songData[mSeqCol].p[mSeqRow] - 1
       if (pat >= 0) {
-        for (var row = mPatternRow; row <= mPatternRow2; ++row) {
-          var n = mSong.songData[mSeqCol].c[pat].n[row]
+        for (let row = mPatternRow; row <= mPatternRow2; ++row) {
+          const n = mSong.songData[mSeqCol].c[pat].n[row]
           if (n > 0) {
             mSong.songData[mSeqCol].c[pat].n[row] = n + 1
           }
@@ -1155,12 +1159,12 @@ var CGUI = function () {
     return false
   }
 
-  var patternNoteDownMouseDown = function (e) {
+  const patternNoteDownMouseDown = function (e) {
     if (mSeqRow === mSeqRow2 && mSeqCol === mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1
+      const pat = mSong.songData[mSeqCol].p[mSeqRow] - 1
       if (pat >= 0) {
-        for (var row = mPatternRow; row <= mPatternRow2; ++row) {
-          var n = mSong.songData[mSeqCol].c[pat].n[row]
+        for (let row = mPatternRow; row <= mPatternRow2; ++row) {
+          const n = mSong.songData[mSeqCol].c[pat].n[row]
           if (n > 1) {
             mSong.songData[mSeqCol].c[pat].n[row] = n - 1
           }
@@ -1171,12 +1175,12 @@ var CGUI = function () {
     return false
   }
 
-  var patternOctaveUpMouseDown = function (e) {
+  const patternOctaveUpMouseDown = function (e) {
     if (mSeqRow === mSeqRow2 && mSeqCol === mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1
+      const pat = mSong.songData[mSeqCol].p[mSeqRow] - 1
       if (pat >= 0) {
-        for (var row = mPatternRow; row <= mPatternRow2; ++row) {
-          var n = mSong.songData[mSeqCol].c[pat].n[row]
+        for (let row = mPatternRow; row <= mPatternRow2; ++row) {
+          const n = mSong.songData[mSeqCol].c[pat].n[row]
           if (n > 0) {
             mSong.songData[mSeqCol].c[pat].n[row] = n + 12
           }
@@ -1187,12 +1191,12 @@ var CGUI = function () {
     return false
   }
 
-  var patternOctaveDownMouseDown = function (e) {
+  const patternOctaveDownMouseDown = function (e) {
     if (mSeqRow === mSeqRow2 && mSeqCol === mSeqCol2) {
-      var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1
+      const pat = mSong.songData[mSeqCol].p[mSeqRow] - 1
       if (pat >= 0) {
-        for (var row = mPatternRow; row <= mPatternRow2; ++row) {
-          var n = mSong.songData[mSeqCol].c[pat].n[row]
+        for (let row = mPatternRow; row <= mPatternRow2; ++row) {
+          const n = mSong.songData[mSeqCol].c[pat].n[row]
           if (n > 1) {
             mSong.songData[mSeqCol].c[pat].n[row] = n - 12
           }
@@ -1203,11 +1207,11 @@ var CGUI = function () {
     return false
   }
 
-  var sequencerCopyMouseDown = function (e) {
+  const sequencerCopyMouseDown = function (e) {
     mSeqCopyBuffer = []
-    for (var row = mSeqRow; row <= mSeqRow2; ++row) {
-      var arr = []
-      for (var col = mSeqCol; col <= mSeqCol2; ++col) {
+    for (let row = mSeqRow; row <= mSeqRow2; ++row) {
+      const arr = []
+      for (let col = mSeqCol; col <= mSeqCol2; ++col) {
         arr.push(mSong.songData[col].p[row])
       }
       mSeqCopyBuffer.push(arr)
@@ -1215,9 +1219,9 @@ var CGUI = function () {
     return false
   }
 
-  var sequencerPasteMouseDown = function (e) {
-    for (var row = mSeqRow, i = 0; row < 48 && i < mSeqCopyBuffer.length; ++row, ++i) {
-      for (var col = mSeqCol, j = 0; col < 8 && j < mSeqCopyBuffer[i].length; ++col, ++j) {
+  const sequencerPasteMouseDown = function (e) {
+    for (let row = mSeqRow, i = 0; row < 48 && i < mSeqCopyBuffer.length; ++row, ++i) {
+      for (let col = mSeqCol, j = 0; col < 8 && j < mSeqCopyBuffer[i].length; ++col, ++j) {
         mSong.songData[col].p[row] = mSeqCopyBuffer[i][j]
       }
     }
@@ -1225,10 +1229,10 @@ var CGUI = function () {
     return false
   }
 
-  var sequencerPatUpMouseDown = function (e) {
-    for (var row = mSeqRow; row <= mSeqRow2; ++row) {
-      for (var col = mSeqCol; col <= mSeqCol2; ++col) {
-        var pat = mSong.songData[col].p[row]
+  const sequencerPatUpMouseDown = function (e) {
+    for (let row = mSeqRow; row <= mSeqRow2; ++row) {
+      for (let col = mSeqCol; col <= mSeqCol2; ++col) {
+        const pat = mSong.songData[col].p[row]
         if (pat < 10) {
           mSong.songData[col].p[row] = pat + 1
         }
@@ -1238,10 +1242,10 @@ var CGUI = function () {
     return false
   }
 
-  var sequencerPatDownMouseDown = function (e) {
-    for (var row = mSeqRow; row <= mSeqRow2; ++row) {
-      for (var col = mSeqCol; col <= mSeqCol2; ++col) {
-        var pat = mSong.songData[col].p[row]
+  const sequencerPatDownMouseDown = function (e) {
+    for (let row = mSeqRow; row <= mSeqRow2; ++row) {
+      for (let col = mSeqCol; col <= mSeqCol2; ++col) {
+        const pat = mSong.songData[col].p[row]
         if (pat > 0) {
           mSong.songData[col].p[row] = pat - 1
         }
@@ -1251,10 +1255,10 @@ var CGUI = function () {
     return false
   }
 
-  var boxMouseDown = function (e) {
+  const boxMouseDown = function (e) {
     if (mSeqCol === mSeqCol2) {
       if (!e) { e = window.event }
-      var o = getEventElement(e)
+      const o = getEventElement(e)
       if (o.id === 'osc1_xenv') { mSong.songData[mSeqCol].osc1_xenv = mSong.songData[mSeqCol].osc1_xenv ? 0 : 1 } else if (o.id === 'osc2_xenv') { mSong.songData[mSeqCol].osc2_xenv = mSong.songData[mSeqCol].osc2_xenv ? 0 : 1 } else if (o.id === 'lfo_o1fm') { mSong.songData[mSeqCol].lfo_osc1_freq = mSong.songData[mSeqCol].lfo_osc1_freq ? 0 : 1 } else if (o.id === 'lfo_fxfreq') { mSong.songData[mSeqCol].lfo_fx_freq = mSong.songData[mSeqCol].lfo_fx_freq ? 0 : 1 }
       updateInstrument(true)
       unfocusHTMLInputElements()
@@ -1263,11 +1267,11 @@ var CGUI = function () {
     return true
   }
 
-  var osc1WaveMouseDown = function (e) {
+  const osc1WaveMouseDown = function (e) {
     if (mSeqCol === mSeqCol2) {
       if (!e) { e = window.event }
-      var o = getEventElement(e)
-      var wave = 0
+      const o = getEventElement(e)
+      let wave = 0
       if (o.id === 'osc1_wave_sin') wave = 0
       else if (o.id === 'osc1_wave_sqr') wave = 1
       else if (o.id === 'osc1_wave_saw') wave = 2
@@ -1280,11 +1284,11 @@ var CGUI = function () {
     return true
   }
 
-  var osc2WaveMouseDown = function (e) {
+  const osc2WaveMouseDown = function (e) {
     if (mSeqCol === mSeqCol2) {
       if (!e) { e = window.event }
-      var o = getEventElement(e)
-      var wave = 0
+      const o = getEventElement(e)
+      let wave = 0
       if (o.id === 'osc2_wave_sin') wave = 0
       else if (o.id === 'osc2_wave_sqr') wave = 1
       else if (o.id === 'osc2_wave_saw') wave = 2
@@ -1297,11 +1301,11 @@ var CGUI = function () {
     return true
   }
 
-  var lfoWaveMouseDown = function (e) {
+  const lfoWaveMouseDown = function (e) {
     if (mSeqCol === mSeqCol2) {
       if (!e) { e = window.event }
-      var o = getEventElement(e)
-      var wave = 0
+      const o = getEventElement(e)
+      let wave = 0
       if (o.id === 'lfo_wave_sin') wave = 0
       else if (o.id === 'lfo_wave_sqr') wave = 1
       else if (o.id === 'lfo_wave_saw') wave = 2
@@ -1314,11 +1318,11 @@ var CGUI = function () {
     return true
   }
 
-  var fxFiltMouseDown = function (e) {
+  const fxFiltMouseDown = function (e) {
     if (mSeqCol === mSeqCol2) {
       if (!e) { e = window.event }
-      var o = getEventElement(e)
-      var filt = 0
+      const o = getEventElement(e)
+      let filt = 0
       if (o.id === 'fx_filt_hp') filt = 1
       else if (o.id === 'fx_filt_lp') filt = 2
       else if (o.id === 'fx_filt_bp') filt = 3
@@ -1331,7 +1335,7 @@ var CGUI = function () {
     return true
   }
 
-  var octaveUp = function (e) {
+  const octaveUp = function (e) {
     if (mKeyboardOctave < 8) {
       mKeyboardOctave++
       document.getElementById('keyboardOctave').innerHTML = '' + mKeyboardOctave
@@ -1339,7 +1343,7 @@ var CGUI = function () {
     return false
   }
 
-  var octaveDown = function (e) {
+  const octaveDown = function (e) {
     if (mKeyboardOctave > 1) {
       mKeyboardOctave--
       document.getElementById('keyboardOctave').innerHTML = '' + mKeyboardOctave
@@ -1347,16 +1351,16 @@ var CGUI = function () {
     return false
   }
 
-  var selectPreset = function (e) {
+  const selectPreset = function (e) {
     if (mSeqCol === mSeqCol2) {
       if (!e) { e = window.event }
-      var o = getEventElement(e)
-      var val = o.options[o.selectedIndex].value
+      const o = getEventElement(e)
+      let val = o.options[o.selectedIndex].value
       if (val !== '') {
         val = parseInt(val, 10)
         if (val) {
           // Clone instrument settings
-          var src = gInstrumentPresets[val]
+          const src = gInstrumentPresets[val]
           applyInstrument(src, mSong.songData[mSeqCol])
 
           updateInstrument(false)
@@ -1367,7 +1371,7 @@ var CGUI = function () {
     return true
   }
 
-  var applyInstrument = function (src, to) {
+  const applyInstrument = function (src, to) {
     to.osc1_oct = src.osc1_oct
     to.osc1_det = src.osc1_det
     to.osc1_detune = src.osc1_detune
@@ -1399,20 +1403,20 @@ var CGUI = function () {
     to.lfo_waveform = src.lfo_waveform
   }
 
-  var importInstrument = function () {
+  const importInstrument = function () {
     if (mSeqCol !== mSeqCol2 || mSeqCol < 0 || mSeqCol >= mSong.songData.length) { return }
-    var instr = mSong.songData[mSeqCol]
+    const instr = mSong.songData[mSeqCol]
 
-    var parent = document.getElementById('dialog')
+    const parent = document.getElementById('dialog')
     parent.innerHTML = ''
 
     // Create dialog content
-    var o
+    let o
     o = document.createElement('h3')
     parent.appendChild(o)
     o.appendChild(document.createTextNode('Import instrument in JSON'))
     parent.appendChild(document.createElement('br'))
-    var el = $('<textarea id="jsonTextArea" style="width: 200px; height: 100px"></textarea>')
+    let el = $('<textarea id="jsonTextArea" style="width: 200px; height: 100px"></textarea>')
     o = el[0]
     parent.appendChild(o)
     parent.appendChild(document.createElement('br'))
@@ -1424,8 +1428,8 @@ var CGUI = function () {
     o = el[0]
     parent.appendChild(o)
     $('#jsonImportButton').click(function () {
-      var json = $('#jsonTextArea').val()
-      var src = JSON.parse(json)
+      const json = $('#jsonTextArea').val()
+      const src = JSON.parse(json)
       applyInstrument(src, instr)
       updateInstrument(false)
       hideDialog()
@@ -1437,15 +1441,15 @@ var CGUI = function () {
     showDialog()
   }
 
-  var keyboardMouseDown = function (e) {
+  const keyboardMouseDown = function (e) {
     if (!e) { e = window.event }
-    var p = getMousePos(e, true)
+    const p = getMousePos(e, true)
 
     // Calculate keyboard position
-    var n = 0
+    let n = 0
     if (p[1] < 67) {
       // Possible black key
-      for (var i = 0; i < mBlackKeyPos.length; i += 2) {
+      for (let i = 0; i < mBlackKeyPos.length; i += 2) {
         if (p[0] >= (mBlackKeyPos[i] - 5) &&
             p[0] <= (mBlackKeyPos[i] + 5)) {
           n = mBlackKeyPos[i + 1]
@@ -1456,7 +1460,7 @@ var CGUI = function () {
     if (!n) {
       // Must be a white key
       n = Math.floor((p[0] * 21) / 475) * 2
-      var comp = 0
+      let comp = 0
       if (n >= 36) comp++
       if (n >= 28) comp++
       if (n >= 22) comp++
@@ -1474,10 +1478,10 @@ var CGUI = function () {
     }
   }
 
-  var patternMouseDown = function (e) {
+  const patternMouseDown = function (e) {
     if (!e) { e = window.event }
     if (!mFollowerActive) {
-      var o = getEventElement(e)
+      const o = getEventElement(e)
       setSelectedPatternRow(parseInt(o.id.slice(2), 10))
       mSelectingPatternRange = true
     }
@@ -1485,20 +1489,20 @@ var CGUI = function () {
     return false
   }
 
-  var patternMouseOver = function (e) {
+  const patternMouseOver = function (e) {
     if (mSelectingPatternRange) {
       if (!e) { e = window.event }
-      var o = getEventElement(e)
+      const o = getEventElement(e)
       setSelectedPatternRow2(parseInt(o.id.slice(2), 10))
       return false
     }
     return true
   }
 
-  var patternMouseUp = function (e) {
+  const patternMouseUp = function (e) {
     if (mSelectingPatternRange) {
       if (!e) { e = window.event }
-      var o = getEventElement(e)
+      const o = getEventElement(e)
       setSelectedPatternRow2(parseInt(o.id.slice(2), 10))
       mSelectingPatternRange = false
       return false
@@ -1506,13 +1510,13 @@ var CGUI = function () {
     return true
   }
 
-  var sequencerMouseDown = function (e) {
+  const sequencerMouseDown = function (e) {
     if (!e) { e = window.event }
-    var o = getEventElement(e)
-    var col = parseInt(o.id.slice(2, 3), 10)
-    var row
+    const o = getEventElement(e)
+    const col = parseInt(o.id.slice(2, 3), 10)
+    let row
     if (!mFollowerActive) { row = parseInt(o.id.slice(4), 10) } else { row = mSeqRow }
-    var newChannel = col !== mSeqCol || mSeqCol !== mSeqCol2
+    const newChannel = col !== mSeqCol || mSeqCol !== mSeqCol2
     setSelectedSequencerCell(col, row)
     if (!mFollowerActive) { mSelectingSeqRange = true }
     setEditMode(EDIT_SEQUENCE)
@@ -1521,12 +1525,12 @@ var CGUI = function () {
     return false
   }
 
-  var sequencerMouseOver = function (e) {
+  const sequencerMouseOver = function (e) {
     if (mSelectingSeqRange) {
       if (!e) { e = window.event }
-      var o = getEventElement(e)
-      var col = parseInt(o.id.slice(2, 3), 10)
-      var row = parseInt(o.id.slice(4), 10)
+      const o = getEventElement(e)
+      const col = parseInt(o.id.slice(2, 3), 10)
+      const row = parseInt(o.id.slice(4), 10)
       setSelectedSequencerCell2(col, row)
       updatePattern()
       updateInstrument(true)
@@ -1535,13 +1539,13 @@ var CGUI = function () {
     return true
   }
 
-  var sequencerMouseUp = function (e) {
+  const sequencerMouseUp = function (e) {
     if (mSelectingSeqRange) {
       if (!e) { e = window.event }
-      var o = getEventElement(e)
-      var col = parseInt(o.id.slice(2, 3), 10)
-      var row = parseInt(o.id.slice(4), 10)
-      var newChannel = col !== mSeqCol2 || mSeqCol !== mSeqCol2
+      const o = getEventElement(e)
+      const col = parseInt(o.id.slice(2, 3), 10)
+      const row = parseInt(o.id.slice(4), 10)
+      const newChannel = col !== mSeqCol2 || mSeqCol !== mSeqCol2
       setSelectedSequencerCell2(col, row)
       mSelectingSeqRange = false
       updatePattern()
@@ -1551,9 +1555,9 @@ var CGUI = function () {
     return true
   }
 
-  var mActiveSlider = null
+  let mActiveSlider = null
 
-  var sliderMouseDown = function (e) {
+  const sliderMouseDown = function (e) {
     if (mSeqCol === mSeqCol2) {
       if (!e) { e = window.event }
       mActiveSlider = getEventElement(e)
@@ -1563,27 +1567,27 @@ var CGUI = function () {
     return true
   }
 
-  var mouseMove = function (e) {
+  const mouseMove = function (e) {
     if (!e) { e = window.event }
 
     // Handle slider?
     if (mActiveSlider) {
       // Calculate slider position
-      var pos = getMousePos(e, false)
-      var origin = getElementPos(mActiveSlider.parentNode)
-      var x = pos[0] - 6 - origin[0]
+      const pos = getMousePos(e, false)
+      const origin = getElementPos(mActiveSlider.parentNode)
+      let x = pos[0] - 6 - origin[0]
       x = x < 0 ? 0 : (x > 191 ? 1 : (x / 191))
 
       // Adapt to the range of the slider
       if (mActiveSlider.sliderProps.nonLinear) {
         x = x * x
       }
-      var min = mActiveSlider.sliderProps.min
-      var max = mActiveSlider.sliderProps.max
+      const min = mActiveSlider.sliderProps.min
+      const max = mActiveSlider.sliderProps.max
       x = Math.round(min + ((max - min) * x))
 
       // Update the song property
-      var instr = mSong.songData[mSeqCol]
+      const instr = mSong.songData[mSeqCol]
       if (mActiveSlider.id === 'osc1_vol') instr.osc1_vol = x
       else if (mActiveSlider.id === 'osc1_oct') instr.osc1_oct = x
       else if (mActiveSlider.id === 'osc1_semi') instr.osc1_det = x
@@ -1614,7 +1618,7 @@ var CGUI = function () {
     return true
   }
 
-  var mouseUp = function (e) {
+  const mouseUp = function (e) {
     if (mActiveSlider) {
       mActiveSlider = null
       return false
@@ -1622,10 +1626,10 @@ var CGUI = function () {
     return true
   }
 
-  var keyDown = function (e) {
+  const keyDown = function (e) {
     if (!e) { e = window.event }
 
-    var row, col, n
+    let row, col, n
 
     // Sequencer editing
     if (mEditMode === EDIT_SEQUENCE &&
@@ -1774,7 +1778,7 @@ var CGUI = function () {
           return false
         } else if (mEditMode === EDIT_PATTERN) {
           if (mSeqRow === mSeqRow2 && mSeqCol === mSeqCol2) {
-            var pat = mSong.songData[mSeqCol].p[mSeqRow] - 1
+            const pat = mSong.songData[mSeqCol].p[mSeqRow] - 1
             if (pat >= 0) {
               for (row = mPatternRow; row <= mPatternRow2; ++row) {
                 mSong.songData[mSeqCol].c[pat].n[row] = 0
@@ -1797,7 +1801,7 @@ var CGUI = function () {
     return true
   }
 
-  var activateMasterEvents = function () {
+  const activateMasterEvents = function () {
     // Set up the master mouse event handlers
     document.onmousedown = null
     document.onmousemove = mouseMove
@@ -1807,7 +1811,7 @@ var CGUI = function () {
     document.onkeydown = keyDown
   }
 
-  var deactivateMasterEvents = function () {
+  const deactivateMasterEvents = function () {
     // Set up the master mouse event handlers
     document.onmousedown = function () { return true }
     document.onmousemove = null
@@ -1822,7 +1826,7 @@ var CGUI = function () {
   // --------------------------------------------------------------------------
 
   this.init = function () {
-    var i, j, o
+    let i, j, o
 
     // Preload images
     preloadImage(progressPng)
@@ -1890,10 +1894,10 @@ var CGUI = function () {
       mAudio = null
     }
 
-    var fragment = new URI().fragment() || ''
+    const fragment = new URI().fragment() || ''
     if (fragment) {
-      var json = LZString.decompressFromBase64(URI.decode(fragment))
-      var song = JSON.parse(json)
+      const json = LZString.decompressFromBase64(URI.decode(fragment))
+      const song = JSON.parse(json)
       newSong(song)
     } else {
       newSong()
@@ -2001,10 +2005,10 @@ var CGUI = function () {
 // Program start
 // ------------------------------------------------------------------------------
 
-var gui_init = function () {
+const gui_init = function () {
   try {
     // Create a global GUI object, and initialize it
-    var gGui = new CGUI()
+    const gGui = new CGUI()
     gGui.init()
   } catch (err) {
     alert('Unexpected error: ' + err.message)
@@ -2015,13 +2019,13 @@ export { gui_init }
 
 // Get n samples of wave data at time t [s]. Wave data in range [-2,2].
 function getData (audioGenerator, t, n) {
-  var i = 2 * Math.floor(t * 44100)
-  var d = new Array(n)
-  var mixBuf = audioGenerator.mixBuf
-  for (var j = 0; j < 2 * n; j += 1) {
-    var k = i + j
-    var pos = k * 2
-    var val
+  const i = 2 * Math.floor(t * 44100)
+  const d = new Array(n)
+  const mixBuf = audioGenerator.mixBuf
+  for (let j = 0; j < 2 * n; j += 1) {
+    const k = i + j
+    const pos = k * 2
+    let val
     if (pos < mixBuf.length) {
       val = (4 * (mixBuf[pos] + (mixBuf[pos + 1] << 8) - 32768)) / 32768
     } else {
