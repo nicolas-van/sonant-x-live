@@ -721,6 +721,10 @@ const CGUI = function () {
     delete instr.c
 
     const dataURI = 'data:text/javascript;base64,' + btoa(JSON.stringify(instr, null, '    '))
+    const link = document.createElement('a')
+    link.setAttribute('download', 'sonant-x-export-instrument.json')
+    link.setAttribute('href', dataURI)
+    document.body.appendChild(link)
     window.open(dataURI)
   }
 
