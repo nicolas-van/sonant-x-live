@@ -787,7 +787,20 @@ var CGUI = function()
 
     // Generate JS song data
     var dataURI = "data:text/javascript;base64," + btoa(songToJSON(mSong, true));
-    window.open(dataURI);
+    var link = document.createElement('a');
+    link.setAttribute('download', 'sonant-x-export.json');
+    link.setAttribute('href', dataURI);
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(
+      function()
+      {
+        // Wait 1000ms before removing the link
+        // This gives IE11 enough time to process the download (it will fail if the link is removed)
+        document.body.removeChild(link);
+      },
+      1000
+    );
     return false;
   };
 
