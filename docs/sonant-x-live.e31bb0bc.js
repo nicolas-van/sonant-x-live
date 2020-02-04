@@ -9942,9 +9942,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 // -*- mode: javascript; tab-width: 2; indent-tabs-mode: nil; -*-
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 // Sonant Live
 //   A music tracker for the web.
 //
@@ -9970,9 +9970,9 @@ exports.default = void 0;
 //    distribution.
 // Instrument presets
 var _default = [{
-  name: "====[LEADS]===="
+  name: '====[LEADS]===='
 }, {
-  name: "Softy",
+  name: 'Softy',
   osc1_oct: 7,
   osc1_det: 0,
   osc1_detune: 0,
@@ -10003,7 +10003,7 @@ var _default = [{
   lfo_amt: 195,
   lfo_waveform: 0
 }, {
-  name: "Classic 8-bit",
+  name: 'Classic 8-bit',
   osc1_oct: 7,
   osc1_det: 0,
   osc1_detune: 0,
@@ -10034,7 +10034,7 @@ var _default = [{
   lfo_amt: 69,
   lfo_waveform: 0
 }, {
-  name: "Square",
+  name: 'Square',
   osc1_oct: 7,
   osc1_det: 0,
   osc1_detune: 0,
@@ -10065,7 +10065,7 @@ var _default = [{
   lfo_amt: 0,
   lfo_waveform: 0
 }, {
-  name: "Bell",
+  name: 'Bell',
   osc1_oct: 9,
   osc1_det: 0,
   osc1_detune: 0,
@@ -10096,9 +10096,9 @@ var _default = [{
   lfo_amt: 0,
   lfo_waveform: 0
 }, {
-  name: "====[PADS]===="
+  name: '====[PADS]===='
 }, {
-  name: "Base string",
+  name: 'Base string',
   osc1_oct: 7,
   osc1_det: 0,
   osc1_detune: 0,
@@ -10129,9 +10129,9 @@ var _default = [{
   lfo_amt: 0,
   lfo_waveform: 0
 }, {
-  name: "====[DRUMS]===="
+  name: '====[DRUMS]===='
 }, {
-  name: "Bass drum 1",
+  name: 'Bass drum 1',
   osc1_oct: 7,
   osc1_det: 0,
   osc1_detune: 0,
@@ -10162,7 +10162,7 @@ var _default = [{
   lfo_amt: 0,
   lfo_waveform: 0
 }, {
-  name: "Bass drum 2",
+  name: 'Bass drum 2',
   osc1_oct: 7,
   osc1_det: 0,
   osc1_detune: 0,
@@ -10193,7 +10193,7 @@ var _default = [{
   lfo_amt: 0,
   lfo_waveform: 0
 }, {
-  name: "Bass drum 3",
+  name: 'Bass drum 3',
   osc1_oct: 6,
   osc1_det: 0,
   osc1_detune: 0,
@@ -10224,7 +10224,7 @@ var _default = [{
   lfo_amt: 0,
   lfo_waveform: 0
 }, {
-  name: "Snare 1",
+  name: 'Snare 1',
   osc1_oct: 8,
   osc1_det: 0,
   osc1_detune: 0,
@@ -10255,7 +10255,7 @@ var _default = [{
   lfo_amt: 60,
   lfo_waveform: 0
 }, {
-  name: "Snare 2",
+  name: 'Snare 2',
   osc1_oct: 8,
   osc1_det: 0,
   osc1_detune: 0,
@@ -10286,7 +10286,7 @@ var _default = [{
   lfo_amt: 64,
   lfo_waveform: 0
 }, {
-  name: "Hihat 1",
+  name: 'Hihat 1',
   osc1_oct: 8,
   osc1_det: 0,
   osc1_detune: 0,
@@ -10317,7 +10317,7 @@ var _default = [{
   lfo_amt: 0,
   lfo_waveform: 0
 }, {
-  name: "Hihat 2",
+  name: 'Hihat 2',
   osc1_oct: 8,
   osc1_det: 0,
   osc1_detune: 0,
@@ -10348,7 +10348,7 @@ var _default = [{
   lfo_amt: 187,
   lfo_waveform: 0
 }, {
-  name: "Smash",
+  name: 'Smash',
   osc1_oct: 5,
   osc1_det: 0,
   osc1_detune: 0,
@@ -10379,7 +10379,7 @@ var _default = [{
   lfo_amt: 231,
   lfo_waveform: 0
 }, {
-  name: "Pipe hit",
+  name: 'Pipe hit',
   osc1_oct: 7,
   osc1_det: 0,
   osc1_detune: 0,
@@ -10410,9 +10410,9 @@ var _default = [{
   lfo_amt: 96,
   lfo_waveform: 0
 }, {
-  name: "====[F/X]===="
+  name: '====[F/X]===='
 }, {
-  name: "Wind",
+  name: 'Wind',
   osc1_oct: 8,
   osc1_det: 0,
   osc1_detune: 0,
@@ -16073,9 +16073,9 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 // -*- mode: javascript; tab-width: 2; indent-tabs-mode: nil; -*-
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 // Sonant Live
 //   A music tracker for the web.
 //
@@ -16099,31 +16099,31 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 // 3. This notice may not be removed or altered from any source
 //    distribution.
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 // Local classes for easy access to binary data
-//------------------------------------------------------------------------------
-var audioCtx = window.AudioContext ? new AudioContext() : null; //------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+var audioCtx = window.AudioContext ? new AudioContext() : null; // ------------------------------------------------------------------------------
 // GUI class
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 
 var CGUI = function CGUI() {
   // Edit modes
-  var EDIT_NONE = 0,
-      EDIT_SEQUENCE = 1,
-      EDIT_PATTERN = 2; // Edit/gui state
+  var EDIT_NONE = 0;
+  var EDIT_SEQUENCE = 1;
+  var EDIT_PATTERN = 2; // Edit/gui state
 
-  var mEditMode = EDIT_SEQUENCE,
-      mKeyboardOctave = 5,
-      mPatternRow = 0,
-      mPatternRow2 = 0,
-      mSeqCol = 0,
-      mSeqRow = 0,
-      mSeqCol2 = 0,
-      mSeqRow2 = 0,
-      mSelectingSeqRange = false,
-      mSelectingPatternRange = false,
-      mSeqCopyBuffer = [],
-      mPatCopyBuffer = []; // Resources
+  var mEditMode = EDIT_SEQUENCE;
+  var mKeyboardOctave = 5;
+  var mPatternRow = 0;
+  var mPatternRow2 = 0;
+  var mSeqCol = 0;
+  var mSeqRow = 0;
+  var mSeqCol2 = 0;
+  var mSeqRow2 = 0;
+  var mSelectingSeqRange = false;
+  var mSelectingPatternRange = false;
+  var mSeqCopyBuffer = [];
+  var mPatCopyBuffer = []; // Resources
 
   var mSong = {};
   var mAudio = null;
@@ -16135,9 +16135,9 @@ var CGUI = function CGUI() {
   var mNoteNames = ['C-', 'C#', 'D-', 'D#', 'E-', 'F-', 'F#', 'G-', 'G#', 'A-', 'A#', 'B-'];
   var mBlackKeyPos = [20, 1, 46, 3, 72, 5, 110, 8, 138, 10, 178, 13, 204, 15, 230, 17, 270, 20, 298, 22, 338, 25, 364, 27, 390, 29, 428, 32, 456, 34]; // Prealoaded resources
 
-  var mPreload = []; //--------------------------------------------------------------------------
+  var mPreload = []; // --------------------------------------------------------------------------
   // Song import/export functions
-  //--------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 
   var calcSongLength = function calcSongLength(song) {
     return Math.round((song.endPattern * 32 + 8) * song.rowLen / 44100);
@@ -16212,7 +16212,9 @@ var CGUI = function CGUI() {
 
 
       for (j = 0; j < 48; j++) {
-        if (instr.p[j] === undefined) instr.p[j] = 0;
+        if (instr.p[j] === undefined) {
+          instr.p[j] = 0;
+        }
       } // Columns
 
 
@@ -16220,14 +16222,14 @@ var CGUI = function CGUI() {
         var col = instr.c[j];
 
         if (col === undefined) {
-          var col = {};
-          col.n = [];
+          var col2 = {};
+          col2.n = [];
 
           for (k = 0; k < 32; k++) {
-            col.n[k] = 0;
+            col2.n[k] = 0;
           }
 
-          instr.c[j] = col;
+          instr.c[j] = col2;
         }
       }
     } // Calculate song length (not really part of the binary song data)
@@ -16245,7 +16247,9 @@ var CGUI = function CGUI() {
       var usedIndex = {}; // search the last pattern and listing all patterns
 
       _underscore.default.each(d.p, function (p, i) {
-        if (p !== 0) lastNotZero = i;
+        if (p !== 0) {
+          lastNotZero = i;
+        }
 
         if (usedIndex[p] === undefined) {
           used.push(p);
@@ -16269,10 +16273,10 @@ var CGUI = function CGUI() {
 
   var songToJSON = function songToJSON(song, pretty) {
     var csong = compressSong(song);
-    return JSON.stringify(csong, null, pretty ? "    " : undefined);
-  }; //--------------------------------------------------------------------------
+    return JSON.stringify(csong, null, pretty ? '    ' : undefined);
+  }; // --------------------------------------------------------------------------
   // Helper functions
-  //--------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 
 
   var preloadImage = function preloadImage(url) {
@@ -16282,21 +16286,21 @@ var CGUI = function CGUI() {
   };
 
   var initPresets = function initPresets() {
-    var parent = document.getElementById("instrPreset");
+    var parent = document.getElementById('instrPreset');
     var o, instr;
 
     for (var i = 0; i < _presets.default.length; ++i) {
       instr = _presets.default[i];
-      o = document.createElement("option");
-      o.value = instr.osc1_oct ? "" + i : "";
+      o = document.createElement('option');
+      o.value = instr.osc1_oct ? '' + i : '';
       o.appendChild(document.createTextNode(instr.name));
       parent.appendChild(o);
     }
   };
 
   var getElementPos = function getElementPos(o) {
-    var left = 0,
-        top = 0;
+    var left = 0;
+    var top = 0;
 
     if (o.offsetParent) {
       do {
@@ -16311,10 +16315,21 @@ var CGUI = function CGUI() {
 
   var getEventElement = function getEventElement(e) {
     var o = null;
-    if (!e) e = window.event;
-    if (e.target) o = e.target;else if (e.srcElement) o = e.srcElement;
-    if (o.nodeType === 3) // defeat Safari bug
+
+    if (!e) {
+      e = window.event;
+    }
+
+    if (e.target) {
+      o = e.target;
+    } else if (e.srcElement) {
+      o = e.srcElement;
+    }
+
+    if (o.nodeType === 3) {
       o = o.parentNode;
+    }
+
     return o;
   };
 
@@ -16335,15 +16350,15 @@ var CGUI = function CGUI() {
   };
 
   var unfocusHTMLInputElements = function unfocusHTMLInputElements() {
-    document.getElementById("bpm").blur();
-    document.getElementById("instrPreset").blur();
+    document.getElementById('bpm').blur();
+    document.getElementById('instrPreset').blur();
   };
 
   var setEditMode = function setEditMode(mode) {
     mEditMode = mode; // Set the style for the different edit sections
 
-    document.getElementById("sequencer").className = mEditMode === EDIT_SEQUENCE ? "edit" : "";
-    document.getElementById("pattern").className = mEditMode === EDIT_PATTERN ? "edit" : ""; // Unfocus any focused input elements
+    document.getElementById('sequencer').className = mEditMode === EDIT_SEQUENCE ? 'edit' : '';
+    document.getElementById('pattern').className = mEditMode === EDIT_PATTERN ? 'edit' : ''; // Unfocus any focused input elements
 
     if (mEditMode !== EDIT_NONE) {
       unfocusHTMLInputElements();
@@ -16352,7 +16367,7 @@ var CGUI = function CGUI() {
 
   var updateSongInfo = function updateSongInfo() {
     var bpm = getBPM();
-    document.getElementById("bpm").value = bpm;
+    document.getElementById('bpm').value = bpm;
   };
 
   var updateSequencer = function updateSequencer(scrollIntoView, selectionOnly) {
@@ -16360,23 +16375,32 @@ var CGUI = function CGUI() {
 
     for (var i = 0; i < 48; ++i) {
       for (var j = 0; j < 8; ++j) {
-        o = document.getElementById("sc" + j + "r" + i);
+        o = document.getElementById('sc' + j + 'r' + i);
 
         if (!selectionOnly) {
           var pat = mSong.songData[j].p[i];
-          if (pat > 0) o.innerHTML = "" + (pat - 1);else o.innerHTML = "";
+
+          if (pat > 0) {
+            o.innerHTML = '' + (pat - 1);
+          } else {
+            o.innerHTML = '';
+          }
         }
 
-        if (i >= mSeqRow && i <= mSeqRow2 && j >= mSeqCol && j <= mSeqCol2) o.className = "selected";else o.className = "";
+        if (i >= mSeqRow && i <= mSeqRow2 && j >= mSeqCol && j <= mSeqCol2) {
+          o.className = 'selected';
+        } else {
+          o.className = '';
+        }
       }
     } // Scroll the row into view? (only when needed)
 
 
     if (scrollIntoView) {
-      o = document.getElementById("spr" + mSeqRow);
+      o = document.getElementById('spr' + mSeqRow);
 
       if (o.scrollIntoView) {
-        var so = document.getElementById("sequencer");
+        var so = document.getElementById('sequencer');
         var oy = o.offsetTop - so.scrollTop;
         if (oy < 0 || oy + 10 > so.offsetHeight) o.scrollIntoView(oy < 0);
       }
@@ -16387,17 +16411,25 @@ var CGUI = function CGUI() {
     var singlePattern = mSeqCol === mSeqCol2 && mSeqRow === mSeqRow2;
 
     for (var i = 0; i < 32; ++i) {
-      var noteName = "";
+      var noteName = '';
       var pat = singlePattern ? mSong.songData[mSeqCol].p[mSeqRow] - 1 : -1;
 
       if (pat >= 0) {
         var n = mSong.songData[mSeqCol].c[pat].n[i] - 87;
-        if (n > 0) noteName = mNoteNames[n % 12] + Math.floor(n / 12);
+
+        if (n > 0) {
+          noteName = mNoteNames[n % 12] + Math.floor(n / 12);
+        }
       }
 
-      var o = document.getElementById("pr" + i);
+      var o = document.getElementById('pr' + i);
       o.innerHTML = noteName;
-      if (i >= mPatternRow && i <= mPatternRow2) o.className = "selected";else o.className = "";
+
+      if (i >= mPatternRow && i <= mPatternRow2) {
+        o.className = 'selected';
+      } else {
+        o.className = '';
+      }
     }
   };
 
@@ -16406,8 +16438,13 @@ var CGUI = function CGUI() {
     mPatternRow2 = row;
 
     for (var i = 0; i < 32; ++i) {
-      var o = document.getElementById("pr" + i);
-      if (i === row) o.className = "selected";else o.className = "";
+      var o = document.getElementById('pr' + i);
+
+      if (i === row) {
+        o.className = 'selected';
+      } else {
+        o.className = '';
+      }
     }
   };
 
@@ -16415,8 +16452,13 @@ var CGUI = function CGUI() {
     mPatternRow2 = row >= mPatternRow ? row : mPatternRow;
 
     for (var i = 0; i < 32; ++i) {
-      var o = document.getElementById("pr" + i);
-      if (i >= mPatternRow && i <= mPatternRow2) o.className = "selected";else o.className = "";
+      var o = document.getElementById('pr' + i);
+
+      if (i >= mPatternRow && i <= mPatternRow2) {
+        o.className = 'selected';
+      } else {
+        o.className = '';
+      }
     }
   };
 
@@ -16436,7 +16478,7 @@ var CGUI = function CGUI() {
 
   var addPatternNote = function addPatternNote(n) {
     // playNote
-    if (mSong && mSeqCol === mSeqCol && mSong.songData[mSeqCol] && mSong.rowLen) {
+    if (mSong && mSong.songData[mSeqCol] && mSong.rowLen) {
       var sg = new sonantx.SoundGenerator(mSong.songData[mSeqCol], mSong.rowLen);
 
       if (!audioCtx) {
@@ -16480,7 +16522,7 @@ var CGUI = function CGUI() {
       pos = Math.sqrt(pos);
     }
 
-    o.style.marginLeft = Math.round(191 * pos) + "px";
+    o.style.marginLeft = Math.round(191 * pos) + 'px';
   };
 
   var updateCheckBox = function updateCheckBox(o, check) {
@@ -16488,61 +16530,63 @@ var CGUI = function CGUI() {
   };
 
   var clearPresetSelection = function clearPresetSelection() {
-    var o = document.getElementById("instrPreset");
+    var o = document.getElementById('instrPreset');
     o.selectedIndex = 0;
   };
 
   var updateInstrument = function updateInstrument(resetPreset) {
     var instr = mSong.songData[mSeqCol]; // Oscillator 1
 
-    document.getElementById("osc1_wave_sin").src = instr.osc1_waveform === 0 ? _waveSinSel.default : _waveSin.default;
-    document.getElementById("osc1_wave_sqr").src = instr.osc1_waveform === 1 ? _waveSqrSel.default : _waveSqr.default;
-    document.getElementById("osc1_wave_saw").src = instr.osc1_waveform === 2 ? _waveSawSel.default : _waveSaw.default;
-    document.getElementById("osc1_wave_tri").src = instr.osc1_waveform === 3 ? _waveTriSel.default : _waveTri.default;
-    updateSlider(document.getElementById("osc1_vol"), instr.osc1_vol);
-    updateSlider(document.getElementById("osc1_oct"), instr.osc1_oct);
-    updateSlider(document.getElementById("osc1_semi"), instr.osc1_det);
-    updateSlider(document.getElementById("osc1_det"), instr.osc1_detune);
-    updateCheckBox(document.getElementById("osc1_xenv"), instr.osc1_xenv); // Oscillator 2
+    document.getElementById('osc1_wave_sin').src = instr.osc1_waveform === 0 ? _waveSinSel.default : _waveSin.default;
+    document.getElementById('osc1_wave_sqr').src = instr.osc1_waveform === 1 ? _waveSqrSel.default : _waveSqr.default;
+    document.getElementById('osc1_wave_saw').src = instr.osc1_waveform === 2 ? _waveSawSel.default : _waveSaw.default;
+    document.getElementById('osc1_wave_tri').src = instr.osc1_waveform === 3 ? _waveTriSel.default : _waveTri.default;
+    updateSlider(document.getElementById('osc1_vol'), instr.osc1_vol);
+    updateSlider(document.getElementById('osc1_oct'), instr.osc1_oct);
+    updateSlider(document.getElementById('osc1_semi'), instr.osc1_det);
+    updateSlider(document.getElementById('osc1_det'), instr.osc1_detune);
+    updateCheckBox(document.getElementById('osc1_xenv'), instr.osc1_xenv); // Oscillator 2
 
-    document.getElementById("osc2_wave_sin").src = instr.osc2_waveform === 0 ? _waveSinSel.default : _waveSin.default;
-    document.getElementById("osc2_wave_sqr").src = instr.osc2_waveform === 1 ? _waveSqrSel.default : _waveSqr.default;
-    document.getElementById("osc2_wave_saw").src = instr.osc2_waveform === 2 ? _waveSawSel.default : _waveSaw.default;
-    document.getElementById("osc2_wave_tri").src = instr.osc2_waveform === 3 ? _waveTriSel.default : _waveTri.default;
-    updateSlider(document.getElementById("osc2_vol"), instr.osc2_vol);
-    updateSlider(document.getElementById("osc2_oct"), instr.osc2_oct);
-    updateSlider(document.getElementById("osc2_semi"), instr.osc2_det);
-    updateSlider(document.getElementById("osc2_det"), instr.osc2_detune);
-    updateCheckBox(document.getElementById("osc2_xenv"), instr.osc2_xenv); // Noise
+    document.getElementById('osc2_wave_sin').src = instr.osc2_waveform === 0 ? _waveSinSel.default : _waveSin.default;
+    document.getElementById('osc2_wave_sqr').src = instr.osc2_waveform === 1 ? _waveSqrSel.default : _waveSqr.default;
+    document.getElementById('osc2_wave_saw').src = instr.osc2_waveform === 2 ? _waveSawSel.default : _waveSaw.default;
+    document.getElementById('osc2_wave_tri').src = instr.osc2_waveform === 3 ? _waveTriSel.default : _waveTri.default;
+    updateSlider(document.getElementById('osc2_vol'), instr.osc2_vol);
+    updateSlider(document.getElementById('osc2_oct'), instr.osc2_oct);
+    updateSlider(document.getElementById('osc2_semi'), instr.osc2_det);
+    updateSlider(document.getElementById('osc2_det'), instr.osc2_detune);
+    updateCheckBox(document.getElementById('osc2_xenv'), instr.osc2_xenv); // Noise
 
-    updateSlider(document.getElementById("noise_vol"), instr.noise_fader); // Envelope
+    updateSlider(document.getElementById('noise_vol'), instr.noise_fader); // Envelope
 
-    updateSlider(document.getElementById("env_master"), instr.env_master);
-    updateSlider(document.getElementById("env_att"), instr.env_attack);
-    updateSlider(document.getElementById("env_sust"), instr.env_sustain);
-    updateSlider(document.getElementById("env_rel"), instr.env_release); // LFO
+    updateSlider(document.getElementById('env_master'), instr.env_master);
+    updateSlider(document.getElementById('env_att'), instr.env_attack);
+    updateSlider(document.getElementById('env_sust'), instr.env_sustain);
+    updateSlider(document.getElementById('env_rel'), instr.env_release); // LFO
 
-    document.getElementById("lfo_wave_sin").src = instr.lfo_waveform === 0 ? _waveSinSel.default : _waveSin.default;
-    document.getElementById("lfo_wave_sqr").src = instr.lfo_waveform === 1 ? _waveSqrSel.default : _waveSqr.default;
-    document.getElementById("lfo_wave_saw").src = instr.lfo_waveform === 2 ? _waveSawSel.default : _waveSaw.default;
-    document.getElementById("lfo_wave_tri").src = instr.lfo_waveform === 3 ? _waveTriSel.default : _waveTri.default;
-    updateSlider(document.getElementById("lfo_amt"), instr.lfo_amt);
-    updateSlider(document.getElementById("lfo_freq"), instr.lfo_freq);
-    updateCheckBox(document.getElementById("lfo_o1fm"), instr.lfo_osc1_freq);
-    updateCheckBox(document.getElementById("lfo_fxfreq"), instr.lfo_fx_freq); // Effects
+    document.getElementById('lfo_wave_sin').src = instr.lfo_waveform === 0 ? _waveSinSel.default : _waveSin.default;
+    document.getElementById('lfo_wave_sqr').src = instr.lfo_waveform === 1 ? _waveSqrSel.default : _waveSqr.default;
+    document.getElementById('lfo_wave_saw').src = instr.lfo_waveform === 2 ? _waveSawSel.default : _waveSaw.default;
+    document.getElementById('lfo_wave_tri').src = instr.lfo_waveform === 3 ? _waveTriSel.default : _waveTri.default;
+    updateSlider(document.getElementById('lfo_amt'), instr.lfo_amt);
+    updateSlider(document.getElementById('lfo_freq'), instr.lfo_freq);
+    updateCheckBox(document.getElementById('lfo_o1fm'), instr.lfo_osc1_freq);
+    updateCheckBox(document.getElementById('lfo_fxfreq'), instr.lfo_fx_freq); // Effects
 
-    document.getElementById("fx_filt_lp").src = instr.fx_filter === 2 ? _filtLpSel.default : _filtLp.default;
-    document.getElementById("fx_filt_hp").src = instr.fx_filter === 1 ? _filtHpSel.default : _filtHp.default;
-    document.getElementById("fx_filt_bp").src = instr.fx_filter === 3 ? _filtBpSel.default : _filtBp.default;
-    document.getElementById("fx_filt_n").src = instr.fx_filter === 4 ? _filtNSel.default : _filtN.default;
-    updateSlider(document.getElementById("fx_freq"), instr.fx_freq);
-    updateSlider(document.getElementById("fx_res"), instr.fx_resonance);
-    updateSlider(document.getElementById("fx_dly_amt"), instr.fx_delay_amt);
-    updateSlider(document.getElementById("fx_dly_time"), instr.fx_delay_time);
-    updateSlider(document.getElementById("fx_pan_amt"), instr.fx_pan_amt);
-    updateSlider(document.getElementById("fx_pan_freq"), instr.fx_pan_freq); // Clear the preset selection?
+    document.getElementById('fx_filt_lp').src = instr.fx_filter === 2 ? _filtLpSel.default : _filtLp.default;
+    document.getElementById('fx_filt_hp').src = instr.fx_filter === 1 ? _filtHpSel.default : _filtHp.default;
+    document.getElementById('fx_filt_bp').src = instr.fx_filter === 3 ? _filtBpSel.default : _filtBp.default;
+    document.getElementById('fx_filt_n').src = instr.fx_filter === 4 ? _filtNSel.default : _filtN.default;
+    updateSlider(document.getElementById('fx_freq'), instr.fx_freq);
+    updateSlider(document.getElementById('fx_res'), instr.fx_resonance);
+    updateSlider(document.getElementById('fx_dly_amt'), instr.fx_delay_amt);
+    updateSlider(document.getElementById('fx_dly_time'), instr.fx_delay_time);
+    updateSlider(document.getElementById('fx_pan_amt'), instr.fx_pan_amt);
+    updateSlider(document.getElementById('fx_pan_freq'), instr.fx_pan_freq); // Clear the preset selection?
 
-    if (resetPreset) clearPresetSelection();
+    if (resetPreset) {
+      clearPresetSelection();
+    }
   };
 
   var updateSongRanges = function updateSongRanges() {
@@ -16567,7 +16611,7 @@ var CGUI = function CGUI() {
 
     mSong.songLen = calcSongLength(mSong); // Determine song speed
 
-    var bpm = parseInt(document.getElementById("bpm").value, 10);
+    var bpm = parseInt(document.getElementById('bpm').value, 10);
 
     if (bpm && bpm > 40 && bpm < 300) {
       mSong.rowLen = calcSamplesPerRow(bpm);
@@ -16575,23 +16619,23 @@ var CGUI = function CGUI() {
   };
 
   var showDialog = function showDialog() {
-    var e = document.getElementById("cover");
-    e.style.visibility = "visible";
+    var e = document.getElementById('cover');
+    e.style.visibility = 'visible';
     deactivateMasterEvents();
   };
 
   var hideDialog = function hideDialog() {
-    var e = document.getElementById("cover");
-    e.style.visibility = "hidden";
+    var e = document.getElementById('cover');
+    e.style.visibility = 'hidden';
     activateMasterEvents();
   };
 
   var showProgressDialog = function showProgressDialog(msg) {
-    var parent = document.getElementById("dialog");
-    parent.innerHTML = ""; // Create dialog content
+    var parent = document.getElementById('dialog');
+    parent.innerHTML = ''; // Create dialog content
 
-    var o, o2;
-    o = document.createElement("img");
+    var o;
+    o = document.createElement('img');
     o.src = _progress.default;
     parent.appendChild(o);
     o = document.createTextNode(msg);
@@ -16600,67 +16644,69 @@ var CGUI = function CGUI() {
   };
 
   var showOpenDialog = function showOpenDialog() {
-    var parent = document.getElementById("dialog");
-    parent.innerHTML = ""; // Create dialog content
+    var parent = document.getElementById('dialog');
+    parent.innerHTML = ''; // Create dialog content
 
     var o;
-    o = document.createElement("h3");
+    o = document.createElement('h3');
     parent.appendChild(o);
-    o.appendChild(document.createTextNode("Import JSON"));
-    parent.appendChild(document.createElement("br"));
+    o.appendChild(document.createTextNode('Import JSON'));
+    parent.appendChild(document.createElement('br'));
     var el = (0, _jquery.default)('<textarea id="jsonTextArea" style="width: 200px; height: 100px"></textarea>');
     o = el[0];
     parent.appendChild(o);
-    parent.appendChild(document.createElement("br"));
+    parent.appendChild(document.createElement('br'));
     el = (0, _jquery.default)('<button id="jsonImportButton">Import</button>');
     o = el[0];
     parent.appendChild(o);
-    parent.appendChild(document.createTextNode(" "));
+    parent.appendChild(document.createTextNode(' '));
     el = (0, _jquery.default)('<button id="jsonCancelButton">Cancel</button>');
     o = el[0];
     parent.appendChild(o);
-    (0, _jquery.default)("#jsonImportButton").click(function () {
-      var json = (0, _jquery.default)("#jsonTextArea").val();
+    (0, _jquery.default)('#jsonImportButton').click(function () {
+      var json = (0, _jquery.default)('#jsonTextArea').val();
       var song = JSON.parse(json);
       newSong(song);
       hideDialog();
     });
-    (0, _jquery.default)("#jsonCancelButton").click(function () {
+    (0, _jquery.default)('#jsonCancelButton').click(function () {
       hideDialog();
     });
     showDialog();
   };
 
   var showUrlDialog = function showUrlDialog(url) {
-    var parent = document.getElementById("dialog");
-    parent.innerHTML = ""; // Create dialog content
+    var parent = document.getElementById('dialog');
+    parent.innerHTML = ''; // Create dialog content
 
     var o;
-    o = document.createElement("h3");
+    o = document.createElement('h3');
     parent.appendChild(o);
-    o.appendChild(document.createTextNode("URL"));
-    parent.appendChild(document.createElement("br"));
+    o.appendChild(document.createTextNode('URL'));
+    parent.appendChild(document.createElement('br'));
     var el = (0, _jquery.default)('<input type="text" value="' + url + '"></input>');
     o = el[0];
     parent.appendChild(o);
-    parent.appendChild(document.createElement("br"));
+    parent.appendChild(document.createElement('br'));
     el = (0, _jquery.default)('<button id="urlExitButton">Exit</button>');
     o = el[0];
     parent.appendChild(o);
-    (0, _jquery.default)("#urlExitButton").click(function () {
+    (0, _jquery.default)('#urlExitButton').click(function () {
       hideDialog();
     });
     showDialog();
-  }; //--------------------------------------------------------------------------
+  }; // --------------------------------------------------------------------------
   // Event handlers
-  //--------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 
 
   var newSong = function newSong(song) {
     if (song) {
       mSong = song;
       convertSong(mSong);
-    } else mSong = makeNewSong(); // Update GUI
+    } else {
+      mSong = makeNewSong();
+    } // Update GUI
 
 
     updateSongInfo();
@@ -16680,12 +16726,15 @@ var CGUI = function CGUI() {
 
   var exportWAV = function exportWAV(e) {
     // This can hog the browser for quite some time, so warn...
-    if (!confirm("This can take quite some time. Do you want to continue?")) return; // Update song ranges
+    if (!confirm('This can take quite some time. Do you want to continue?')) {
+      return;
+    } // Update song ranges
+
 
     updateSongRanges(); // Generate audio data
 
     var doneFun = function doneFun(wave) {
-      var uri = "data:application/octet-stream;base64," + btoa(wave);
+      var uri = 'data:application/octet-stream;base64,' + btoa(wave);
       window.open(uri);
     };
 
@@ -16695,7 +16744,10 @@ var CGUI = function CGUI() {
 
   var exportWAVRange = function exportWAVRange(e) {
     // This can hog the browser for quite some time, so warn...
-    if (!confirm("This can take quite some time. Do you want to continue?")) return; // Update song ranges
+    if (!confirm('This can take quite some time. Do you want to continue?')) {
+      return;
+    } // Update song ranges
+
 
     updateSongRanges(); // Select range to play
 
@@ -16704,11 +16756,12 @@ var CGUI = function CGUI() {
       lastRow: mSeqRow2,
       firstCol: mSeqCol,
       lastCol: mSeqCol2,
-      numSeconds: ((mSeqRow2 - mSeqRow + 1) * 32 + 8) * mSong.rowLen / 44100
-    }; // Generate audio data
+      numSeconds: ((mSeqRow2 - mSeqRow + 1) * 32 + 8) * mSong.rowLen / 44100 // Generate audio data
+
+    };
 
     var doneFun = function doneFun(wave) {
-      var uri = "data:application/octet-stream;base64," + btoa(wave);
+      var uri = 'data:application/octet-stream;base64,' + btoa(wave);
       window.open(uri);
     };
 
@@ -16720,8 +16773,17 @@ var CGUI = function CGUI() {
     // Update song ranges
     updateSongRanges(); // Generate JS song data
 
-    var dataURI = "data:text/javascript;base64," + btoa(songToJSON(mSong, true));
-    window.open(dataURI);
+    var dataURI = 'data:text/javascript;base64,' + btoa(songToJSON(mSong, true));
+    var link = document.createElement('a');
+    link.setAttribute('download', 'sonant-x-export.json');
+    link.setAttribute('href', dataURI);
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(function () {
+      // Wait 1000ms before removing the link
+      // This gives IE11 enough time to process the download (it will fail if the link is removed)
+      document.body.removeChild(link);
+    }, 1000);
     return false;
   };
 
@@ -16734,7 +16796,7 @@ var CGUI = function CGUI() {
 
     delete instr.p;
     delete instr.c;
-    var dataURI = "data:text/javascript;base64," + btoa(JSON.stringify(instr, null, "    "));
+    var dataURI = 'data:text/javascript;base64,' + btoa(JSON.stringify(instr, null, '    '));
     window.open(dataURI);
   };
 
@@ -16742,18 +16804,18 @@ var CGUI = function CGUI() {
     // Update song ranges
     updateSongRanges();
     var json = songToJSON(mSong, false);
-    var url = "" + new _urijs.default().fragment(_urijs.default.encode(LZString.compressToBase64(json)));
+    var url = '' + new _urijs.default().fragment(_urijs.default.encode(LZString.compressToBase64(json)));
     showUrlDialog(url);
     return false;
   };
 
   var setStatus = function setStatus(msg) {
-    document.getElementById("statusText").innerHTML = msg; //    window.status = msg;
+    document.getElementById('statusText').innerHTML = msg; //    window.status = msg;
   };
 
   var generateAudio = function generateAudio(doneFun, opts) {
     // Show dialog
-    showProgressDialog("Generating sound..."); // Start time measurement
+    showProgressDialog('Generating sound...'); // Start time measurement
 
     var d1 = new Date(); // Generate audio data\bm
     // NOTE: We'd love to do this in a Web Worker instead! Currently we do it
@@ -16779,15 +16841,15 @@ var CGUI = function CGUI() {
       mAudioGenerator = ag;
       var wave = ag.getWave();
       var d2 = new Date();
-      setStatus("Generation time: " + (d2.getTime() - d1.getTime()) / 1000 + "s"); // Hide dialog
+      setStatus('Generation time: ' + (d2.getTime() - d1.getTime()) / 1000 + 's'); // Hide dialog
 
       hideDialog(); // Call the callback function
 
       doneFun(wave);
     });
-  }; //----------------------------------------------------------------------------
+  }; // ----------------------------------------------------------------------------
   // Playback follower
-  //----------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------
 
 
   var mFollowerTimerID = -1;
@@ -16827,27 +16889,27 @@ var CGUI = function CGUI() {
 
   var redrawPlayerGfx = function redrawPlayerGfx(t) {
     var i;
-    var o = document.getElementById("playGfxCanvas");
+    var o = document.getElementById('playGfxCanvas');
     var w = mPlayGfxVUImg.width > 0 ? mPlayGfxVUImg.width : o.width;
     var h = mPlayGfxVUImg.height > 0 ? mPlayGfxVUImg.height : 51;
-    var ctx = o.getContext("2d");
+    var ctx = o.getContext('2d');
 
     if (ctx) {
       // Draw the VU meter BG
       ctx.drawImage(mPlayGfxVUImg, 0, 0); // Calculate singal powers
 
-      var pl = 0,
-          pr = 0;
+      var pl = 0;
+      var pr = 0;
 
       if (mFollowerActive && t >= 0) {
         // Get the waveform
         var wave = getData(mAudioGenerator, t, 1000); // Calculate volume
 
         var l, r;
-        var sl = 0,
-            sr = 0,
-            l_old = 0,
-            r_old = 0;
+        var sl = 0;
+        var sr = 0;
+        var l_old = 0;
+        var r_old = 0;
 
         for (i = 1; i < wave.length; i += 2) {
           l = wave[i - 1];
@@ -16877,7 +16939,7 @@ var CGUI = function CGUI() {
       a2 = a2 < -1 ? -1 : a2 > 1 ? 1 : a2;
       a2 *= 0.57; // Draw VU hands
 
-      ctx.strokeStyle = "rgb(0,0,0)";
+      ctx.strokeStyle = 'rgb(0,0,0)';
       ctx.beginPath();
       ctx.moveTo(w * 0.25, h * 2.1);
       ctx.lineTo(w * 0.25 + h * 1.8 * Math.sin(a1), h * 2.1 - h * 1.8 * Math.cos(a1));
@@ -16887,7 +16949,7 @@ var CGUI = function CGUI() {
       ctx.lineTo(w * 0.75 + h * 1.8 * Math.sin(a2), h * 2.1 - h * 1.8 * Math.cos(a2));
       ctx.stroke(); // Draw leds
 
-      ctx.fillStyle = "rgb(0,0,0)";
+      ctx.fillStyle = 'rgb(0,0,0)';
       ctx.fillRect(0, h, w, 20);
 
       for (i = 0; i < 8; ++i) {
@@ -16897,9 +16959,9 @@ var CGUI = function CGUI() {
 
         if (i >= mFollowerFirstCol && i <= mFollowerLastCol) {
           // Get envelope profile for this channel
-          var env_a = mSong.songData[i].env_attack,
-              env_r = mSong.songData[i].env_sustain + mSong.songData[i].env_release,
-              env_tot = env_a + env_r;
+          var env_a = mSong.songData[i].env_attack;
+          var env_r = mSong.songData[i].env_sustain + mSong.songData[i].env_release;
+          var env_tot = env_a + env_r;
 
           if (env_tot < 10000) {
             env_tot = 10000;
@@ -16912,7 +16974,13 @@ var CGUI = function CGUI() {
           if (numSamp >= 0 && numSamp < env_tot) {
             // Calculate current envelope (same method as the synth, except sustain)
             var alpha;
-            if (numSamp < env_a) alpha = numSamp / env_a;else alpha = 1 - (numSamp - env_a) / env_r; // Draw lit led with alpha blending
+
+            if (numSamp < env_a) {
+              alpha = numSamp / env_a;
+            } else {
+              alpha = 1 - (numSamp - env_a) / env_r;
+            } // Draw lit led with alpha blending
+
 
             ctx.globalAlpha = alpha * alpha;
             ctx.drawImage(mPlayGfxLedOnImg, x, h);
@@ -16952,8 +17020,8 @@ var CGUI = function CGUI() {
       }
 
       for (i = 0; i < 48; ++i) {
-        o = document.getElementById("spr" + i);
-        o.className = i === seqPos ? "playpos" : "";
+        o = document.getElementById('spr' + i);
+        o.className = i === seqPos ? 'playpos' : '';
       }
     } // Update the pattern
 
@@ -16966,8 +17034,8 @@ var CGUI = function CGUI() {
       }
 
       for (i = 0; i < 32; ++i) {
-        o = document.getElementById("ppr" + i);
-        o.className = i === patPos ? "playpos" : "";
+        o = document.getElementById('ppr' + i);
+        o.className = i === patPos ? 'playpos' : '';
       }
     } // Player graphics
 
@@ -16999,20 +17067,20 @@ var CGUI = function CGUI() {
 
 
       for (i = 0; i < 48; ++i) {
-        document.getElementById("spr" + i).className = "";
+        document.getElementById('spr' + i).className = '';
       }
 
       for (i = 0; i < 32; ++i) {
-        document.getElementById("ppr" + i).className = "";
+        document.getElementById('ppr' + i).className = '';
       } // Clear player gfx
 
 
       redrawPlayerGfx(-1);
       mFollowerActive = false;
     }
-  }; //----------------------------------------------------------------------------
+  }; // ----------------------------------------------------------------------------
   // (end of playback follower)
-  //----------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------
 
 
   var playSong = function playSong(e) {
@@ -17028,12 +17096,12 @@ var CGUI = function CGUI() {
 
     var doneFun = function doneFun(wave) {
       if (mAudio === null) {
-        alert("Audio element unavailable.");
+        alert('Audio element unavailable.');
         return;
       }
 
       try {
-        var uri = "data:audio/wav;base64," + btoa(wave); // Start the follower
+        var uri = 'data:audio/wav;base64,' + btoa(wave); // Start the follower
 
         startFollower(); // Load the data into the audio element (it will start playing as soon as
         // the data has been loaded)
@@ -17042,7 +17110,7 @@ var CGUI = function CGUI() {
 
         mAudio.play();
       } catch (err) {
-        alert("Error playing: " + err.message);
+        alert('Error playing: ' + err.message);
       }
     };
 
@@ -17070,12 +17138,12 @@ var CGUI = function CGUI() {
 
     var doneFun = function doneFun(wave) {
       if (mAudio === null) {
-        alert("Audio element unavailable.");
+        alert('Audio element unavailable.');
         return;
       }
 
       try {
-        var uri = "data:audio/wav;base64," + btoa(wave); // Restart the follower
+        var uri = 'data:audio/wav;base64,' + btoa(wave); // Restart the follower
 
         startFollower(); // Load the data into the audio element (it will start playing as soon as
         // the data has been loaded)
@@ -17084,7 +17152,7 @@ var CGUI = function CGUI() {
 
         mAudio.play();
       } catch (err) {
-        alert("Error playing: " + err.message);
+        alert('Error playing: ' + err.message);
       }
     };
 
@@ -17094,7 +17162,7 @@ var CGUI = function CGUI() {
 
   var stopPlaying = function stopPlaying(e) {
     if (mAudio === null) {
-      alert("Audio element unavailable.");
+      alert('Audio element unavailable.');
       return;
     }
 
@@ -17284,9 +17352,22 @@ var CGUI = function CGUI() {
 
   var boxMouseDown = function boxMouseDown(e) {
     if (mSeqCol === mSeqCol2) {
-      if (!e) e = window.event;
+      if (!e) {
+        e = window.event;
+      }
+
       var o = getEventElement(e);
-      if (o.id === "osc1_xenv") mSong.songData[mSeqCol].osc1_xenv = mSong.songData[mSeqCol].osc1_xenv ? 0 : 1;else if (o.id === "osc2_xenv") mSong.songData[mSeqCol].osc2_xenv = mSong.songData[mSeqCol].osc2_xenv ? 0 : 1;else if (o.id === "lfo_o1fm") mSong.songData[mSeqCol].lfo_osc1_freq = mSong.songData[mSeqCol].lfo_osc1_freq ? 0 : 1;else if (o.id === "lfo_fxfreq") mSong.songData[mSeqCol].lfo_fx_freq = mSong.songData[mSeqCol].lfo_fx_freq ? 0 : 1;
+
+      if (o.id === 'osc1_xenv') {
+        mSong.songData[mSeqCol].osc1_xenv = mSong.songData[mSeqCol].osc1_xenv ? 0 : 1;
+      } else if (o.id === 'osc2_xenv') {
+        mSong.songData[mSeqCol].osc2_xenv = mSong.songData[mSeqCol].osc2_xenv ? 0 : 1;
+      } else if (o.id === 'lfo_o1fm') {
+        mSong.songData[mSeqCol].lfo_osc1_freq = mSong.songData[mSeqCol].lfo_osc1_freq ? 0 : 1;
+      } else if (o.id === 'lfo_fxfreq') {
+        mSong.songData[mSeqCol].lfo_fx_freq = mSong.songData[mSeqCol].lfo_fx_freq ? 0 : 1;
+      }
+
       updateInstrument(true);
       unfocusHTMLInputElements();
       return false;
@@ -17297,10 +17378,13 @@ var CGUI = function CGUI() {
 
   var osc1WaveMouseDown = function osc1WaveMouseDown(e) {
     if (mSeqCol === mSeqCol2) {
-      if (!e) e = window.event;
+      if (!e) {
+        e = window.event;
+      }
+
       var o = getEventElement(e);
       var wave = 0;
-      if (o.id === "osc1_wave_sin") wave = 0;else if (o.id === "osc1_wave_sqr") wave = 1;else if (o.id === "osc1_wave_saw") wave = 2;else if (o.id === "osc1_wave_tri") wave = 3;
+      if (o.id === 'osc1_wave_sin') wave = 0;else if (o.id === 'osc1_wave_sqr') wave = 1;else if (o.id === 'osc1_wave_saw') wave = 2;else if (o.id === 'osc1_wave_tri') wave = 3;
       mSong.songData[mSeqCol].osc1_waveform = wave;
       updateInstrument();
       unfocusHTMLInputElements();
@@ -17312,10 +17396,13 @@ var CGUI = function CGUI() {
 
   var osc2WaveMouseDown = function osc2WaveMouseDown(e) {
     if (mSeqCol === mSeqCol2) {
-      if (!e) e = window.event;
+      if (!e) {
+        e = window.event;
+      }
+
       var o = getEventElement(e);
       var wave = 0;
-      if (o.id === "osc2_wave_sin") wave = 0;else if (o.id === "osc2_wave_sqr") wave = 1;else if (o.id === "osc2_wave_saw") wave = 2;else if (o.id === "osc2_wave_tri") wave = 3;
+      if (o.id === 'osc2_wave_sin') wave = 0;else if (o.id === 'osc2_wave_sqr') wave = 1;else if (o.id === 'osc2_wave_saw') wave = 2;else if (o.id === 'osc2_wave_tri') wave = 3;
       mSong.songData[mSeqCol].osc2_waveform = wave;
       updateInstrument(true);
       unfocusHTMLInputElements();
@@ -17327,10 +17414,13 @@ var CGUI = function CGUI() {
 
   var lfoWaveMouseDown = function lfoWaveMouseDown(e) {
     if (mSeqCol === mSeqCol2) {
-      if (!e) e = window.event;
+      if (!e) {
+        e = window.event;
+      }
+
       var o = getEventElement(e);
       var wave = 0;
-      if (o.id === "lfo_wave_sin") wave = 0;else if (o.id === "lfo_wave_sqr") wave = 1;else if (o.id === "lfo_wave_saw") wave = 2;else if (o.id === "lfo_wave_tri") wave = 3;
+      if (o.id === 'lfo_wave_sin') wave = 0;else if (o.id === 'lfo_wave_sqr') wave = 1;else if (o.id === 'lfo_wave_saw') wave = 2;else if (o.id === 'lfo_wave_tri') wave = 3;
       mSong.songData[mSeqCol].lfo_waveform = wave;
       updateInstrument(true);
       unfocusHTMLInputElements();
@@ -17342,11 +17432,20 @@ var CGUI = function CGUI() {
 
   var fxFiltMouseDown = function fxFiltMouseDown(e) {
     if (mSeqCol === mSeqCol2) {
-      if (!e) e = window.event;
+      if (!e) {
+        e = window.event;
+      }
+
       var o = getEventElement(e);
       var filt = 0;
-      if (o.id === "fx_filt_hp") filt = 1;else if (o.id === "fx_filt_lp") filt = 2;else if (o.id === "fx_filt_bp") filt = 3;else if (o.id === "fx_filt_n") filt = 4;
-      if (mSong.songData[mSeqCol].fx_filter !== filt) mSong.songData[mSeqCol].fx_filter = filt;else mSong.songData[mSeqCol].fx_filter = 0;
+      if (o.id === 'fx_filt_hp') filt = 1;else if (o.id === 'fx_filt_lp') filt = 2;else if (o.id === 'fx_filt_bp') filt = 3;else if (o.id === 'fx_filt_n') filt = 4;
+
+      if (mSong.songData[mSeqCol].fx_filter !== filt) {
+        mSong.songData[mSeqCol].fx_filter = filt;
+      } else {
+        mSong.songData[mSeqCol].fx_filter = 0;
+      }
+
       updateInstrument(true);
       unfocusHTMLInputElements();
       return false;
@@ -17358,7 +17457,7 @@ var CGUI = function CGUI() {
   var octaveUp = function octaveUp(e) {
     if (mKeyboardOctave < 8) {
       mKeyboardOctave++;
-      document.getElementById("keyboardOctave").innerHTML = "" + mKeyboardOctave;
+      document.getElementById('keyboardOctave').innerHTML = '' + mKeyboardOctave;
     }
 
     return false;
@@ -17367,7 +17466,7 @@ var CGUI = function CGUI() {
   var octaveDown = function octaveDown(e) {
     if (mKeyboardOctave > 1) {
       mKeyboardOctave--;
-      document.getElementById("keyboardOctave").innerHTML = "" + mKeyboardOctave;
+      document.getElementById('keyboardOctave').innerHTML = '' + mKeyboardOctave;
     }
 
     return false;
@@ -17375,11 +17474,14 @@ var CGUI = function CGUI() {
 
   var selectPreset = function selectPreset(e) {
     if (mSeqCol === mSeqCol2) {
-      if (!e) e = window.event;
+      if (!e) {
+        e = window.event;
+      }
+
       var o = getEventElement(e);
       var val = o.options[o.selectedIndex].value;
 
-      if (val !== "") {
+      if (val !== '') {
         val = parseInt(val, 10);
 
         if (val) {
@@ -17428,42 +17530,48 @@ var CGUI = function CGUI() {
   };
 
   var importInstrument = function importInstrument() {
-    if (mSeqCol !== mSeqCol2 || mSeqCol < 0 || mSeqCol >= mSong.songData.length) return;
+    if (mSeqCol !== mSeqCol2 || mSeqCol < 0 || mSeqCol >= mSong.songData.length) {
+      return;
+    }
+
     var instr = mSong.songData[mSeqCol];
-    var parent = document.getElementById("dialog");
-    parent.innerHTML = ""; // Create dialog content
+    var parent = document.getElementById('dialog');
+    parent.innerHTML = ''; // Create dialog content
 
     var o;
-    o = document.createElement("h3");
+    o = document.createElement('h3');
     parent.appendChild(o);
-    o.appendChild(document.createTextNode("Import instrument in JSON"));
-    parent.appendChild(document.createElement("br"));
+    o.appendChild(document.createTextNode('Import instrument in JSON'));
+    parent.appendChild(document.createElement('br'));
     var el = (0, _jquery.default)('<textarea id="jsonTextArea" style="width: 200px; height: 100px"></textarea>');
     o = el[0];
     parent.appendChild(o);
-    parent.appendChild(document.createElement("br"));
+    parent.appendChild(document.createElement('br'));
     el = (0, _jquery.default)('<button id="jsonImportButton">Import</button>');
     o = el[0];
     parent.appendChild(o);
-    parent.appendChild(document.createTextNode(" "));
+    parent.appendChild(document.createTextNode(' '));
     el = (0, _jquery.default)('<button id="jsonCancelButton">Cancel</button>');
     o = el[0];
     parent.appendChild(o);
-    (0, _jquery.default)("#jsonImportButton").click(function () {
-      var json = (0, _jquery.default)("#jsonTextArea").val();
+    (0, _jquery.default)('#jsonImportButton').click(function () {
+      var json = (0, _jquery.default)('#jsonTextArea').val();
       var src = JSON.parse(json);
       applyInstrument(src, instr);
       updateInstrument(false);
       hideDialog();
     });
-    (0, _jquery.default)("#jsonCancelButton").click(function () {
+    (0, _jquery.default)('#jsonCancelButton').click(function () {
       hideDialog();
     });
     showDialog();
   };
 
   var keyboardMouseDown = function keyboardMouseDown(e) {
-    if (!e) e = window.event;
+    if (!e) {
+      e = window.event;
+    }
+
     var p = getMousePos(e, true); // Calculate keyboard position
 
     var n = 0;
@@ -17499,7 +17607,9 @@ var CGUI = function CGUI() {
   };
 
   var patternMouseDown = function patternMouseDown(e) {
-    if (!e) e = window.event;
+    if (!e) {
+      e = window.event;
+    }
 
     if (!mFollowerActive) {
       var o = getEventElement(e);
@@ -17513,7 +17623,10 @@ var CGUI = function CGUI() {
 
   var patternMouseOver = function patternMouseOver(e) {
     if (mSelectingPatternRange) {
-      if (!e) e = window.event;
+      if (!e) {
+        e = window.event;
+      }
+
       var o = getEventElement(e);
       setSelectedPatternRow2(parseInt(o.id.slice(2), 10));
       return false;
@@ -17524,7 +17637,10 @@ var CGUI = function CGUI() {
 
   var patternMouseUp = function patternMouseUp(e) {
     if (mSelectingPatternRange) {
-      if (!e) e = window.event;
+      if (!e) {
+        e = window.event;
+      }
+
       var o = getEventElement(e);
       setSelectedPatternRow2(parseInt(o.id.slice(2), 10));
       mSelectingPatternRange = false;
@@ -17535,14 +17651,27 @@ var CGUI = function CGUI() {
   };
 
   var sequencerMouseDown = function sequencerMouseDown(e) {
-    if (!e) e = window.event;
+    if (!e) {
+      e = window.event;
+    }
+
     var o = getEventElement(e);
     var col = parseInt(o.id.slice(2, 3), 10);
     var row;
-    if (!mFollowerActive) row = parseInt(o.id.slice(4), 10);else row = mSeqRow;
+
+    if (!mFollowerActive) {
+      row = parseInt(o.id.slice(4), 10);
+    } else {
+      row = mSeqRow;
+    }
+
     var newChannel = col !== mSeqCol || mSeqCol !== mSeqCol2;
     setSelectedSequencerCell(col, row);
-    if (!mFollowerActive) mSelectingSeqRange = true;
+
+    if (!mFollowerActive) {
+      mSelectingSeqRange = true;
+    }
+
     setEditMode(EDIT_SEQUENCE);
     updatePattern();
     updateInstrument(newChannel);
@@ -17551,7 +17680,10 @@ var CGUI = function CGUI() {
 
   var sequencerMouseOver = function sequencerMouseOver(e) {
     if (mSelectingSeqRange) {
-      if (!e) e = window.event;
+      if (!e) {
+        e = window.event;
+      }
+
       var o = getEventElement(e);
       var col = parseInt(o.id.slice(2, 3), 10);
       var row = parseInt(o.id.slice(4), 10);
@@ -17566,7 +17698,10 @@ var CGUI = function CGUI() {
 
   var sequencerMouseUp = function sequencerMouseUp(e) {
     if (mSelectingSeqRange) {
-      if (!e) e = window.event;
+      if (!e) {
+        e = window.event;
+      }
+
       var o = getEventElement(e);
       var col = parseInt(o.id.slice(2, 3), 10);
       var row = parseInt(o.id.slice(4), 10);
@@ -17585,7 +17720,10 @@ var CGUI = function CGUI() {
 
   var sliderMouseDown = function sliderMouseDown(e) {
     if (mSeqCol === mSeqCol2) {
-      if (!e) e = window.event;
+      if (!e) {
+        e = window.event;
+      }
+
       mActiveSlider = getEventElement(e);
       unfocusHTMLInputElements();
       return false;
@@ -17595,7 +17733,10 @@ var CGUI = function CGUI() {
   };
 
   var mouseMove = function mouseMove(e) {
-    if (!e) e = window.event; // Handle slider?
+    if (!e) {
+      e = window.event;
+    } // Handle slider?
+
 
     if (mActiveSlider) {
       // Calculate slider position
@@ -17613,7 +17754,7 @@ var CGUI = function CGUI() {
       x = Math.round(min + (max - min) * x); // Update the song property
 
       var instr = mSong.songData[mSeqCol];
-      if (mActiveSlider.id === "osc1_vol") instr.osc1_vol = x;else if (mActiveSlider.id === "osc1_oct") instr.osc1_oct = x;else if (mActiveSlider.id === "osc1_semi") instr.osc1_det = x;else if (mActiveSlider.id === "osc1_det") instr.osc1_detune = x;else if (mActiveSlider.id === "osc2_vol") instr.osc2_vol = x;else if (mActiveSlider.id === "osc2_oct") instr.osc2_oct = x;else if (mActiveSlider.id === "osc2_semi") instr.osc2_det = x;else if (mActiveSlider.id === "osc2_det") instr.osc2_detune = x;else if (mActiveSlider.id === "noise_vol") instr.noise_fader = x;else if (mActiveSlider.id === "env_master") instr.env_master = x;else if (mActiveSlider.id === "env_att") instr.env_attack = x;else if (mActiveSlider.id === "env_sust") instr.env_sustain = x;else if (mActiveSlider.id === "env_rel") instr.env_release = x;else if (mActiveSlider.id === "lfo_amt") instr.lfo_amt = x;else if (mActiveSlider.id === "lfo_freq") instr.lfo_freq = x;else if (mActiveSlider.id === "fx_freq") instr.fx_freq = x;else if (mActiveSlider.id === "fx_res") instr.fx_resonance = x;else if (mActiveSlider.id === "fx_dly_amt") instr.fx_delay_amt = x;else if (mActiveSlider.id === "fx_dly_time") instr.fx_delay_time = x;else if (mActiveSlider.id === "fx_pan_amt") instr.fx_pan_amt = x;else if (mActiveSlider.id === "fx_pan_freq") instr.fx_pan_freq = x; // Update the slider position
+      if (mActiveSlider.id === 'osc1_vol') instr.osc1_vol = x;else if (mActiveSlider.id === 'osc1_oct') instr.osc1_oct = x;else if (mActiveSlider.id === 'osc1_semi') instr.osc1_det = x;else if (mActiveSlider.id === 'osc1_det') instr.osc1_detune = x;else if (mActiveSlider.id === 'osc2_vol') instr.osc2_vol = x;else if (mActiveSlider.id === 'osc2_oct') instr.osc2_oct = x;else if (mActiveSlider.id === 'osc2_semi') instr.osc2_det = x;else if (mActiveSlider.id === 'osc2_det') instr.osc2_detune = x;else if (mActiveSlider.id === 'noise_vol') instr.noise_fader = x;else if (mActiveSlider.id === 'env_master') instr.env_master = x;else if (mActiveSlider.id === 'env_att') instr.env_attack = x;else if (mActiveSlider.id === 'env_sust') instr.env_sustain = x;else if (mActiveSlider.id === 'env_rel') instr.env_release = x;else if (mActiveSlider.id === 'lfo_amt') instr.lfo_amt = x;else if (mActiveSlider.id === 'lfo_freq') instr.lfo_freq = x;else if (mActiveSlider.id === 'fx_freq') instr.fx_freq = x;else if (mActiveSlider.id === 'fx_res') instr.fx_resonance = x;else if (mActiveSlider.id === 'fx_dly_amt') instr.fx_delay_amt = x;else if (mActiveSlider.id === 'fx_dly_time') instr.fx_delay_time = x;else if (mActiveSlider.id === 'fx_pan_amt') instr.fx_pan_amt = x;else if (mActiveSlider.id === 'fx_pan_freq') instr.fx_pan_freq = x; // Update the slider position
 
       updateSlider(mActiveSlider, x);
       clearPresetSelection();
@@ -17633,7 +17774,10 @@ var CGUI = function CGUI() {
   };
 
   var keyDown = function keyDown(e) {
-    if (!e) e = window.event;
+    if (!e) {
+      e = window.event;
+    }
+
     var row, col, n; // Sequencer editing
 
     if (mEditMode === EDIT_SEQUENCE && mSeqCol === mSeqCol2 && mSeqRow === mSeqRow2) {
@@ -17945,9 +18089,9 @@ var CGUI = function CGUI() {
     document.onmouseup = null; // Set up the master key event handler
 
     document.onkeydown = null;
-  }; //--------------------------------------------------------------------------
+  }; // --------------------------------------------------------------------------
   // Initialization
-  //--------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 
 
   this.init = function () {
@@ -17987,105 +18131,106 @@ var CGUI = function CGUI() {
     mPlayGfxLedOffImg.src = _ledOff.default;
     mPlayGfxLedOnImg.src = _ledOn.default; // Set up GUI elements
 
-    document.getElementById("osc1_vol").sliderProps = {
+    document.getElementById('osc1_vol').sliderProps = {
       min: 0,
       max: 255
     };
-    document.getElementById("osc1_oct").sliderProps = {
+    document.getElementById('osc1_oct').sliderProps = {
       min: 0,
       max: 16
     };
-    document.getElementById("osc1_semi").sliderProps = {
+    document.getElementById('osc1_semi').sliderProps = {
       min: 0,
       max: 11
     };
-    document.getElementById("osc1_det").sliderProps = {
+    document.getElementById('osc1_det').sliderProps = {
       min: 0,
       max: 255
     };
-    document.getElementById("osc2_vol").sliderProps = {
+    document.getElementById('osc2_vol').sliderProps = {
       min: 0,
       max: 255
     };
-    document.getElementById("osc2_oct").sliderProps = {
+    document.getElementById('osc2_oct').sliderProps = {
       min: 0,
       max: 16
     };
-    document.getElementById("osc2_semi").sliderProps = {
+    document.getElementById('osc2_semi').sliderProps = {
       min: 0,
       max: 11
     };
-    document.getElementById("osc2_det").sliderProps = {
+    document.getElementById('osc2_det').sliderProps = {
       min: 0,
       max: 255
     };
-    document.getElementById("noise_vol").sliderProps = {
+    document.getElementById('noise_vol').sliderProps = {
       min: 0,
       max: 255
     };
-    document.getElementById("env_master").sliderProps = {
+    document.getElementById('env_master').sliderProps = {
       min: 0,
       max: 255
     };
-    document.getElementById("env_att").sliderProps = {
+    document.getElementById('env_att').sliderProps = {
       min: 0,
       max: 200000,
       nonLinear: true
     };
-    document.getElementById("env_sust").sliderProps = {
+    document.getElementById('env_sust').sliderProps = {
       min: 0,
       max: 200000,
       nonLinear: true
     };
-    document.getElementById("env_rel").sliderProps = {
+    document.getElementById('env_rel').sliderProps = {
       min: 0,
       max: 200000,
       nonLinear: true
     };
-    document.getElementById("lfo_amt").sliderProps = {
+    document.getElementById('lfo_amt').sliderProps = {
       min: 0,
       max: 255
     };
-    document.getElementById("lfo_freq").sliderProps = {
+    document.getElementById('lfo_freq').sliderProps = {
       min: 0,
       max: 16
     };
-    document.getElementById("fx_freq").sliderProps = {
+    document.getElementById('fx_freq').sliderProps = {
       min: 0,
       max: 11025,
       nonLinear: true
     };
-    document.getElementById("fx_res").sliderProps = {
+    document.getElementById('fx_res').sliderProps = {
       min: 0,
       max: 255
     };
-    document.getElementById("fx_dly_amt").sliderProps = {
+    document.getElementById('fx_dly_amt').sliderProps = {
       min: 0,
       max: 255
     };
-    document.getElementById("fx_dly_time").sliderProps = {
+    document.getElementById('fx_dly_time').sliderProps = {
       min: 0,
       max: 16
     };
-    document.getElementById("fx_pan_amt").sliderProps = {
+    document.getElementById('fx_pan_amt').sliderProps = {
       min: 0,
       max: 255
     };
-    document.getElementById("fx_pan_freq").sliderProps = {
+    document.getElementById('fx_pan_freq').sliderProps = {
       min: 0,
-      max: 16
-    }; // Create audio element, and always play the audio as soon as it's ready
+      max: 16 // Create audio element, and always play the audio as soon as it's ready
+
+    };
 
     try {
       mAudio = new Audio();
-      mAudio.addEventListener("canplay", function () {
+      mAudio.addEventListener('canplay', function () {
         this.play();
       }, true);
     } catch (err) {
       mAudio = null;
     }
 
-    var fragment = new _urijs.default().fragment() || "";
+    var fragment = new _urijs.default().fragment() || '';
 
     if (fragment) {
       var json = LZString.decompressFromBase64(_urijs.default.decode(fragment));
@@ -18098,7 +18243,7 @@ var CGUI = function CGUI() {
 
     for (i = 0; i < 8; ++i) {
       for (j = 0; j < 48; ++j) {
-        o = document.getElementById("sc" + i + "r" + j);
+        o = document.getElementById('sc' + i + 'r' + j);
         o.onmousedown = sequencerMouseDown;
         o.onmouseover = sequencerMouseOver;
         o.onmouseup = sequencerMouseUp;
@@ -18107,90 +18252,90 @@ var CGUI = function CGUI() {
 
 
     for (i = 0; i < 32; ++i) {
-      o = document.getElementById("pr" + i);
+      o = document.getElementById('pr' + i);
       o.onmousedown = patternMouseDown;
       o.onmouseover = patternMouseOver;
       o.onmouseup = patternMouseUp;
     } // Misc event handlers
 
 
-    document.getElementById("newSong").onmousedown = function () {
+    document.getElementById('newSong').onmousedown = function () {
       newSong();
     };
 
-    document.getElementById("openSong").onmousedown = openSong;
-    document.getElementById("exportURL").onmousedown = exportURL;
-    document.getElementById("exportJSON").onmousedown = exportJSON;
-    document.getElementById("exportWAV").onmousedown = exportWAV;
-    document.getElementById("exportWAVRange").onmousedown = exportWAVRange;
-    document.getElementById("playSong").onmousedown = playSong;
-    document.getElementById("playRange").onmousedown = playRange;
-    document.getElementById("stopPlaying").onmousedown = stopPlaying;
-    document.getElementById("bpm").onfocus = bpmFocus;
-    document.getElementById("importInstrument").onmousedown = importInstrument;
-    document.getElementById("exportInstrument").onmousedown = exportInstrument;
-    document.getElementById("sequencerCopy").onmousedown = sequencerCopyMouseDown;
-    document.getElementById("sequencerPaste").onmousedown = sequencerPasteMouseDown;
-    document.getElementById("sequencerPatUp").onmousedown = sequencerPatUpMouseDown;
-    document.getElementById("sequencerPatDown").onmousedown = sequencerPatDownMouseDown;
-    document.getElementById("patternCopy").onmousedown = patternCopyMouseDown;
-    document.getElementById("patternPaste").onmousedown = patternPasteMouseDown;
-    document.getElementById("patternNoteUp").onmousedown = patternNoteUpMouseDown;
-    document.getElementById("patternNoteDown").onmousedown = patternNoteDownMouseDown;
-    document.getElementById("patternOctaveUp").onmousedown = patternOctaveUpMouseDown;
-    document.getElementById("patternOctaveDown").onmousedown = patternOctaveDownMouseDown;
-    document.getElementById("instrPreset").onfocus = instrPresetFocus;
-    document.getElementById("instrPreset").onchange = selectPreset;
-    document.getElementById("osc1_wave_sin").onmousedown = osc1WaveMouseDown;
-    document.getElementById("osc1_wave_sqr").onmousedown = osc1WaveMouseDown;
-    document.getElementById("osc1_wave_saw").onmousedown = osc1WaveMouseDown;
-    document.getElementById("osc1_wave_tri").onmousedown = osc1WaveMouseDown;
-    document.getElementById("osc1_vol").onmousedown = sliderMouseDown;
-    document.getElementById("osc1_oct").onmousedown = sliderMouseDown;
-    document.getElementById("osc1_semi").onmousedown = sliderMouseDown;
-    document.getElementById("osc1_det").onmousedown = sliderMouseDown;
-    document.getElementById("osc1_xenv").onmousedown = boxMouseDown;
-    document.getElementById("osc2_wave_sin").onmousedown = osc2WaveMouseDown;
-    document.getElementById("osc2_wave_sqr").onmousedown = osc2WaveMouseDown;
-    document.getElementById("osc2_wave_saw").onmousedown = osc2WaveMouseDown;
-    document.getElementById("osc2_wave_tri").onmousedown = osc2WaveMouseDown;
-    document.getElementById("osc2_vol").onmousedown = sliderMouseDown;
-    document.getElementById("osc2_oct").onmousedown = sliderMouseDown;
-    document.getElementById("osc2_semi").onmousedown = sliderMouseDown;
-    document.getElementById("osc2_det").onmousedown = sliderMouseDown;
-    document.getElementById("osc2_xenv").onmousedown = boxMouseDown;
-    document.getElementById("noise_vol").onmousedown = sliderMouseDown;
-    document.getElementById("env_master").onmousedown = sliderMouseDown;
-    document.getElementById("env_att").onmousedown = sliderMouseDown;
-    document.getElementById("env_sust").onmousedown = sliderMouseDown;
-    document.getElementById("env_rel").onmousedown = sliderMouseDown;
-    document.getElementById("lfo_wave_sin").onmousedown = lfoWaveMouseDown;
-    document.getElementById("lfo_wave_sqr").onmousedown = lfoWaveMouseDown;
-    document.getElementById("lfo_wave_saw").onmousedown = lfoWaveMouseDown;
-    document.getElementById("lfo_wave_tri").onmousedown = lfoWaveMouseDown;
-    document.getElementById("lfo_amt").onmousedown = sliderMouseDown;
-    document.getElementById("lfo_freq").onmousedown = sliderMouseDown;
-    document.getElementById("lfo_o1fm").onmousedown = boxMouseDown;
-    document.getElementById("lfo_fxfreq").onmousedown = boxMouseDown;
-    document.getElementById("fx_filt_lp").onmousedown = fxFiltMouseDown;
-    document.getElementById("fx_filt_hp").onmousedown = fxFiltMouseDown;
-    document.getElementById("fx_filt_bp").onmousedown = fxFiltMouseDown;
-    document.getElementById("fx_filt_n").onmousedown = fxFiltMouseDown;
-    document.getElementById("fx_freq").onmousedown = sliderMouseDown;
-    document.getElementById("fx_res").onmousedown = sliderMouseDown;
-    document.getElementById("fx_dly_amt").onmousedown = sliderMouseDown;
-    document.getElementById("fx_dly_time").onmousedown = sliderMouseDown;
-    document.getElementById("fx_pan_amt").onmousedown = sliderMouseDown;
-    document.getElementById("fx_pan_freq").onmousedown = sliderMouseDown;
-    document.getElementById("octaveDown").onmousedown = octaveDown;
-    document.getElementById("octaveUp").onmousedown = octaveUp;
-    document.getElementById("keyboard").onmousedown = keyboardMouseDown; // Set up master event handlers
+    document.getElementById('openSong').onmousedown = openSong;
+    document.getElementById('exportURL').onmousedown = exportURL;
+    document.getElementById('exportJSON').onmousedown = exportJSON;
+    document.getElementById('exportWAV').onmousedown = exportWAV;
+    document.getElementById('exportWAVRange').onmousedown = exportWAVRange;
+    document.getElementById('playSong').onmousedown = playSong;
+    document.getElementById('playRange').onmousedown = playRange;
+    document.getElementById('stopPlaying').onmousedown = stopPlaying;
+    document.getElementById('bpm').onfocus = bpmFocus;
+    document.getElementById('importInstrument').onmousedown = importInstrument;
+    document.getElementById('exportInstrument').onmousedown = exportInstrument;
+    document.getElementById('sequencerCopy').onmousedown = sequencerCopyMouseDown;
+    document.getElementById('sequencerPaste').onmousedown = sequencerPasteMouseDown;
+    document.getElementById('sequencerPatUp').onmousedown = sequencerPatUpMouseDown;
+    document.getElementById('sequencerPatDown').onmousedown = sequencerPatDownMouseDown;
+    document.getElementById('patternCopy').onmousedown = patternCopyMouseDown;
+    document.getElementById('patternPaste').onmousedown = patternPasteMouseDown;
+    document.getElementById('patternNoteUp').onmousedown = patternNoteUpMouseDown;
+    document.getElementById('patternNoteDown').onmousedown = patternNoteDownMouseDown;
+    document.getElementById('patternOctaveUp').onmousedown = patternOctaveUpMouseDown;
+    document.getElementById('patternOctaveDown').onmousedown = patternOctaveDownMouseDown;
+    document.getElementById('instrPreset').onfocus = instrPresetFocus;
+    document.getElementById('instrPreset').onchange = selectPreset;
+    document.getElementById('osc1_wave_sin').onmousedown = osc1WaveMouseDown;
+    document.getElementById('osc1_wave_sqr').onmousedown = osc1WaveMouseDown;
+    document.getElementById('osc1_wave_saw').onmousedown = osc1WaveMouseDown;
+    document.getElementById('osc1_wave_tri').onmousedown = osc1WaveMouseDown;
+    document.getElementById('osc1_vol').onmousedown = sliderMouseDown;
+    document.getElementById('osc1_oct').onmousedown = sliderMouseDown;
+    document.getElementById('osc1_semi').onmousedown = sliderMouseDown;
+    document.getElementById('osc1_det').onmousedown = sliderMouseDown;
+    document.getElementById('osc1_xenv').onmousedown = boxMouseDown;
+    document.getElementById('osc2_wave_sin').onmousedown = osc2WaveMouseDown;
+    document.getElementById('osc2_wave_sqr').onmousedown = osc2WaveMouseDown;
+    document.getElementById('osc2_wave_saw').onmousedown = osc2WaveMouseDown;
+    document.getElementById('osc2_wave_tri').onmousedown = osc2WaveMouseDown;
+    document.getElementById('osc2_vol').onmousedown = sliderMouseDown;
+    document.getElementById('osc2_oct').onmousedown = sliderMouseDown;
+    document.getElementById('osc2_semi').onmousedown = sliderMouseDown;
+    document.getElementById('osc2_det').onmousedown = sliderMouseDown;
+    document.getElementById('osc2_xenv').onmousedown = boxMouseDown;
+    document.getElementById('noise_vol').onmousedown = sliderMouseDown;
+    document.getElementById('env_master').onmousedown = sliderMouseDown;
+    document.getElementById('env_att').onmousedown = sliderMouseDown;
+    document.getElementById('env_sust').onmousedown = sliderMouseDown;
+    document.getElementById('env_rel').onmousedown = sliderMouseDown;
+    document.getElementById('lfo_wave_sin').onmousedown = lfoWaveMouseDown;
+    document.getElementById('lfo_wave_sqr').onmousedown = lfoWaveMouseDown;
+    document.getElementById('lfo_wave_saw').onmousedown = lfoWaveMouseDown;
+    document.getElementById('lfo_wave_tri').onmousedown = lfoWaveMouseDown;
+    document.getElementById('lfo_amt').onmousedown = sliderMouseDown;
+    document.getElementById('lfo_freq').onmousedown = sliderMouseDown;
+    document.getElementById('lfo_o1fm').onmousedown = boxMouseDown;
+    document.getElementById('lfo_fxfreq').onmousedown = boxMouseDown;
+    document.getElementById('fx_filt_lp').onmousedown = fxFiltMouseDown;
+    document.getElementById('fx_filt_hp').onmousedown = fxFiltMouseDown;
+    document.getElementById('fx_filt_bp').onmousedown = fxFiltMouseDown;
+    document.getElementById('fx_filt_n').onmousedown = fxFiltMouseDown;
+    document.getElementById('fx_freq').onmousedown = sliderMouseDown;
+    document.getElementById('fx_res').onmousedown = sliderMouseDown;
+    document.getElementById('fx_dly_amt').onmousedown = sliderMouseDown;
+    document.getElementById('fx_dly_time').onmousedown = sliderMouseDown;
+    document.getElementById('fx_pan_amt').onmousedown = sliderMouseDown;
+    document.getElementById('fx_pan_freq').onmousedown = sliderMouseDown;
+    document.getElementById('octaveDown').onmousedown = octaveDown;
+    document.getElementById('octaveUp').onmousedown = octaveUp;
+    document.getElementById('keyboard').onmousedown = keyboardMouseDown; // Set up master event handlers
 
     activateMasterEvents();
   };
-}; //------------------------------------------------------------------------------
+}; // ------------------------------------------------------------------------------
 // Program start
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 
 
 var gui_init = function gui_init() {
@@ -18199,7 +18344,7 @@ var gui_init = function gui_init() {
     var gGui = new CGUI();
     gGui.init();
   } catch (err) {
-    alert("Unexpected error: " + err.message);
+    alert('Unexpected error: ' + err.message);
   }
 };
 
@@ -18263,7 +18408,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51646" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37977" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

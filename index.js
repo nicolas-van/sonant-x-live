@@ -1,3 +1,3 @@
-import * as gui from "./gui";
+import * as gui from './gui'
 
-gui.gui_init();
+gui.gui_init()

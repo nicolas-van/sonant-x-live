@@ -1,6 +1,6 @@
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 // -*- mode: javascript; tab-width: 2; indent-tabs-mode: nil; -*-
-//------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 // Sonant Live
 //   A music tracker for the web.
 //
@@ -27,13 +27,12 @@
 
 // Instrument presets
 
-
 export default [
   {
-    name: "====[LEADS]===="
+    name: '====[LEADS]===='
   },
   {
-    name: "Softy",
+    name: 'Softy',
     osc1_oct: 7,
     osc1_det: 0,
     osc1_detune: 0,
@@ -65,7 +64,7 @@ export default [
     lfo_waveform: 0
   },
   {
-    name: "Classic 8-bit",
+    name: 'Classic 8-bit',
     osc1_oct: 7,
     osc1_det: 0,
     osc1_detune: 0,
@@ -97,7 +96,7 @@ export default [
     lfo_waveform: 0
   },
   {
-    name: "Square",
+    name: 'Square',
     osc1_oct: 7,
     osc1_det: 0,
     osc1_detune: 0,
@@ -129,7 +128,7 @@ export default [
     lfo_waveform: 0
   },
   {
-    name: "Bell",
+    name: 'Bell',
     osc1_oct: 9,
     osc1_det: 0,
     osc1_detune: 0,
@@ -161,10 +160,10 @@ export default [
     lfo_waveform: 0
   },
   {
-    name: "====[PADS]===="
+    name: '====[PADS]===='
   },
   {
-    name: "Base string",
+    name: 'Base string',
     osc1_oct: 7,
     osc1_det: 0,
     osc1_detune: 0,
@@ -196,10 +195,10 @@ export default [
     lfo_waveform: 0
   },
   {
-    name: "====[DRUMS]===="
+    name: '====[DRUMS]===='
   },
   {
-    name: "Bass drum 1",
+    name: 'Bass drum 1',
     osc1_oct: 7,
     osc1_det: 0,
     osc1_detune: 0,
@@ -231,7 +230,7 @@ export default [
     lfo_waveform: 0
   },
   {
-    name: "Bass drum 2",
+    name: 'Bass drum 2',
     osc1_oct: 7,
     osc1_det: 0,
     osc1_detune: 0,
@@ -263,7 +262,7 @@ export default [
     lfo_waveform: 0
   },
   {
-    name: "Bass drum 3",
+    name: 'Bass drum 3',
     osc1_oct: 6,
     osc1_det: 0,
     osc1_detune: 0,
@@ -295,7 +294,7 @@ export default [
     lfo_waveform: 0
   },
   {
-    name: "Snare 1",
+    name: 'Snare 1',
     osc1_oct: 8,
     osc1_det: 0,
     osc1_detune: 0,
@@ -327,7 +326,7 @@ export default [
     lfo_waveform: 0
   },
   {
-    name: "Snare 2",
+    name: 'Snare 2',
     osc1_oct: 8,
     osc1_det: 0,
     osc1_detune: 0,
@@ -359,7 +358,7 @@ export default [
     lfo_waveform: 0
   },
   {
-    name: "Hihat 1",
+    name: 'Hihat 1',
     osc1_oct: 8,
     osc1_det: 0,
     osc1_detune: 0,
@@ -391,7 +390,7 @@ export default [
     lfo_waveform: 0
   },
   {
-    name: "Hihat 2",
+    name: 'Hihat 2',
     osc1_oct: 8,
     osc1_det: 0,
     osc1_detune: 0,
@@ -423,7 +422,7 @@ export default [
     lfo_waveform: 0
   },
   {
-    name: "Smash",
+    name: 'Smash',
     osc1_oct: 5,
     osc1_det: 0,
     osc1_detune: 0,
@@ -455,7 +454,7 @@ export default [
     lfo_waveform: 0
   },
   {
-    name: "Pipe hit",
+    name: 'Pipe hit',
     osc1_oct: 7,
     osc1_det: 0,
     osc1_detune: 0,
@@ -487,10 +486,10 @@ export default [
     lfo_waveform: 0
   },
   {
-    name: "====[F/X]===="
+    name: '====[F/X]===='
   },
   {
-    name: "Wind",
+    name: 'Wind',
     osc1_oct: 8,
     osc1_det: 0,
     osc1_detune: 0,
@@ -521,4 +520,4 @@ export default [
     lfo_amt: 51,
     lfo_waveform: 0
   }
-];
+]
