@@ -375,11 +375,11 @@ const CGUI = function () {
   const addPatternNote = function (n) {
     // playNote
     if (mSong && mSong.songData[mSeqCol] && mSong.rowLen) {
-      const sg = new sonantx.SoundGenerator(mSong.songData[mSeqCol], mSong.rowLen)
-      sg.createAudioBuffer(n + 87, function (buffer) {
-        const source = audioCtx.createBufferSource() // Create Sound Source
-        source.buffer = buffer // Add Buffered Data to Object
-        source.connect(audioCtx.destination) // Connect Sound Source to Output
+      const bpm = Math.round((60 * 44100 / 4) / mSong.rowLen)
+      sonantx.generateSound(mSong.songData[mSeqCol], n + 87 - 75, audioCtx.sampleRate, bpm).then((buffer) => {
+        const source = audioCtx.createBufferSource()
+        source.buffer = buffer
+        source.connect(audioCtx.destination)
         source.start()
       })
     }
@@ -720,8 +720,7 @@ const CGUI = function () {
       oSong.endPattern = (opts.lastRow + 1) - opts.firstRow + 1
       oSong.songLen = opts.numSeconds
     }
-    const mPlayer = new sonantx.MusicGenerator(compressSong(oSong))
-    mPlayer.createAudioBuffer(function (audioBuffer) {
+    sonantx.generateMusic(compressSong(oSong), audioCtx.sampleRate).then((audioBuffer) => {
       mAudioBuffer = audioBuffer
       const d2 = new Date()
       setStatus('Generation time: ' + (d2.getTime() - d1.getTime()) / 1000 + 's')
