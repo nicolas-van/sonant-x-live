@@ -1,8 +1,4 @@
 
-// ------------------------------------------------------------------------------
-// Local classes for easy access to binary data
-// ------------------------------------------------------------------------------
-
 import $ from 'jquery'
 import gInstrumentPresets from './presets'
 import * as sonantx from 'sonantx'
@@ -34,6 +30,7 @@ import ledOff from './gui/led-off.png'
 import ledOn from './gui/led-on.png'
 import audioBufferToWav from 'audiobuffer-to-wav'
 import { base64 } from 'rfc4648'
+import packageJson from './package.json'
 
 const audioCtx = new AudioContext({
   sampleRate: 44100
@@ -1773,6 +1770,8 @@ const CGUI = function () {
 
   this.init = function () {
     let i, j, o
+
+    $('.version-display').text(packageJson.version)
 
     // Preload images
     preloadImage(progressPng)
