@@ -378,6 +378,7 @@ const CGUI = function () {
     // playNote
     if (mSong && mSong.songData[mSeqCol] && mSong.rowLen) {
       const bpm = Math.round((60 * 44100 / 4) / mSong.rowLen)
+
       sonantx.generateSound(mSong.songData[mSeqCol], n + 87 - 75, audioCtx.sampleRate, bpm).then((buffer) => {
         const source = audioCtx.createBufferSource()
         source.buffer = buffer
@@ -722,7 +723,7 @@ const CGUI = function () {
       oSong.endPattern = (opts.lastRow + 1) - opts.firstRow + 1
       oSong.songLen = opts.numSeconds
     }
-    sonantx.generateMusic(compressSong(oSong), audioCtx.sampleRate).then((audioBuffer) => {
+    sonantx.generateSong(compressSong(oSong), audioCtx.sampleRate).then((audioBuffer) => {
       mAudioBuffer = audioBuffer
       const d2 = new Date()
       setStatus('Generation time: ' + (d2.getTime() - d1.getTime()) / 1000 + 's')
