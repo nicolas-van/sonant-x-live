@@ -1,29 +1,3 @@
-// ------------------------------------------------------------------------------
-// -*- mode: javascript; tab-width: 2; indent-tabs-mode: nil; -*-
-// ------------------------------------------------------------------------------
-// Sonant Live
-//   A music tracker for the web.
-//
-// Copyright (c) 2011 Marcus Geelnard
-//
-// This software is provided 'as-is', without any express or implied
-// warranty. In no event will the authors be held liable for any damages
-// arising from the use of this software.
-//
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it
-// freely, subject to the following restrictions:
-//
-// 1. The origin of this software must not be misrepresented; you must not
-//    claim that you wrote the original software. If you use this software
-//    in a product, an acknowledgment in the product documentation would be
-//    appreciated but is not required.
-//
-// 2. Altered source versions must be plainly marked as such, and must not be
-//    misrepresented as being the original software.
-//
-// 3. This notice may not be removed or altered from any source
-//    distribution.
 
 // ------------------------------------------------------------------------------
 // Local classes for easy access to binary data
@@ -34,7 +8,7 @@ import gInstrumentPresets from './presets'
 import * as sonantx from 'sonantx'
 import * as LZString from 'lz-string'
 import URI from 'urijs'
-import _ from 'underscore'
+import _ from 'lodash'
 
 import waveSinSel from './gui/wave-sin-sel.png'
 import waveSqrSel from './gui/wave-sqr-sel.png'
@@ -58,8 +32,12 @@ import filtNSel from './gui/filt-n-sel.png'
 import playGfxBg from './gui/playGfxBg.png'
 import ledOff from './gui/led-off.png'
 import ledOn from './gui/led-on.png'
+import audioBufferToWav from 'audiobuffer-to-wav'
+import { base64 } from 'rfc4648'
 
-const audioCtx = window.AudioContext ? new AudioContext() : null
+const audioCtx = new AudioContext({
+  sampleRate: 44100
+})
 
 // ------------------------------------------------------------------------------
 // GUI class
@@ -87,8 +65,9 @@ const CGUI = function () {
 
   // Resources
   let mSong = {}
-  let mAudio = null
-  let mAudioGenerator = null
+  let mBufferSource = null
+  let mBufferSourceStartedTime = null
+  let mAudioBuffer = null
   const mPlayGfxVUImg = new Image()
   const mPlayGfxLedOffImg = new Image()
   const mPlayGfxLedOnImg = new Image()
@@ -400,18 +379,12 @@ const CGUI = function () {
     // playNote
     if (mSong && mSong.songData[mSeqCol] && mSong.rowLen) {
       const sg = new sonantx.SoundGenerator(mSong.songData[mSeqCol], mSong.rowLen)
-      if (!audioCtx) {
-        sg.createAudio(n + 87, function (audio) {
-          audio.play()
-        })
-      } else {
-        sg.createAudioBuffer(n + 87, function (buffer) {
-          const source = audioCtx.createBufferSource() // Create Sound Source
-          source.buffer = buffer // Add Buffered Data to Object
-          source.connect(audioCtx.destination) // Connect Sound Source to Output
-          source.start()
-        })
-      }
+      sg.createAudioBuffer(n + 87, function (buffer) {
+        const source = audioCtx.createBufferSource() // Create Sound Source
+        source.buffer = buffer // Add Buffered Data to Object
+        source.connect(audioCtx.destination) // Connect Sound Source to Output
+        source.start()
+      })
     }
     // Edit pattern
     if (mEditMode === EDIT_PATTERN &&
@@ -654,8 +627,8 @@ const CGUI = function () {
     updateSongRanges()
 
     // Generate audio data
-    const doneFun = function (wave) {
-      const uri = 'data:application/octet-stream;base64,' + btoa(wave)
+    const doneFun = function (audioBuffer) {
+      const uri = 'data:application/octet-stream;base64,' + base64.stringify(abToWav(audioBuffer))
       downloadData(uri, 'sonant-x-export-song.wav')
     }
     generateAudio(doneFun)
@@ -680,8 +653,8 @@ const CGUI = function () {
     }
 
     // Generate audio data
-    const doneFun = function (wave) {
-      const uri = 'data:application/octet-stream;base64,' + btoa(wave)
+    const doneFun = function (audioBuffer) {
+      const uri = 'data:application/octet-stream;base64,' + base64.stringify(abToWav(audioBuffer))
       downloadData(uri, 'sonant-x-export-range.wav')
     }
     generateAudio(doneFun, opts)
@@ -751,9 +724,8 @@ const CGUI = function () {
       oSong.songLen = opts.numSeconds
     }
     const mPlayer = new sonantx.MusicGenerator(compressSong(oSong))
-    mPlayer.getAudioGenerator(function (ag) {
-      mAudioGenerator = ag
-      const wave = ag.getWave()
+    mPlayer.createAudioBuffer(function (audioBuffer) {
+      mAudioBuffer = audioBuffer
       const d2 = new Date()
       setStatus('Generation time: ' + (d2.getTime() - d1.getTime()) / 1000 + 's')
 
@@ -761,7 +733,7 @@ const CGUI = function () {
       hideDialog()
 
       // Call the callback function
-      doneFun(wave)
+      doneFun(audioBuffer)
     })
   }
 
@@ -813,7 +785,7 @@ const CGUI = function () {
       let pl = 0; let pr = 0
       if (mFollowerActive && t >= 0) {
         // Get the waveform
-        const wave = getData(mAudioGenerator, t, 1000)
+        const wave = getData(mAudioBuffer, t, 1000)
 
         // Calculate volume
         let l, r
@@ -900,10 +872,8 @@ const CGUI = function () {
 
   const updateFollower = function () {
     let i, o
-    if (mAudio === null) return
-
     // Calculate current song position
-    const t = mAudio.currentTime
+    const t = (new Date().getTime() / 1000) - mBufferSourceStartedTime
     const n = Math.floor(t * 44100 / mSong.rowLen)
     const seqPos = Math.floor(n / 32) + mFollowerFirstRow
     const patPos = n % 32
@@ -1008,27 +978,21 @@ const CGUI = function () {
     mFollowerLastCol = 7
 
     // Generate audio data
-    const doneFun = function (wave) {
-      if (mAudio === null) {
-        alert('Audio element unavailable.')
-        return
+    const doneFun = function (audioBuffer) {
+      if (mBufferSource !== null) {
+        mBufferSource.stop()
+        mBufferSource.disconnect()
+        mBufferSource = null
       }
+      mBufferSource = audioCtx.createBufferSource()
 
-      try {
-        const uri = 'data:audio/wav;base64,' + btoa(wave)
+      mBufferSource.buffer = audioBuffer // Add Buffered Data to Object
+      mBufferSource.connect(audioCtx.destination) // Connect Sound Source to Output
+      mBufferSource.start()
+      mBufferSourceStartedTime = new Date().getTime() / 1000
 
-        // Start the follower
-        startFollower()
-
-        // Load the data into the audio element (it will start playing as soon as
-        // the data has been loaded)
-        mAudio.src = uri
-
-        // Hack
-        mAudio.play()
-      } catch (err) {
-        alert('Error playing: ' + err.message)
-      }
+      // Start the follower
+      startFollower()
     }
     generateAudio(doneFun)
 
@@ -1056,27 +1020,21 @@ const CGUI = function () {
     mFollowerLastCol = mSeqCol2
 
     // Generate audio data
-    const doneFun = function (wave) {
-      if (mAudio === null) {
-        alert('Audio element unavailable.')
-        return
+    const doneFun = function (audioBuffer) {
+      if (mBufferSource !== null) {
+        mBufferSource.stop()
+        mBufferSource.disconnect()
+        mBufferSource = null
       }
+      mBufferSource = audioCtx.createBufferSource()
 
-      try {
-        const uri = 'data:audio/wav;base64,' + btoa(wave)
+      mBufferSource.buffer = audioBuffer // Add Buffered Data to Object
+      mBufferSource.connect(audioCtx.destination) // Connect Sound Source to Output
+      mBufferSource.start()
+      mBufferSourceStartedTime = new Date().getTime() / 1000
 
-        // Restart the follower
-        startFollower()
-
-        // Load the data into the audio element (it will start playing as soon as
-        // the data has been loaded)
-        mAudio.src = uri
-
-        // Hack
-        mAudio.play()
-      } catch (err) {
-        alert('Error playing: ' + err.message)
-      }
+      // Restart the follower
+      startFollower()
     }
     generateAudio(doneFun, opts)
 
@@ -1084,14 +1042,14 @@ const CGUI = function () {
   }
 
   const stopPlaying = function (e) {
-    if (mAudio === null) {
-      alert('Audio element unavailable.')
-      return
-    }
-
     stopFollower()
 
-    mAudio.pause()
+    if (mBufferSource !== null) {
+      mBufferSource.stop()
+      mBufferSource.disconnect()
+      mBufferSource = null
+    }
+
     return false
   }
 
@@ -1874,14 +1832,6 @@ const CGUI = function () {
     document.getElementById('fx_pan_amt').sliderProps = { min: 0, max: 255 }
     document.getElementById('fx_pan_freq').sliderProps = { min: 0, max: 16 }
 
-    // Create audio element, and always play the audio as soon as it's ready
-    try {
-      mAudio = new Audio()
-      mAudio.addEventListener('canplay', function () { this.play() }, true)
-    } catch (err) {
-      mAudio = null
-    }
-
     const fragment = new URI().fragment() || ''
     if (fragment) {
       const json = LZString.decompressFromBase64(URI.decode(fragment))
@@ -1994,32 +1944,20 @@ const CGUI = function () {
 // ------------------------------------------------------------------------------
 
 const gui_init = function () {
-  try {
-    // Create a global GUI object, and initialize it
-    const gGui = new CGUI()
-    gGui.init()
-  } catch (err) {
-    alert('Unexpected error: ' + err.message)
-  }
+  // Create a global GUI object, and initialize it
+  const gGui = new CGUI()
+  gGui.init()
 }
 
 export { gui_init }
 
 // Get n samples of wave data at time t [s]. Wave data in range [-2,2].
-function getData (audioGenerator, t, n) {
-  const i = 2 * Math.floor(t * 44100)
-  const d = new Array(n)
-  const mixBuf = audioGenerator.mixBuf
-  for (let j = 0; j < 2 * n; j += 1) {
-    const k = i + j
-    const pos = k * 2
-    let val
-    if (pos < mixBuf.length) {
-      val = (4 * (mixBuf[pos] + (mixBuf[pos + 1] << 8) - 32768)) / 32768
-    } else {
-      val = 0
-    }
-    d[j] = val
+function getData (audioBuffer, t, n) {
+  const i = Math.floor(t * 44100)
+  const d = []
+  for (let k = 0; k < n; k += 1) {
+    d[k * 2] = audioBuffer.getChannelData(0)[k + i]
+    d[(k * 2) + 1] = audioBuffer.getChannelData(1)[k + i]
   }
   return d
 }
@@ -2038,4 +1976,9 @@ function downloadData (dataURI, fileName) {
     },
     1000
   )
+}
+
+function abToWav (audioBuffer) {
+  const wavBuffer = audioBufferToWav(audioBuffer)
+  return new Uint8Array(wavBuffer)
 }
