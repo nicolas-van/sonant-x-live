@@ -33,8 +33,10 @@ import { base64 } from 'rfc4648'
 import packageJson from './package.json'
 
 const audioCtx = new AudioContext({
-  sampleRate: 44100
+  sampleRate: 96000
 })
+
+console.log('Using sample rate', audioCtx.sampleRate)
 
 // ------------------------------------------------------------------------------
 // GUI class
@@ -1951,7 +1953,7 @@ export { gui_init }
 
 // Get n samples of wave data at time t [s]. Wave data in range [-2,2].
 function getData (audioBuffer, t, n) {
-  const i = Math.floor(t * 44100)
+  const i = Math.floor(t * audioCtx.sampleRate)
   const d = []
   for (let k = 0; k < n; k += 1) {
     d[k * 2] = audioBuffer.getChannelData(0)[k + i]
