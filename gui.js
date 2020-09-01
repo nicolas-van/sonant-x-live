@@ -32,9 +32,7 @@ import audioBufferToWav from 'audiobuffer-to-wav'
 import { base64 } from 'rfc4648'
 import packageJson from './package.json'
 
-const audioCtx = new AudioContext({
-  sampleRate: 96000
-})
+const audioCtx = new AudioContext()
 
 console.log('Using sample rate', audioCtx.sampleRate)
 
