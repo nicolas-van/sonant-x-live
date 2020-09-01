@@ -1,6 +1,6 @@
 {
   "name": "sonant-x-live",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Sonant-X Live =============",
   "main": "Gruntfile.js",
   "scripts": {
