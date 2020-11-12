@@ -376,8 +376,10 @@ const CGUI = function () {
     // playNote
     if (mSong && mSong.songData[mSeqCol] && mSong.rowLen) {
       const bpm = Math.round((60 * 44100 / 4) / mSong.rowLen)
+      const note = n + 87 - 75
 
-      sonantx.generateSound(mSong.songData[mSeqCol], n + 87 - 75, audioCtx.sampleRate, bpm).then((buffer) => {
+      console.log('playing note', note)
+      sonantx.generateSound(mSong.songData[mSeqCol], note, audioCtx.sampleRate, bpm).then((buffer) => {
         const source = audioCtx.createBufferSource()
         source.buffer = buffer
         source.connect(audioCtx.destination)
