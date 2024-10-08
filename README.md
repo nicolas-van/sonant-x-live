@@ -1,6 +1,8 @@
 Sonant-X Live
 =============
 
+[![Github-sponsors](https://img.shields.io/badge/sponsor-30363D?logo=GitHub-Sponsors&logoColor=#EA4AAA)](https://github.com/sponsors/nicolas-van)
+
 A tracker web application to compose music in your brower.
 
 Sonant-X Live is build using [sonant-x](https://github.com/nicolas-van/sonant-x), a very small JavaScript
